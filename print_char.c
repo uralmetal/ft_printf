@@ -6,13 +6,13 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 11:16:28 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/16 12:16:47 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_char(char c)
+void	print_char(unsigned char c)
 {
 	ft_putchar(c);
 }
