@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 11:20:11 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/16 11:16:28 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-# define _FT_PRINTF_H
+#include "ft_printf.h"
 
-# include "ft_printf.h"
-# include "libft/libft.h"
-
-void ft_printf(char *s);
-void print_char(char c);
-
-#endif
+void	print_char(char c)
+{
+	ft_putchar(c);
+}
