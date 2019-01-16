@@ -11,3 +11,4 @@ CMAKELists.txt
 cmake-build-debug
 *.o
 main.c
+*.a
