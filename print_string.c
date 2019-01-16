@@ -14,5 +14,8 @@
 
 void	print_string(char *str)
 {
-	ft_putstr(str);
+	int nbr_smbls;
+
+	nbr_smbls = ft_strlen(s);
+	write(1, s, nbr_smbls);
 }
