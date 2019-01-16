@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/24 17:20:09 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/30 16:08:30 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
-
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+void	ft_strclr(char *s)
+{
+	if (s == NULL)
+		return ;
+	while (*s != '\0')
+	{
+		*s = '\0';
+		s++;
+	}
+}

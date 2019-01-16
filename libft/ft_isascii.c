@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/23 20:55:43 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/26 16:30:46 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
-
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+int		ft_isascii(int c)
+{
+	if (c >= 0 && c <= 127)
+		return (1);
+	else
+		return (0);
+}

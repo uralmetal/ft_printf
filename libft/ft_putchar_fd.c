@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/25 12:50:26 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/29 11:57:20 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
-
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}

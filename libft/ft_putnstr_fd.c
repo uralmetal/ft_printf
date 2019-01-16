@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/30 16:32:57 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/30 16:34:01 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
+void	ft_putnstr_fd(const char *s, int fd, size_t n)
+{
+	size_t i;
 
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+	if (s == NULL)
+		return ;
+	i = 0;
+	while (i < n)
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}

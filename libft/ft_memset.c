@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/21 16:42:03 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/26 16:34:09 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char	a;
+	size_t			count;
+	unsigned char	*p;
 
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+	a = c;
+	count = 0;
+	p = b;
+	while (count < len)
+		p[count++] = a;
+	return (b);
+}

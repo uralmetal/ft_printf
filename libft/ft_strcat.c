@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 10:23:23 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/22 19:40:25 by rwalder-          #+#    #+#             */
+/*   Updated: 2018/11/26 17:44:11 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FT_PRINTF_H
-#define _FT_PRINTF_H
+#include "libft.h"
 
-#include "ft_printf.h"
-#include "libft/libft.h"
+char	*ft_strcat(char *s1, const char *s2)
+{
+	int count;
+	int len;
 
-void ft_printf(char *s);
-
-#endif //_FT_PRINTF_H
+	len = ft_strlen(s1);
+	count = 0;
+	while (s2[count] != '\0')
+	{
+		s1[count + len] = s2[count];
+		count++;
+	}
+	s1[count + len] = '\0';
+	return (s1);
+}
