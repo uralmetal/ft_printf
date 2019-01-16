@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   print_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 11:31:24 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/16 12:08:10 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/16 12:09:21 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_char(char c)
+void	print_string(char *str)
 {
-	ft_putchar(c);
+	ft_putstr(str);
 }
