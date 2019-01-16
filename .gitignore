@@ -7,3 +7,7 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+CMAKELists.txt
+cmake-build-debug
+*.o
+main.c
