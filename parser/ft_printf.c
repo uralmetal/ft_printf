@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/16 17:45:16 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/16 19:52:07 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /* ************************************************************************** */
@@ -50,34 +50,57 @@ static void foo(char *fmt, ...)
 	va_end(ap);
 }
 
-static char	*parser(char *fmt, va_list *ap)
+static int parser(const char fmt, va_list *ap, int j)
 {
-	const char specificators[4][] ={"c", "s", "p", NULL};
-	const 
+	const char specificators[4] ="csp";
 	int i;
+	char c;
 
 	i = 0;
-	while (specificators[i][0] != *fmt && specificators[i] != NULL)
+	//	printf("%c", fmt);
+	while (specificators[i] != fmt && specificators[i])
+	{
+		//		printf("%c", specificators[i]);
 		i++;
-	if (specificators[i] == NULL)
-		return (0);
-	if ()
-
+	}
+	if (specificators[i] == '\0')
+	{
+		return (-1);
+	}
+	else
+	{
+//		ft_putchar(specificators[i]);
+//		if (specificators[i] == 'c')
+//		{
+//			ft_putchar(va_arg(*ap, int));
+//		}
+		if (specificators[i] == 's')
+			ft_putstr(va_arg(*ap, char *));
+		else if (specificators[i] == 'p')
+			ft_putstr(get_pointer(va_arg(*ap, void *)));
+	}
+	return (j + 1);
 }
 
 void	ft_printf(const char *fmt, ...)
 {
 	va_list ap;
+	int i;
 
+	i = 0;
 	va_start(ap, fmt);
-	while (*fmt)
+	while (fmt[i])
 	{
-		if (*fmt == '%')
+		if (fmt[i] == '%')
 		{
-			fmt = parser(fmt, &ap);
+			if ((i = parser(fmt[i + 1], &ap, i) == -1))
+				return ;
 		}
 		else
-			ft_putchar(*fmt++);
+		{
+			ft_putchar(fmt[i]);
+			i++;
+		}
 	}
 	va_end(ap);
 	//	foo ("sdc", "az", 2, 'a');
