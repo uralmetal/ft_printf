@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 10:30:16 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/17 11:06:26 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_char(const void *arg)
+void print(t_print modificators, const void *arg)
 {
-	char *ret;
-	const unsigned char *val = arg;
+	get_output function_get;
+	char *output;
 
-	ret = ft_strnew(1);
-	ret[0] = *val;
-	return (ret);
+	if (modificators.type[0] == 'c')
+		function_get = &get_char;
+	output = function_get(arg);
+	ft_putstr(output);
+	ft_strdel(&output);
 }
