@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/16 19:52:07 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/17 17:53:05 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /* ************************************************************************** */
@@ -24,62 +24,40 @@
 #include "../ft_printf.h"
 #include <stdio.h>
 
-static void foo(char *fmt, ...)
-{
-	va_list ap, ap2;
-	int d;
-	char c, *s;
-
-	va_start(ap, fmt);
-	while (*fmt)
-		switch(*fmt++) {
-			case 's':                       /* string */
-				s = va_arg(ap, char *);
-				printf("string %s\n", s);
-				break;
-			case 'd':                       /* int */
-				d = va_arg(ap, int);
-				printf("int %d\n", d);
-				break;
-			case 'c':                       /* char */
-				/* Note: char is promoted to int. */
-				c = va_arg(ap, int);
-				printf("char %c\n", c);
-				break;
-		}
-	va_end(ap);
-}
-
 static int parser(const char fmt, va_list *ap, int j)
 {
-	const char specificators[4] ="csp";
+	const char spc[4] ="csp";
 	int i;
-	char c;
+	t_print mod;
+	void *c;
 
 	i = 0;
-	//	printf("%c", fmt);
-	while (specificators[i] != fmt && specificators[i])
+
+	while (spc[i] != fmt && spc[i])
 	{
-		//		printf("%c", specificators[i]);
 		i++;
 	}
-	if (specificators[i] == '\0')
+	if (spc[i] == '\0')
 	{
 		return (-1);
 	}
+	if (spc[i] == 'c')
+	{
+		mod.type[0] = 'c';
+		c = va_arg(*ap, void *);
+		print(mod, &c);
+	}
+	else if (spc[i] == 's')
+		ft_putstr(va_arg(*ap, char *));
+	else if (spc[i] == 'p')
+	{
+		ft_putstr(get_pointer(va_arg(*ap, void *)));
+	}
 	else
 	{
-//		ft_putchar(specificators[i]);
-//		if (specificators[i] == 'c')
-//		{
-//			ft_putchar(va_arg(*ap, int));
-//		}
-		if (specificators[i] == 's')
-			ft_putstr(va_arg(*ap, char *));
-		else if (specificators[i] == 'p')
-			ft_putstr(get_pointer(va_arg(*ap, void *)));
+		ft_putstr("Wrong specificator!");
 	}
-	return (j + 1);
+	return (j + 2);
 }
 
 void	ft_printf(const char *fmt, ...)
@@ -93,7 +71,7 @@ void	ft_printf(const char *fmt, ...)
 	{
 		if (fmt[i] == '%')
 		{
-			if ((i = parser(fmt[i + 1], &ap, i) == -1))
+			if ((i = parser(fmt[i + 1], &ap, i)) == -1)
 				return ;
 		}
 		else
