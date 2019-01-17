@@ -6,18 +6,18 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 12:41:44 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/16 16:21:17 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_H
 # define _FT_PRINTF_H
 
+# include "ft_printf.h"
 # include "libft/libft.h"
-# include <stdarg.h>
 
-void ft_printf(void);
-void print_char(char c);
-void print_string(char *str);
+void ft_printf(char *s);
+char *get_char(unsigned char c);
+char *get_pointer(const void *p);
 
 #endif

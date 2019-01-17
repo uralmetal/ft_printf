@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_string.c                                     :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 12:08:10 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 12:09:21 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/16 15:50:38 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_string(char *str)
+char	*get_char(unsigned char c)
 {
-	int nbr_smbls;
+	char *ret;
 
-	nbr_smbls = ft_strlen(s);
-	write(1, s, nbr_smbls);
+	ret = ft_strnew(1);
+	ret[0] = c;
+	return (ret);
 }
