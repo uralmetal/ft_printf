@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:38:51 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/16 16:27:18 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/17 11:32:16 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	symtohex(unsigned long c, char *hex, unsigned int size)
 	}
 }
 
-char		*get_pointer(const void *p)
+char		*get_pointer(const void *arg)
 {
 	char		*hex;
 	char 		*ret;
@@ -41,7 +41,7 @@ char		*get_pointer(const void *p)
 	const int	size = 32;
 
 	hex = ft_strnew(size);
-	symtohex((unsigned long)p, hex, size);
+	symtohex((unsigned long)arg, hex, size);
 	i = 0;
 	while (hex[i] == '0')
 		i++;
