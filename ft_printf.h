@@ -15,6 +15,8 @@
 
 # include "ft_printf.h"
 # include "libft/libft.h"
+# include <stdarg.h>
+#include <stdio.h>
 
 typedef char* (*get_output)(const void*);
 
@@ -26,7 +28,7 @@ typedef struct		s_print
 	char 			type[4];
 }					t_print;
 
-void		ft_printf(char *s);
+void		ft_printf(const char *fmt, ...);
 get_output	get_function(t_print mod);
 void 		print(t_print modificators, const void *arg);
 char		*get_char(const void *arg);
