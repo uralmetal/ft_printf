@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 17:55:59 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/18 17:48:40 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*get_char(const void *arg)
 {
 	char *ret;
-	const unsigned char *val = arg;
+	const char *val = arg;
 
 	ret = ft_strnew(1);
 	ret[0] = *val;

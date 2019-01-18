@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 16:48:32 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/18 14:56:58 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # include <stdarg.h>
 #include <stdio.h>
 
-typedef char* (*get_output)(const void*);
+typedef char *(*get_output)(const void*);
 
 typedef struct		s_print
 {
 	char			flag;
 	int				width;
-	unsigned int	precision;
+	int				precision;
 	char 			type[4];
 }					t_print;
 

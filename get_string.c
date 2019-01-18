@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:35:08 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 17:35:43 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:32:09 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 char	*get_string(const void *arg)
 {
-	return ft_strdup((const char*)arg);
+	const char **s = arg;
+	return (ft_strdup(*s));
 }
