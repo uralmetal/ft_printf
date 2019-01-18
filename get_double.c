@@ -6,45 +6,44 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 16:26:40 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/18 12:42:03 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-static int 	get_sign(long value)
-{
-	long a;
 
-	a = 1;
-	a <<= 31;
-	if (value & a)
-		return (1);
-	else
-		return (0);
+static char *get_const_double(double value)
+{
+	const double p_inf = 1.0/0.0;
+	const double n_inf = -1.0/0.0;
+	const double nan = 0.0/0.0;
+	if (value == p_inf)
+		return ft_strdup("inf");
+	if (value == n_inf)
+		return ft_strdup("-inf");
+	if (value == nan)
+		return ft_strdup("nan");
+	return (NULL);
 }
 
-static int 	get_order(long value)
+char	*get_double(const void *arg, unsigned int precision)
 {
+	const double *a = arg;
+	long int_part = (long)*a;
 	long temp;
-
-	temp = 1;
-	temp <<= 31;
-	value &= (~temp);
-	value >>= 23;
-	return ((int)value);
-}
-
-char	*get_double(const void *arg)
-{
-	const long long *p = arg;
-	const float *val = arg;
-	float a = *val;
-
-	printf("%lf %lli\n", *val, *p);
-	printf("%i\n", get_sign(*p));
-	printf("%i\n", get_order(*p) - 127);
-
+	int i;
+	double frac_part = *a - int_part;
+	printf("my\n%li.", int_part);
+	i = 0;
+	while (i < precision)
+	{
+		frac_part *= 10;
+		temp = (long)(frac_part);
+		printf("%li", temp);
+		frac_part -= temp;
+		i++;
+	}
 	return NULL;
 }
