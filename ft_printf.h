@@ -6,12 +6,14 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/18 12:50:36 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/19 11:32:22 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _FT_PRINTF_H
 # define _FT_PRINTF_H
+
+# define CH_NULL(x) if((x) == NULL) exit(-1)
 
 # include "ft_printf.h"
 # include "libft/libft.h"
