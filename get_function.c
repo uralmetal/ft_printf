@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:18:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 17:40:24 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/20 18:57:41 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,16 @@
 static const get_output g_get_function_array[] = {
 	&get_char,
 	&get_string,
-	&get_pointer
-};
-
-static const char g_modificators_array[][4] = {
-	"c",
-	"s",
-	"p"
+	&get_pointer,
+	&get_int
 };
 
 get_output	get_function(t_print mod)
 {
-	int			index;
 	int 		size;
 
-	size = sizeof(g_modificators_array) / sizeof(g_modificators_array[0]);
-	index = 0;
-	while (index < size)
-	{
-		if (ft_strcmp(g_modificators_array[index], mod.type) == 0)
-			return (g_get_function_array[index]);
-		index++;
-	}
-	return (NULL);
+	size = sizeof(g_get_function_array) / sizeof(g_get_function_array[0]);
+	if (size < mod.type)
+		return (NULL);
+	return (g_get_function_array[mod.type]);
 }

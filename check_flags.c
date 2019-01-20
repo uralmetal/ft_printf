@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/19 19:42:51 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/20 14:19:06 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void clean_flags(char *flgs, t_print *mod)
 
 	i = -1;
 	k = -1;
+	ft_bzero(true_flgs, 6);
 	while (flgs[++i] != '\0')
 	{
 		j = -1;
@@ -31,6 +32,12 @@ static void clean_flags(char *flgs, t_print *mod)
 					break ;
 				if (mod->flag[j] == ' ' && true_flgs[1] == '+')
 					break ;
+				if (mod->flag[j] == '#' && (true_flgs[0] == '-' ||
+				true_flgs[0] == '0' || true_flgs[1] == '0'))
+				{
+					true_flgs[0] = '#';
+					break;
+				}
 				true_flgs[++k] = flgs[i];
 			}
 	}
@@ -73,5 +80,7 @@ void check_flags(t_print *mod, const char *fmt, size_t *i)
 			break ;
 		}
 	}
+	if (mod->flag[0] == '\0')
+		return ;
 	clean_flags(flgs, mod);
 }

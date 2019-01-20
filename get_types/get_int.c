@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   get_int.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/18 17:48:40 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/20 18:02:45 by gleonett          #+#    #+#             */
+/*   Updated: 2019/01/20 18:02:45 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_char(const void *arg)
+char	*get_int(const void *arg)
 {
-	char *ret;
-	const char *val = arg;
-
-	ret = ft_strnew(1);
-	ret[0] = *val;
-	return (ret);
+	const int *val = arg;
+	return (ft_itoa(*val));
 }
