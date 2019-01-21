@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 12:38:51 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/18 16:59:48 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:27:46 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ char		*get_pointer(const void *arg)
 	char 		*ret;
 	int			i;
 	const int	size = 32;
+	const unsigned long **val = arg;
 
 	hex = ft_strnew(size);
-	symtohex((unsigned long)arg, hex, size);
+	symtohex((unsigned long)(*val), hex, size);
 	i = 0;
 	while (hex[i] == '0')
 		i++;

@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 17:42:29 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:21:04 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ typedef struct		s_print
 	char			flag[6];
 	int				width;
 	int				precision;
-	char 			type[4];
+	int 			type;
 }					t_print;
 
 void		ft_printf(const char *fmt, ...);
+int			parser(const char *fmt, va_list *ap, size_t *i);
+void		check_flags(t_print *mod, const char *fmt, size_t *i);
+void		clean_flags(t_print *mod);
 get_output	get_function(t_print mod);
-int 		print(t_print modif, const void *arg);
-int 		parser(const char *fmt, va_list *ap, size_t *i);
+int 		print(t_print modificators, const void *arg);
+void		ft_putstr_full(const char *str);
+void		ft_putnstr_full(const char *str, size_t n);
 char 		*min_integer(size_t size);
 char		*ft_lltoa(long long n);
 char		*ft_ulltoa(unsigned long long n);
@@ -47,7 +51,6 @@ char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
-char		*get_long_double(const void *arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);
