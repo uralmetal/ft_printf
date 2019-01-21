@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_string.c                                       :+:      :+:    :+:   */
+/*   print_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/17 17:35:08 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/17 17:35:43 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/18 16:59:48 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*get_string(const void *arg)
+char	*get_char(const void *arg)
 {
-	return ft_strdup((const char*)arg);
+	char *ret;
+	const char *val = arg;
+
+	ret = ft_strnew(1);
+	ret[0] = *val;
+	return (ret);
 }

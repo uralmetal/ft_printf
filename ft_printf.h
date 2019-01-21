@@ -20,13 +20,13 @@
 # include <stdarg.h>
 #include <stdio.h>
 
-typedef char* (*get_output)(const void*);
+typedef char *(*get_output)(const void*);
 
 typedef struct		s_print
 {
 	char			flag;
-	unsigned int	width;
-	unsigned int	precision;
+	int				width;
+	int				precision;
 	char 			type[4];
 }					t_print;
 
