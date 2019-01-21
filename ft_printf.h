@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 16:27:34 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:21:04 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,10 @@ char		*get_unsigned_short_oct(const void *arg);
 char		*get_unsigned_int_oct(const void *arg);
 char		*get_unsigned_long_oct(const void *arg);
 char		*get_unsigned_long_long_oct(const void *arg);
+char		*get_unsigned_char_bin(const void *arg);
+char		*get_unsigned_short_bin(const void *arg);
+char		*get_unsigned_int_bin(const void *arg);
+char		*get_unsigned_long_bin(const void *arg);
+char		*get_unsigned_long_long_bin(const void *arg);
 
 #endif
