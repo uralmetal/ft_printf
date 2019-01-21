@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 15:00:40 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 15:55:29 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int 		parser(const char *fmt, va_list *ap, size_t *i);
 char 		*min_integer(size_t size);
 char		*ft_lltoa(long long n);
 char		*ft_ulltoa(unsigned long long n);
+char		*ulltohex(unsigned long long value);
+char 		*ulltohex_upper(unsigned long long value);
+char		*ulltooct(unsigned long long value);
 char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
