@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/20 18:35:54 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:17:32 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void check_width(t_print *mod, va_list *ap, const char *fmt, size_t *i)
 			while (mod->flag[j] != '0' && mod->flag[j] && mod->flag[j] != '-')
 				j++;
 			mod->flag[j] = '-';
-			mod->width *= -1;
+			mod->width <= -2147483648 ? (mod->width = 0) : (mod->width *= -1);
+//			ft_putnbr(mod->width);
 		}
 		*i += 1;
 	}
@@ -100,17 +101,21 @@ int parser(const char *fmt, va_list *ap, size_t *i)
 	t_print mod;
 	void *p;
 
+	if (fmt[*i + 1] == '%')
+	{
+		*i += 1;
+		return (1);
+	}
 	ft_bzero(mod.flag, 6);
 	mod.type = -1;
 	mod.width = 0;
 	mod.precision = -1;
 	check_flags(&mod, fmt, i);
 	check_width(&mod, ap, fmt, i);
+	clean_flags(&mod);
 	check_precision(&mod, ap, fmt, i);
 	if (check_specif(&mod, fmt, i) == 0)
-	{
 		return (0);
-	}
 	p = va_arg(*ap, void *);
 	if (print(mod, &p) == 0)
 		return (0);

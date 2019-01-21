@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_full.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/21 17:18:21 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/21 14:05:12 by gleonett          #+#    #+#             */
+/*   Updated: 2019/01/21 15:41:41 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printf(const char *fmt, ...)
+void	ft_putstr_full(const char *str)
 {
-	va_list ap;
-	size_t i;
-	size_t j;
-
-	i = 0;
-	j = i;
-	va_start(ap, fmt);
-	while (fmt[i])
-	{
-		if (fmt[i] == '%')
-		{
-			ft_putnstr_full(fmt + j, (i - j));
-			parser(fmt, &ap, &i);
-			j = i;
-		}
-		i++;
-	}
-	ft_putstr_full(fmt + j);
-	va_end(ap);
+	write(1, str, ft_strlen(str));
 }
