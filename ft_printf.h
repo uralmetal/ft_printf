@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/19 11:32:22 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 11:09:31 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef char *(*get_output)(const void*);
 
 typedef struct		s_print
 {
-	char			flag;
+	char			flag[6];
 	int				width;
 	int				precision;
 	char 			type[4];
@@ -32,10 +32,12 @@ typedef struct		s_print
 
 void		ft_printf(const char *fmt, ...);
 get_output	get_function(t_print mod);
-void 		print(t_print modificators, const void *arg);
+int 		print(t_print modif, const void *arg);
+int 		parser(const char *fmt, va_list *ap, size_t *i);
 char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
+
 
 #endif

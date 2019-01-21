@@ -6,11 +6,11 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/18 16:59:48 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 10:59:41 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char	*get_char(const void *arg)
 {
