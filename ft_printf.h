@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 16:16:58 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 16:27:34 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char		*ft_ulltoa(unsigned long long n);
 char		*ulltohex(unsigned long long value);
 char 		*ulltohex_upper(unsigned long long value);
 char		*ulltooct(unsigned long long value);
+char		*ulltobin(unsigned long long value);
 
 char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
