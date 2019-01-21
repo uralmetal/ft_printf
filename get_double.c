@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/19 17:09:00 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/21 10:35:05 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char *get_const_double(double value)
 
 static double 	get_fraction(double value)
 {
-	long double ret = 0.0;
+	double ret = 0.0;
 	unsigned long a;
 
 	ret = value;
@@ -78,22 +78,18 @@ static char *get_fraction_str(double frac_part, unsigned int precision, char
 	return (ret);
 }
 
-static char *get_integer_str(double int_part)
+static char *get_integer_str(double int_part, long sign)
 {
 	int 		i;
 	char 		*ret;
-	long double temp;
-	int 		sign;
+	double 		temp;
 	int			count;
 
 	temp = (int_part < 0) ? (int_part * -1.0) : (int_part);
-	sign = (int_part < 0) ? (-1) : (1);
 	i = 0;
-	if (int_part == 0.0 || int_part == (-0.0/1.0)) //ToDo: check neg and pos
-		// null
+	if (int_part == 0.0)
 	{
-		CH_NULL(ret = (int_part == 0.0) ? ft_strdup("-0") : ft_strdup
-			("0"));
+		CH_NULL(ret =  ft_strdup((sign == 0) ? "0" : "-0"));
 		return (ret);
 	}
 	while (temp >= 1.0)
@@ -101,7 +97,7 @@ static char *get_integer_str(double int_part)
 		temp /= 10;
 		i++;
 	}
-	i = (sign == 1) ? (i - 1) : (i);
+	i = (sign == 0) ? (i - 1) : (i);
 	CH_NULL(ret = ft_strnew(i));
 	ret[0] = '-';
 	count = (int_part < 0) ? 1 : 0;
@@ -125,7 +121,7 @@ static void round(double *int_part, double *frac_part, unsigned int precision)
 	{
 		if (*frac_part == 0.5)
 		{
-			if ((long)(*int_part) % 2 == 1) //ToDo: if value > long ?!!!
+			if ((long)(*int_part) % 2 == 1)
 				*int_part = *int_part + 1;
 		}
 		if (*frac_part > 0.5)
@@ -150,13 +146,16 @@ char	*get_double(const void *arg, unsigned int precision)
 	double frac_part;
 	double int_part;
 	char *ret;
+	long sign;
 
 	if ((ret = get_const_double(*a)) != NULL)
 		return (ret);
 	frac_part = get_fraction(*a);
 	int_part =  (*a >= 0) ? (*a - frac_part) : (*a + frac_part);
 	round(&int_part, &frac_part, precision);
-	ret = get_integer_str(int_part);
+	sign = (*((long*)arg));
+	sign >>= 63;
+	ret = get_integer_str(int_part, sign);
 	if (precision != 0)
 		get_fraction_str(frac_part, precision, &ret);
 	return (ret);
