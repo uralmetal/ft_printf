@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_int.c                                          :+:      :+:    :+:   */
+/*   get_unsigned_char_hex_upper.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/20 18:02:45 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/21 17:36:38 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/21 16:21:29 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/21 16:21:38 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_int(const void *arg)
+char	*get_unsigned_char_hex_upper(const void *arg)
 {
-	const int *value = arg;
+	const unsigned char *value = arg;
 
-	return (ft_lltoa(*value));
+	return (ulltohex_upper(*value));
 }

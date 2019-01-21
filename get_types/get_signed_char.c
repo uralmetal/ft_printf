@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_int.c                                          :+:      :+:    :+:   */
+/*   get_signed_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/20 18:02:45 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/21 17:36:38 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/21 14:52:56 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/21 14:52:56 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_int(const void *arg)
+char	*get_signed_char(const void *arg)
 {
-	const int *value = arg;
+	const char *value = arg;
 
 	return (ft_lltoa(*value));
 }
