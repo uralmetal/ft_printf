@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/21 16:23:22 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/22 12:55:59 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,30 @@ void clean_flags(t_print *mod)
 	ft_strcpy(mod->flag, true_flgs);
 }
 
-void check_flags(t_print *mod, const char *fmt, size_t *i)
+int number_of_argument(const char *fmt, size_t *i, int $)
 {
-	char flgs[6] = "-+ 0#";
+	size_t j;
+	int ret;
+
+	j = *i;
+	while (fmt[j] >= '0' && fmt[j] <= '9')
+		j++;
+	if (fmt[j] != '$')
+		return (0);
+	ret = ft_atoi(fmt + *i);
+	*i = j + 1;
+	return (ret);
+}
+
+int check_flags(t_print *mod, const char *fmt, size_t *i)
+{
+	char flgs[10] = "-+ 0#";
 	int j;
 	int k;
+	int $;
 
-	*i += 1;
 	k = 0;
+	$ = 0;
 	while (k < 6)
 	{
 		j = 0;
@@ -69,9 +85,11 @@ void check_flags(t_print *mod, const char *fmt, size_t *i)
 			else
 				k++;
 		}
+		if (fmt[*i] >= '1' && fmt[*i] <= '9')
+			mod->num_arg = number_of_argument(fmt, i, &$);
 		while (flgs[j] && fmt[*i] != flgs[j])
 			j++;
-		if (j < 5)
+		if (flgs[j] != '\0')
 		{
 			mod->flag[k] = flgs[j];
 			*i += 1;
@@ -82,6 +100,6 @@ void check_flags(t_print *mod, const char *fmt, size_t *i)
 			break ;
 		}
 	}
-	if (mod->flag[0] == '\0')
-		return ;
+//	if (mod->flag[0] == '\0')
+	return (1);
 }

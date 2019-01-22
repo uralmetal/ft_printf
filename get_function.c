@@ -19,12 +19,12 @@ static const get_output g_get_function_array[] = {
 	&get_int
 };
 
-get_output	get_function(t_print mod)
+get_output	get_function(t_print *mod)
 {
 	int 		size;
 
 	size = sizeof(g_get_function_array) / sizeof(g_get_function_array[0]);
-	if (size < mod.type)
+	if (size < mod->type)
 		return (NULL);
-	return (g_get_function_array[mod.type]);
+	return (g_get_function_array[mod->type]);
 }
