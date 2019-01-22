@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 10:25:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/22 13:25:19 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:40:13 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ static const int g_mon_day[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 static char	*get_year(time_t *sec, int *year)
 {
+	int sign;
+
 	*year = 1970;
-	if (*sec > 0)
+	sign = EPOCH(*sec);
+	while (*sec * sign >= DAY_TO_SEC(366))
 	{
-		while (*sec >= DAY_TO_SEC(366))
-		{
-			if (LEAP_YEAR(*year))
-				*sec -= DAY_TO_SEC(366);
-			else
-				*sec -= DAY_TO_SEC(365);
-			*year = *year + 1;
-		}
-		if (*sec >= DAY_TO_SEC(365))
-		{
-			*sec -= DAY_TO_SEC(365);
-			*year = *year + 1;
-		}
+		if (LEAP_YEAR(*year))
+			*sec -= DAY_TO_SEC(366) * sign;
+		else
+			*sec -= DAY_TO_SEC(365) * sign;
+		*year = *year + (sign);
+	}
+	if (*sec * sign >= DAY_TO_SEC(365))
+	{
+		*sec -= DAY_TO_SEC(365) * sign;
+		*year = *year + sign;
 	}
 	return (ft_lltoa(*year));
 }
@@ -41,17 +41,19 @@ static char *get_month(time_t *sec, int *year)
 	int month;
 	char *ret;
 	char *temp;
+	int sign;
 
 	month = 0;
-	while (*sec >= DAY_TO_SEC(31))
+	sign = EPOCH(*sec);
+	while (*sec * sign >= DAY_TO_SEC(31))
 	{
 		if ((month == 1) && (LEAP_YEAR(*year)))
-			*sec -= DAY_TO_SEC(g_mon_day[month++] + 1);
+			*sec -= DAY_TO_SEC(g_mon_day[month++] + 1) * EPOCH(*sec);
 		else
-			*sec -= DAY_TO_SEC(g_mon_day[month++]);
+			*sec -= DAY_TO_SEC(g_mon_day[month++]) * EPOCH(*sec);
 	}
-	if (*sec >= DAY_TO_SEC(g_mon_day[month]))
-		*sec -= DAY_TO_SEC(g_mon_day[month++]);
+	if (*sec  * sign >= DAY_TO_SEC(g_mon_day[month]))
+		*sec -= DAY_TO_SEC(g_mon_day[month++] * EPOCH(*sec));
 	month++;
 	ret = ft_lltoa(month);
 	if (ft_strlen(ret) == 1)
@@ -69,7 +71,7 @@ static char *get_day(time_t *sec)
 	char *ret;
 	char *temp;
 
-	days = (*sec / (60 * 60 * 24)) + 1;
+	days = (*sec / DAY_TO_SEC(1) * EPOCH(*sec)) + 1;
 	ret = ft_lltoa(days);
 	if (ft_strlen(ret) == 1)
 	{

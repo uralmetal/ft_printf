@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/22 09:40:20 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/22 14:23:06 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
+#define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
+#define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
+#define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
 
 # include "ft_printf.h"
 # include "libft/libft.h"
@@ -22,6 +25,7 @@
 #include <stdio.h>
 
 typedef char *(*get_output)(const void*);
+typedef long time_t;
 
 typedef struct		s_print
 {
@@ -51,6 +55,7 @@ char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
+char		*get_date(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
 char 		*get_long_double(const void *arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
