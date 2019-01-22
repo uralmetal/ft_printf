@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 17:21:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/22 09:40:20 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char		*ulltobin(unsigned long long value);
 char		*get_char(const void *arg);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
+char		*get_string_with_non_print(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
+char 		*get_long_double(const void *arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);
