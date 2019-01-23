@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/22 17:39:16 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 08:47:23 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <stdarg.h>
 #include <stdio.h>
 
-typedef char *(*get_output)(const void*);
+typedef char *(*get_output)();
 
 typedef struct		s_print
 {
@@ -36,7 +36,7 @@ typedef struct		s_print
 
 void		ft_printf(const char *fmt, ...);
 int			parser(const char *fmt, va_list ap, va_list start, size_t *i);
-int 		number_of_argument(const char *fmt, size_t *i, int $);
+int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);
 get_output	get_function(t_print *mod);
@@ -51,6 +51,7 @@ char 		*ulltohex_upper(unsigned long long value);
 char		*ulltooct(unsigned long long value);
 
 char		*get_char(const void *arg);
+char		*get_percent(const void *);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);

@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/22 12:55:59 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 08:25:45 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void clean_flags(t_print *mod)
 	ft_strcpy(mod->flag, true_flgs);
 }
 
-int number_of_argument(const char *fmt, size_t *i, int $)
+int number_of_argument(const char *fmt, size_t *i)
 {
 	size_t j;
 	int ret;
@@ -67,17 +67,15 @@ int check_flags(t_print *mod, const char *fmt, size_t *i)
 	char flgs[10] = "-+ 0#";
 	int j;
 	int k;
-	int $;
 
 	k = 0;
-	$ = 0;
-	while (k < 6)
+	while (k < 7)
 	{
 		j = 0;
 		k = 0;
 		while (mod->flag[k] != '\0')
 		{
-			if (fmt[*i] == mod->flag[k])
+			if (fmt[*i] == mod->flag[k] && fmt[*i] != '%')
 			{
 				*i += 1;
 				k = 0;
@@ -86,8 +84,8 @@ int check_flags(t_print *mod, const char *fmt, size_t *i)
 				k++;
 		}
 		if (fmt[*i] >= '1' && fmt[*i] <= '9')
-			mod->num_arg = number_of_argument(fmt, i, &$);
-		while (flgs[j] && fmt[*i] != flgs[j])
+			mod->num_arg = number_of_argument(fmt, i);
+		while (fmt[*i] != flgs[j] && flgs[j])
 			j++;
 		if (flgs[j] != '\0')
 		{

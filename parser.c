@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/22 17:40:13 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 10:47:12 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void check_width(t_print *mod, va_list ap, const char *fmt, size_t *i)
 	else if (fmt[*i] == '*')
 	{
 		*i += 1;
-		if ((mod->width_num_arg = number_of_argument(fmt, i, 2)) == 0 &&
+		if ((mod->width_num_arg = number_of_argument(fmt, i)) == 0 &&
 		(mod->width = va_arg(ap, int)) <= 0)
 		{
 			while (mod->flag[j] != '0' && mod->flag[j] && mod->flag[j] != '-')
@@ -53,7 +53,7 @@ static void check_precision(t_print *mod, va_list ap, const char *fmt, size_t *i
 		else if (fmt[*i] == '*')
 		{
 			*i += 1;
-			if ((mod->prec_num_arg = number_of_argument(fmt, i, 3)) == 0)
+			if ((mod->prec_num_arg = number_of_argument(fmt, i)) == 0)
 				mod->precision = va_arg(ap, int);
 		}
 		else
@@ -70,11 +70,49 @@ d i o u x X
 
 static int check_specif(t_print *mod, const char *fmt, size_t *i)
 {
-	const char spc[][4] = {"c", "s", "p", "i", "%", "d", "o", "u", "x",
-						   "X", "f", "Lf", "hhd", "hhi", "hho", "hhu", "hhx",
-						   "hhX", "hd", "hi", "ho", "hu", "hx", "hX",
-						   "lf", "ld", "li", "lo", "lu", "lx", "lX",
-						   "lld", "lli", "llo", "llu", "llx", "llX", ""};
+	const char spc[][4] = {
+		/*0*/	"c",
+			/*1*/"s",
+			/*2*/"p",
+			/*3*/"i",
+			/*4*/"%",
+			/*5*/"d",
+			/*6*/"o",
+			/*7*/"u",
+			/*8*/"x",
+
+			/*9*/"X",
+			/*10*/"f",
+			/*11*/"Lf",
+			/*12*/"hhd",
+			/*13*/"hhi",
+			/*14*/"hho",
+			/*15*/"hhu",
+			/*16*/"hhx",
+
+			/*17*/"hhX",
+			/*18*/"hd",
+			/*19*/"hi",
+			/*20*/"ho",
+			/*21*/"hu",
+			/*22*/"hx",
+			/*23*/"hX",
+
+			/*24*/"lf",
+			/*25*/"ld",
+			/*26*/"li",
+			/*27*/"lo",
+			/*28*/"lu",
+			/*29*/"lx",
+			/*30*/"lX",
+
+			/*31*/"lld",
+			/*32*/"lli",
+			/*33*/"llo",
+			/*34*/"llu",
+			/*35*/"llx",
+			/*36*/"llX",
+			/*37*/""};
 	int j;
 	int size;
 	int j_spec;
@@ -94,7 +132,7 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 		return (0);
 	mod->type = j_spec;
 	*i = *i + ft_strlen(spc[j_spec]);
-	return (1);
+	return (j_spec == 4 ? 2 : 1);
 }
 
 
@@ -130,8 +168,6 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	void *p;
 
 	*i += 1;
-	if (fmt[*i] == '%')
-		return (1);
 	ft_bzero(mod.flag, 6);
 	mod.type = -1;
 	mod.width = 0;
@@ -152,8 +188,10 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	if (check_flags(&mod, fmt, i) == 0)
 		return (0);
 	clean_flags(&mod);
-	if (check_specif(&mod, fmt, i) == 0)
+	if ((check_specif(&mod, fmt, i)) == 0)
 		return (0);
+	else if (mod.type == 4)
+		return (print(&mod, NULL));
 	if (mod.num_arg == 0)
 		p = va_arg(ap, void *);
 	else

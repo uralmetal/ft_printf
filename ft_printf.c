@@ -29,7 +29,7 @@ void	ft_printf(const char *fmt, ...)
 		if (fmt[i] == '%')
 		{
 			ft_putnstr_full(fmt + j, (i - j));
-			parser(fmt, &ap, start, &i);
+			parser(fmt, ap, start, &i);
 			j = i;
 		}
 		i++;

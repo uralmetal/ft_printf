@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/22 18:56:27 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 11:23:15 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static int make_width(char **output, t_print *mod)
 		return (0);
 	i = -1;
 	flags_width(mod, new_output, output, i);
-	flags_space_plus(new_output, mod, ft_strlen(*output));
+	if (mod->type != 4)
+		flags_space_plus(new_output, mod, ft_strlen(*output));
 	ft_strdel(output);
 	*output = new_output;
 	return (1);
@@ -114,6 +115,32 @@ static int make_precision(char **output, t_print *mod)
 	return (1);
 }
 
+static int	make_octotorp(char **output, t_print *mod)
+{
+	char *new_output;
+	int type;
+
+	type = mod->type;
+	if (type == 6 || type == 14 || type == 20 || type == 27 || type == 33)
+		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 1),"0"),
+			*output);
+	else if (type == 8 || type == 16 || type == 22 || type == 29 || type == 35)
+		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
+			"0x"), *output);
+	else if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36)
+		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
+		"0X"), *output);
+	else if (type == 10 || type == 11 || type == 24)
+		ft_bzero((new_output = (ft_strchr(*output, '.') + 1)),
+				ft_strlen(new_output));
+	else
+		return (1);
+	ft_strdel(output);
+	if ((*output = new_output) == NULL)
+		return (0);
+	return (1);
+}
+
 static int add_flags(char **output, t_print *mod)
 {
 	char flgs[][3] = {"-", "+", "-+", "- ", "+0", " ", " 0", "0", "+#",
@@ -126,14 +153,14 @@ static int add_flags(char **output, t_print *mod)
 			break ;
 	if (i == (sizeof(flgs) / sizeof(flgs[0])))
 		return (0);
-	if (mod->type == 1)
+	if (mod->type == 1)						//???????
 		make_precision(output, mod);
+	if (ft_strchr(mod->flag, '#') != NULL)
+		make_octotorp(output, mod);
 	if (mod->width != 0)
 		make_width(output, mod);
-	else
-	{
+	else if (mod->type != 4)
 		flags_space_plus(*output, mod, ft_strlen(*output));
-	}
 	return (1);
 }
 
@@ -150,7 +177,7 @@ int print(t_print *mod, const void *arg)
 
 	if ((function_get = get_function(mod)) == NULL)
 	{
-		printf("Пока нет такой функции, напиши ее, заебал <3");
+		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
 	}
 	output = function_get(arg);
