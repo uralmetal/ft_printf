@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 18:24:28 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/23 12:15:29 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static long double 	get_fraction(long double value)
 		a = (unsigned long)ret;
 		ret = ret - a;
 	}
-	return ((long double)(ret));
+	return (ret);
 }
 
 static char *get_fraction_str(long double frac_part, unsigned int precision, char
@@ -85,14 +85,14 @@ static char *get_integer_str(long double int_part, long sign)
 	long double 		temp;
 	int			count;
 
-	temp = (int_part < 0) ? (int_part * -1.0) : (int_part);
+	temp = (int_part < 0) ? (int_part * -1.0) : (int_part) + 0.5;
 	i = 0;
 	if (int_part == 0.0)
 	{
 		CH_NULL(ret =  ft_strdup((sign == 0) ? "0" : "-0"));
 		return (ret);
 	}
-	while (temp >= 1.0)
+	while (temp > 1.0)
 	{
 		temp /= 10;
 		i++;
@@ -137,6 +137,11 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 			i++;
 		}
 		*frac_part = *frac_part + div;
+		if (*frac_part >= 1)
+		{
+			*frac_part = *frac_part - 1;
+			*int_part = *int_part + 1;
+		}
 	}
 }
 

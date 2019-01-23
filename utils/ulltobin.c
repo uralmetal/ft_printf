@@ -32,13 +32,17 @@ static void	symtobin(unsigned long long c, char *hex, unsigned int size)
 
 char	*ulltobin(unsigned long long value)
 {
+	char *temp;
 	char *ret;
 	const int size = 130;
 	int i;
-	CH_NULL(ret = ft_strnew(size));
-	symtobin(value, ret, size);
+
+	CH_NULL(temp = ft_strnew(size));
+	symtobin(value, temp, size);
 	i = 0;
-	while (ret[i] == '0' && i < size - 1)
+	while (temp[i] == '0' && i < size - 1)
 		i++;
-	return (ret + i);
+	ret = ft_strdup(temp + i);
+	ft_strdel(*temp);
+	return (ret);
 }

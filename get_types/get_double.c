@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 10:35:05 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/23 11:58:58 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ static char *get_integer_str(double int_part, long sign)
 	double 		temp;
 	int			count;
 
-	temp = (int_part < 0) ? (int_part * -1.0) : (int_part);
+	temp = ((int_part < 0) ? (int_part * -1.0) : (int_part)) + 0.5 ;
 	i = 0;
 	if (int_part == 0.0)
 	{
 		CH_NULL(ret =  ft_strdup((sign == 0) ? "0" : "-0"));
 		return (ret);
 	}
-	while (temp >= 1.0)
+	while (temp > 1.0)
 	{
 		temp /= 10;
 		i++;
@@ -137,6 +137,11 @@ static void round(double *int_part, double *frac_part, unsigned int precision)
 			i++;
 		}
 		*frac_part = *frac_part + div;
+		if (*frac_part >= 1)
+		{
+			*frac_part = *frac_part - 1;
+			*int_part = *int_part + 1;
+		}
 	}
 }
 
