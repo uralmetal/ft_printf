@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 11:23:15 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:38:50 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int make_width(char **output, t_print *mod)
 
 	if (ft_strlen(*output) >= mod->width)
 		return (0);
-	if ((new_output = ft_strnew(mod->width)) == NULL)
+	if ((new_output = ft_strnew((size_t )mod->width)) == NULL)
 		return (0);
 	i = -1;
 	flags_width(mod, new_output, output, i);
@@ -130,9 +130,12 @@ static int	make_octotorp(char **output, t_print *mod)
 	else if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36)
 		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
 		"0X"), *output);
-	else if (type == 10 || type == 11 || type == 24)
-		ft_bzero((new_output = (ft_strchr(*output, '.') + 1)),
-				ft_strlen(new_output));
+	else if ((type == 10 || type == 11 || type == 24) && mod->precision == 0)
+	{
+		CH_NULL(new_output = ft_strcpy(ft_strnew(ft_strlen(*output) + 1),
+				*output));
+		new_output[ft_strlen(*output)] = '.';
+	}
 	else
 		return (1);
 	ft_strdel(output);
@@ -144,7 +147,8 @@ static int	make_octotorp(char **output, t_print *mod)
 static int add_flags(char **output, t_print *mod)
 {
 	char flgs[][3] = {"-", "+", "-+", "- ", "+0", " ", " 0", "0", "+#",
-				   " #", "#", ""};
+				   " #", "#", "'", " '", "-'", "+'", "-+'", "- '", "0'", " 0'",
+				   "+0'", "+#'", " #'", "#'", ""};
 	int i;
 
 	i = -1;
@@ -164,6 +168,34 @@ static int add_flags(char **output, t_print *mod)
 	return (1);
 }
 
+void	put_thousands_sep(char *output)
+{
+	int i;
+	int j;
+	int k;
+
+	i = -1;
+	while ((output[++i] == ' ' || output[i] == '0' || output[i] == '+' ||
+	output[i] == '-') && output[i] != '\0')
+		ft_putchar(output[i]);
+	j = i;
+	while (output[i] != '\0' && output[i] != '.' && output[i] != ' ')
+		i++;
+	k = ((i - j - 1) % 3) + 1;
+		while (output[j] && j != i)
+		{
+			ft_putchar(output[j]);
+			if (j++ + 1 == i)
+				break ;
+			if (--k <= 0)
+			{
+				ft_putchar(',');
+				k = 3;
+			}
+		}
+	ft_putstr_full(output + j + 1);
+}
+
 int print(t_print *mod, const void *arg)
 {
 	get_output function_get;
@@ -180,13 +212,25 @@ int print(t_print *mod, const void *arg)
 		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
 	}
-	output = function_get(arg);
+	if (mod->type == 10 || mod->type == 11 || mod->type == 24)
+		output = function_get(arg, (mod->precision == -1 ? 6 : 0));
+	else
+		output = function_get(arg);
 	if (add_flags(&output, mod) == 0)
 	{
 		ft_strdel(&output);
 		return (0);
 	}
-	ft_putstr_full(output);
+	if (ft_strchr(mod->flag, 39) != NULL && (mod->type == 3 || mod->type == 5 ||
+	mod->type == 7 || mod->type == 10 || mod->type == 11 || mod->type == 12 ||
+	mod->type == 13 || mod->type == 15 || mod->type == 18 || mod->type == 19 ||
+	mod->type == 21 || mod->type == 24 || mod->type == 25 || mod->type == 26 ||
+	mod->type == 28 || mod->type == 31 || mod->type == 32 || mod->type == 34))
+		put_thousands_sep(output);
+	else
+	{
+		ft_putstr_full(output);
+	}
 	ft_strdel(&output);
 	return (1);
 }

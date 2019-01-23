@@ -62,6 +62,7 @@ char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
 char		*get_date(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
+char		*get_float(const void *arg, unsigned int precision);
 char 		*get_long_double(const void *arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);

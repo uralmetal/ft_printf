@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/23 08:25:45 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 15:57:10 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void clean_flags(t_print *mod)
 {
-	const char flgs[6] = "-+ 0#";
+	const char flgs[7] = "-+ 0#'";
 	char true_flgs[6];
 	int i;
 	int j;
@@ -64,7 +64,7 @@ int number_of_argument(const char *fmt, size_t *i)
 
 int check_flags(t_print *mod, const char *fmt, size_t *i)
 {
-	char flgs[10] = "-+ 0#";
+	char flgs[10] = "-+ 0#'";
 	int j;
 	int k;
 

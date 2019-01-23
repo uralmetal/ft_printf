@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/23 10:47:12 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/23 13:57:27 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ d i o u x X
 static int check_specif(t_print *mod, const char *fmt, size_t *i)
 {
 	const char spc[][4] = {
-		/*0*/	"c",
+			/*0*/"c",
 			/*1*/"s",
 			/*2*/"p",
 			/*3*/"i",
@@ -165,7 +165,7 @@ void va_arg_num(va_list start, int num_arg, void **p)
 int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 {
 	t_print mod;
-	void *p;
+	double *p;
 
 	*i += 1;
 	ft_bzero(mod.flag, 6);
@@ -193,7 +193,7 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	else if (mod.type == 4)
 		return (print(&mod, NULL));
 	if (mod.num_arg == 0)
-		p = va_arg(ap, void *);
+		p = va_arg(ap, double *);
 	else
 		va_arg_num(start, mod.num_arg, &p);
 	if (print(&mod, &p) == 0)

@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 16:00:10 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 16:00:10 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/23 12:59:58 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ char	*ulltooct(unsigned long long value)
 	while (temp[i] == '0' && i < size - 1)
 		i++;
 	ret = ft_strdup(temp + i);
-	ft_strdel(*temp);
+	ft_strdel(&temp);
 	return (ret);
 }
