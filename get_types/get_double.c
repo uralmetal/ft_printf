@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 11:58:58 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/23 17:30:46 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static char *get_integer_str(double int_part, long sign)
 	}
 	i = (sign == 0) ? (i - 1) : (i);
 	CH_NULL(ret = ft_strnew(i));
+	ret[i + 1] = 0;
 	ret[0] = '-';
 	count = (int_part < 0) ? 1 : 0;
 	while (i >= (int_part < 0) ? 1 : 0)
