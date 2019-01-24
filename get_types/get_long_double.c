@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 15:06:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 14:37:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:24:48 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,20 +146,20 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 	}
 }
 
-char	*get_long_double(const void *arg, unsigned int precision)
+char	*get_long_double(long double arg, unsigned int precision)
 {
-	const long double *a = arg;
+	const long double a = arg;
 	long double frac_part;
 	long double int_part;
 	char *ret;
 	long sign;
 
-	if ((ret = get_const_double(*a)) != NULL)
+	if ((ret = get_const_double(a)) != NULL)
 		return (ret);
-	frac_part = get_fraction(*a);
-	int_part =  (*a >= 0) ? (*a - frac_part) : (*a + frac_part);
+	frac_part = get_fraction(a);
+	int_part =  (a >= 0) ? (a - frac_part) : (a + frac_part);
 	round(&int_part, &frac_part, precision);
-	sign = (*((long*)arg + 1));
+	sign = (((long)arg + 1));
 	sign >>= 15;
 	ret = get_integer_str(int_part, sign);
 	if (precision != 0)

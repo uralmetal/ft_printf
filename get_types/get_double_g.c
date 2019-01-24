@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:08:14 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/24 09:13:33 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:08:49 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int is_exp(double val, unsigned int precision)
 	return (0);
 }
 
-char	*get_double_g(const void *arg, unsigned int precision)
+char	*get_double_g(const double arg, unsigned int precision)
 {
 	char *temp;
 	char *ret;
@@ -58,10 +58,10 @@ char	*get_double_g(const void *arg, unsigned int precision)
 	int exp;
 	double val;
 
-	val = *(const double *)arg;
-	if ((ret = get_const_double(*(const double*)arg)) != NULL)
+	val = (const double)arg;
+	if ((ret = get_const_double((const double)arg)) != NULL)
 		return (ret);
-	if (is_exp(*(const double*)arg, precision))
+	if (is_exp((const double)arg, precision))
 	{
 		temp = get_double_exp(arg, precision - 1);
 		i = ft_strlen(temp) - 1;

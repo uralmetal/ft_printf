@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/22 15:59:30 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:17:47 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_printf(const char *fmt, ...)
 {
 	va_list ap;
 	va_list start;
-	va_list start2;
 	size_t i;
 	size_t j;
 

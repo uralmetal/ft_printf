@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 14:40:44 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 16:28:00 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:11:33 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ static char *add_exp(char **val, int exp)
 	return (ret);
 }
 
-char	*get_double_exp(const void *arg, unsigned int precision)
+char	*get_double_exp(double arg, unsigned int precision)
 {
 	int exp;
-	double val = *(const double*)arg;
+	double val = (const double)arg;
 	char *ret;
 	int sign;
 
@@ -107,7 +107,7 @@ char	*get_double_exp(const void *arg, unsigned int precision)
 		}
 	}
 	val *= sign;
-	ret = get_double(&val, precision);
+	ret = get_double(val, precision);
 	add_exp(&ret, exp);
 	return (ret);
 }

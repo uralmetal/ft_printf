@@ -49,7 +49,11 @@ static const get_output g_get_function_array[] = {
 	&get_unsigned_long_long_oct,
 	&get_unsigned_long_long,
 	&get_unsigned_long_long_hex,
-	&get_unsigned_long_long_hex_upper
+	&get_unsigned_long_long_hex_upper,
+	&get_double_exp,
+	&get_double_g,
+	&get_double_exp,
+	get_double_g
 };
 
 get_output	get_function(t_print *mod)
