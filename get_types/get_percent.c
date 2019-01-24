@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_char.c                                       :+:      :+:    :+:   */
+/*   get_percent.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/16 10:42:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 17:44:07 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/23 08:33:49 by gleonett          #+#    #+#             */
+/*   Updated: 2019/01/23 08:47:23 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_char(const void *arg)
+char	*get_percent(const void * arg)
 {
 	char *ret;
-	const char *val = arg;
 
 	ret = ft_strnew(1);
-	ret[0] = *val;
+	ret[0] = '%';
 	return (ret);
 }

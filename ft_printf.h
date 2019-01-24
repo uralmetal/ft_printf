@@ -24,7 +24,7 @@
 # include <stdarg.h>
 #include <stdio.h>
 
-typedef char *(*get_output)(const void*);
+typedef char *(*get_output)();
 typedef long time_t;
 
 typedef struct		s_print
@@ -33,14 +33,18 @@ typedef struct		s_print
 	int				width;
 	int				precision;
 	int 			type;
+	int				num_arg;
+	int				width_num_arg;
+	int				prec_num_arg;
 }					t_print;
 
 void		ft_printf(const char *fmt, ...);
-int			parser(const char *fmt, va_list *ap, size_t *i);
-void		check_flags(t_print *mod, const char *fmt, size_t *i);
+int			parser(const char *fmt, va_list ap, va_list start, size_t *i);
+int 		number_of_argument(const char *fmt, size_t *i);
+int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);
-get_output	get_function(t_print mod);
-int 		print(t_print modificators, const void *arg);
+get_output	get_function(t_print *mod);
+int 		print(t_print *mod, const void *arg);
 void		ft_putstr_full(const char *str);
 void		ft_putnstr_full(const char *str, size_t n);
 char 		*min_integer(size_t size);
@@ -52,11 +56,13 @@ char		*ulltooct(unsigned long long value);
 char		*ulltobin(unsigned long long value);
 
 char		*get_char(const void *arg);
+char		*get_percent(const void *);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
 char		*get_date(const void *arg);
 char		*get_double(const void *arg, unsigned int precision);
+char		*get_float(const void *arg, unsigned int precision);
 char 		*get_long_double(const void *arg, unsigned int precision);
 char		*get_double_exp(const void *arg, unsigned int precision);
 char		*get_double_g(const void *arg, unsigned int precision);
