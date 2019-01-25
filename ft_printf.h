@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 14:37:40 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/25 13:36:51 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char		*ulltohex(unsigned long long value);
 char 		*ulltohex_upper(unsigned long long value);
 char		*ulltooct(unsigned long long value);
 char		*ulltobin(unsigned long long value);
+long		sign_double(double val);
 
 char		*get_char(const void *arg);
 char		*get_percent(const void *);
@@ -61,11 +62,12 @@ char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
 char		*get_date(const void *arg);
-char		*get_double(const void *arg, unsigned int precision);
-char		*get_float(const void *arg, unsigned int precision);
-char 		*get_long_double(const void *arg, unsigned int precision);
-char		*get_double_exp(const void *arg, unsigned int precision);
-char		*get_double_g(const void *arg, unsigned int precision);
+char		*get_double(double arg, unsigned int precision);
+char		*get_long_double(long double a, unsigned int precision);
+char		*get_double_exp(double arg, unsigned int precision);
+char		*get_long_double_exp(long double arg, unsigned int precision);
+char		*get_double_g(double arg, unsigned int precision);
+char		*get_long_double_g(long double arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);

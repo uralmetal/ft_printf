@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_float.c                                        :+:      :+:    :+:   */
+/*   sign_double.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 13:12:13 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/23 13:43:33 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/25 12:58:20 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 12:58:39 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
-
-char	*get_float(const void *arg, unsigned int precision)
+long	sign_double(double val)
 {
-	double a = *(const double *)arg;
-	return (get_double(&a, precision));
+	long sign;
+
+	sign = (*((long*)&val));
+	sign >>= 63;
+	return (sign);
 }
