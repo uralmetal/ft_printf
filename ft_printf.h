@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:36:51 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/25 16:48:50 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);
 get_output	get_function(t_print *mod);
-int 		print(t_print *mod, const void *arg);
+int 		print(t_print *mod, const void *arg, double var_d, long double var_dd);
 void		ft_putstr_full(const char *str);
 void		ft_putnstr_full(const char *str, size_t n);
 char 		*min_integer(size_t size);
@@ -68,6 +68,12 @@ char		*get_double_exp(double arg, unsigned int precision);
 char		*get_long_double_exp(long double arg, unsigned int precision);
 char		*get_double_g(double arg, unsigned int precision);
 char		*get_long_double_g(long double arg, unsigned int precision);
+char		*get_double_upper(double arg, unsigned int precision);
+char		*get_double_exp_upper(double arg, unsigned int precision);
+char		*get_double_g_upper(double arg, unsigned int precision);
+char		*get_long_double_upper(long double arg, unsigned int precision);
+char		*get_long_double_exp_upper(long double arg, unsigned int precision);
+char		*get_long_double_g_upper(long double arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);

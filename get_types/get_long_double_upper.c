@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_long_double.c                                  :+:      :+:    :+:   */
+/*   get_long_double_upper.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/25 16:48:07 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:48:07 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 16:47:52 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 16:47:52 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static char *get_const_double(long double value)
 
 	res = NULL;
 	if (value == p_inf)
-		CH_NULL(res = ft_strdup("inf"));
+		CH_NULL(res = ft_strdup("INF"));
 	if (value == n_inf)
-		CH_NULL(res = ft_strdup("-inf"));
+		CH_NULL(res = ft_strdup("-INF"));
 	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+		CH_NULL(res = ft_strdup("NAN"));
 	return (res);
 }
 
@@ -146,7 +146,7 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 	}
 }
 
-char	*get_long_double(long double arg, unsigned int precision)
+char	*get_long_double_upper(long double arg, unsigned int precision)
 {
 	//const long double *a = arg;
 	long double frac_part;
