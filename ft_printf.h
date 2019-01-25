@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:48:50 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:39:05 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "ft_printf.h"
 # include "libft/libft.h"
 # include <stdarg.h>
+# include <wchar.h>
 #include <stdio.h>
 
 typedef char *(*get_output)();
@@ -61,6 +62,8 @@ char		*get_percent(const void *);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
+char 		*get_long_char(const void *arg);
+char 		*get_long_string(const void *arg);
 char		*get_date(const void *arg);
 char		*get_double(double arg, unsigned int precision);
 char		*get_long_double(long double a, unsigned int precision);
