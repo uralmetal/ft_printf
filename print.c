@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 18:38:50 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:01:36 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void	put_thousands_sep(char *output)
 	ft_putstr_full(output + j + 1);
 }
 
-int print(t_print *mod, const void *arg)
+int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 {
 	get_output function_get;
 	char *output;
@@ -212,8 +212,19 @@ int print(t_print *mod, const void *arg)
 		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
 	}
-	if (mod->type == 10 || mod->type == 11 || mod->type == 24)
-		output = function_get(arg, (mod->precision == -1 ? 6 : 0));
+	if (mod->type == 10 || mod->type == 24 || mod->type == 37
+	|| mod->type == 38 || mod->type == 39 || mod->type == 40 || mod->type == 41
+	|| mod->type == 42)
+		if (mod->precision == -1)
+			if (var_d != 0)
+				output = function_get(var_d, 6);
+			else
+				output = function_get(var_dd, 6);
+		else
+			if (var_d != 0)
+				output = function_get(var_d, mod->precision);
+			else
+				output = function_get(var_dd, mod->precision);
 	else
 		output = function_get(arg);
 	if (add_flags(&output, mod) == 0)
@@ -228,9 +239,7 @@ int print(t_print *mod, const void *arg)
 	mod->type == 28 || mod->type == 31 || mod->type == 32 || mod->type == 34))
 		put_thousands_sep(output);
 	else
-	{
 		ft_putstr_full(output);
-	}
 	ft_strdel(&output);
 	return (1);
 }

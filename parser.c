@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/23 13:57:27 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/24 19:01:36 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,13 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			/*34*/"llu",
 			/*35*/"llx",
 			/*36*/"llX",
-			/*37*/""};
+			/*37*/"e",
+			/*38*/"g",
+			/*39*/"le",
+			/*40*/"lg",
+			/*41*/"Le",
+			/*42*/"Lg",
+			/*43*/""};
 	int j;
 	int size;
 	int j_spec;
@@ -162,12 +168,44 @@ void va_arg_num(va_list start, int num_arg, void **p)
 	va_end(start_start);
 }
 
+void va_arg_num_d(va_list start, int num_arg, double *var_d)
+{
+	int i;
+	va_list start_start;
+
+	va_copy(start_start, start);
+	i = 0;
+	while (++i != num_arg)
+		va_arg(start_start, void *);
+	*var_d = va_arg(start_start, double);
+	va_end(start_start);
+}
+
+void va_arg_num_dd(va_list start, int num_arg, long double *var_dd)
+{
+	int i;
+	va_list start_start;
+
+	va_copy(start_start, start);
+	i = 0;
+	while (++i != num_arg)
+		va_arg(start_start, void *);
+	*var_dd = va_arg(start_start, long double);
+	va_end(start_start);
+}
+
 int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 {
 	t_print mod;
-	double *p;
+	void *p;
+	double var_d;
+	long double var_dd;
+
 
 	*i += 1;
+	p = NULL;
+	var_d = 0;
+	var_dd = 0;
 	ft_bzero(mod.flag, 6);
 	mod.type = -1;
 	mod.width = 0;
@@ -191,12 +229,27 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	if ((check_specif(&mod, fmt, i)) == 0)
 		return (0);
 	else if (mod.type == 4)
-		return (print(&mod, NULL));
-	if (mod.num_arg == 0)
-		p = va_arg(ap, double *);
+		return (print(&mod, NULL, 0, 0));
+
+
+
+	if (mod.type == 10 ||mod.type == 24 || mod.type == 37 || mod.type == 38 ||
+		mod.type == 39 || mod.type == 40)
+		if (mod.num_arg == 0)
+			var_d = va_arg(ap, double);
+		else
+			va_arg_num_d(start, mod.num_arg, &var_d);
+	else if (mod.type == 11 || mod.type == 41 || mod.type == 42)
+		if (mod.num_arg == 0)
+			var_dd = va_arg(ap, long double);
+		else
+			va_arg_num_dd(start, mod.num_arg, &var_dd);
 	else
-		va_arg_num(start, mod.num_arg, &p);
-	if (print(&mod, &p) == 0)
+		if (mod.num_arg == 0)
+			p = va_arg(ap, void *);
+		else
+			va_arg_num(start, mod.num_arg, &p);
+	if (print(&mod, &p, var_d, var_dd) == 0)
 		return (0);
 	return (1);
 }
