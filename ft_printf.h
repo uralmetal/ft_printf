@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 18:39:05 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/26 16:52:02 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,16 @@ char		*get_double_exp(double arg, unsigned int precision);
 char		*get_long_double_exp(long double arg, unsigned int precision);
 char		*get_double_g(double arg, unsigned int precision);
 char		*get_long_double_g(long double arg, unsigned int precision);
+char		*get_double_hex(double arg);
 char		*get_double_upper(double arg, unsigned int precision);
 char		*get_double_exp_upper(double arg, unsigned int precision);
 char		*get_double_g_upper(double arg, unsigned int precision);
 char		*get_long_double_upper(long double arg, unsigned int precision);
 char		*get_long_double_exp_upper(long double arg, unsigned int precision);
 char		*get_long_double_g_upper(long double arg, unsigned int precision);
+char		*get_double_hex_upper(double arg);
+char		*get_long_double_hex(long double arg);
+char		*get_long_double_hex_upper(long double arg);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);
