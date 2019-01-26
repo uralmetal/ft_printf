@@ -24,13 +24,13 @@ static int ft_wstrlen(wchar_t *arg)
 
 char *get_long_string(const void *arg)
 {
-	const wchar_t *s = arg;
-	const char *src = arg;
+	const wchar_t **s = arg;
+	const char **src = arg;
 	char *ret;
 	int len;
 
-	len = ft_wstrlen(arg);
+	len = ft_wstrlen(*s);
 	ret = ft_strnew(len * sizeof(wchar_t));
-	ft_memcpy(ret, src, len * sizeof(wchar_t));
+	ft_memcpy(ret, *src, len * sizeof(wchar_t));
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:24:46 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/26 20:29:30 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 		}
 		else if (mod->flag[i] == '0')
 		{
-			if (!(mod->precision != -1 && (mod->type == 3 ||
-			mod->type != 2 || mod->type != 4 || mod->type != 10 ||
-			mod->type != 11 || mod->type != 24 || mod->type != 2 ||
-			mod->type >= 37 || mod->type <= 42)))
+			if (mod->type != 0 && mod->type != 54 && (mod->precision == -1 &&
+			(mod->type == 3 || (mod->type >= 5 && mod->type <= 9) ||
+			(mod->type >= 12 && mod->type <= 23) ||
+			(mod->type >= 25 && mod->type <= 36))))
 			{
 				ft_memset(new_output, '0', (size_t) mod->width);
 				ft_memcpy(&(new_output[mod->width - len]), *output, len);
 				f++;
 			}
-
 		}
 	if (f == 0)
 	{
@@ -102,7 +101,11 @@ static int make_width(char **output, t_print *mod)
 		return (0);
 	i = -1;
 	flags_width(mod, new_output, output, i);
-	if (mod->type != 4)
+	if (mod->type >= 3 && mod->type != 4 && mod->type != 6 && mod->type != 8 &&
+	mod->type != 9 && mod->type != 14 && mod->type != 16 && mod->type != 17 &&
+	mod->type != 20 && mod->type != 22 && mod->type != 23 && mod->type != 27 &&
+	mod->type != 29 && mod->type != 30 && mod->type != 33 && mod->type != 35 &&
+	mod->type != 36 && mod->type <= 52)
 		flags_space_plus(new_output, mod, ft_strlen(*output));
 	ft_strdel(output);
 	*output = new_output;
@@ -117,20 +120,18 @@ static int make_precision(char **output, t_print *mod)
 
 	if (mod->precision < 0)
 		return (0);
-	if (mod->type == 1)
+	if (mod->type == 1 || mod->type == 52)
 	{
 		if ((new_output = ft_strnew(mod->precision)) == 0)
 			return (0);
 		ft_strncpy(new_output, *output, mod->precision);
 	}
-	else if (mod->type != 0 || mod->type != 2 || mod->type != 4 || mod->type != 10 ||
-				mod->type != 11 || mod->type != 24 || mod->type != 2 || mod->type >= 37
-				|| mod->type <= 42 || mod->type != 1)
+	else
 	{
 		len = ft_strlen(*output);
 		if  (mod->precision < len)
 			return (0);
-		if ((minus = ft_strchr(*output, '-')) != NULL)
+		if (ft_strchr(*output, '-') != NULL)
 			mod->precision += 1;
 		if ((new_output = ft_strnew((size_t)mod->precision)) == 0)
 			return (0);
@@ -156,13 +157,18 @@ static int	make_octotorp(char **output, t_print *mod)
 	if (type == 6 || type == 14 || type == 20 || type == 27 || type == 33)
 		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 1),"0"),
 			*output);
-	else if (type == 8 || type == 16 || type == 22 || type == 29 || type == 35)
+	else if (type == 8 || type == 16 || type == 22 || type == 29 || type == 35
+	|| (type >= 56 && type <= 58))
 		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
 			"0x"), *output);
-	else if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36)
+	else if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36
+	|| (type >= 59 && type <= 61))
 		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
 		"0X"), *output);
-	else if ((type == 10 || type == 11 || type == 24) && mod->precision == 0)
+	else if (mod->precision == 0 && (type == 10 || type == 11 || type == 24 ||
+	type == 37 || type == 38 || type == 39 || type == 40 || type == 41 ||
+	type == 42 || type == 43 || type == 45 || type == 46 || type == 48 ||
+	type == 49 || type == 51))
 	{
 		CH_NULL(new_output = ft_strcpy(ft_strnew(ft_strlen(*output) + 1),
 				*output));
@@ -189,9 +195,10 @@ static int add_flags(char **output, t_print *mod)
 			break ;
 	if (i == (sizeof(flgs) / sizeof(flgs[0])))
 		return (0);
-	if (mod->type != 0 || mod->type != 2 || mod->type != 4 || mod->type != 10 ||
-		mod->type != 11 || mod->type != 24 || mod->type != 2 || mod->type >= 37
-		|| mod->type <= 42)
+	if (mod->type != 0 && mod->type != 2 && mod->type != 4 && mod->type != 10 &&
+		mod->type != 11 && mod->type != 24 &&
+		!(mod->type >= 37 && mod->type <= 42) &&
+		!(mod->type >= 54 && mod->type <= 61))
 		make_precision(output, mod);
 	if (ft_strchr(mod->flag, '#') != NULL)
 		make_octotorp(output, mod);
@@ -219,10 +226,12 @@ void	put_thousands_sep(char *output)
 		while (output[j] && j != i)
 		{
 			ft_putchar(output[j]);
+			g_output_symbols++;
 			if (j++ + 1 == i)
 				break ;
 			if (--k <= 0)
 			{
+				g_output_symbols++;
 				ft_putchar(',');
 				k = 3;
 			}
@@ -246,9 +255,10 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
 	}
-	if (mod->type == 10 || mod->type == 24 || mod->type == 37
+	if (mod->type == 10 || mod->type == 11 ||mod->type == 24 || mod->type == 37
 	|| mod->type == 38 || mod->type == 39 || mod->type == 40 || mod->type == 41
-	|| mod->type == 42 || mod->type == 11)
+	|| mod->type == 42 || mod->type == 43 || mod->type == 45 || mod->type == 46
+	|| mod->type == 48 || mod->type == 49 || mod->type == 51)
 		if (mod->precision == -1)
 			if (var_d != 0)
 				output = function_get(var_d, 6);
@@ -266,11 +276,11 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 		ft_strdel(&output);
 		return (0);
 	}
-	if (ft_strchr(mod->flag, 39) != NULL && (mod->type == 3 || mod->type == 5 ||
-	mod->type == 7 || mod->type == 10 || mod->type == 11 || mod->type == 12 ||
-	mod->type == 13 || mod->type == 15 || mod->type == 18 || mod->type == 19 ||
-	mod->type == 21 || mod->type == 24 || mod->type == 25 || mod->type == 26 ||
-	mod->type == 28 || mod->type == 31 || mod->type == 32 || mod->type == 34))
+	if (ft_strchr(mod->flag, 39) != NULL && (mod->type == 3 || mod->type == 7 ||
+	mod->type == 10 || mod->type == 11 || mod->type == 12 || mod->type == 15 ||
+	mod->type == 18 || mod->type == 21 || mod->type == 24 || mod->type == 25 ||
+	mod->type == 28 || mod->type == 31 || mod->type == 34 || mod->type == 38 ||
+	mod->type == 40 || (mod->type >= 42 && mod->type <= 48)))
 		put_thousands_sep(output);
 	else
 		ft_putstr_full(output);
