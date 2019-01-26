@@ -24,8 +24,8 @@ static char *get_const_double(long double value)
 		CH_NULL(res = ft_strdup("inf"));
 	if (value == n_inf)
 		CH_NULL(res = ft_strdup("-inf"));
-	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+	//if (value != value)
+	//	CH_NULL(res = ft_strdup("nan"));
 	return (res);
 }
 

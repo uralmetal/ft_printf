@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/24 19:11:23 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/25 16:30:37 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
-#define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
-#define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
-#define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
+# define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
+# define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
+# define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
 
 # include "ft_printf.h"
 # include "libft/libft.h"
@@ -37,6 +37,8 @@ typedef struct		s_print
 	int				width_num_arg;
 	int				prec_num_arg;
 }					t_print;
+
+int			g_output_symbols;
 
 void		ft_printf(const char *fmt, ...);
 int			parser(const char *fmt, va_list ap, va_list start, size_t *i);
@@ -65,7 +67,7 @@ char		*get_double(double arg, unsigned int precision);
 char		*get_float(double arg, unsigned int precision);
 char 		*get_long_double(long double arg, unsigned int precision);
 char		*get_double_exp(double arg, unsigned int precision);
-char		*get_double_g(const double arg, unsigned int precision);
+char		*get_double_g(double arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);

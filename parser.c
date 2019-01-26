@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/24 19:01:36 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/26 13:54:42 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,24 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			/*34*/"llu",
 			/*35*/"llx",
 			/*36*/"llX",
+
 			/*37*/"e",
 			/*38*/"g",
 			/*39*/"le",
 			/*40*/"lg",
 			/*41*/"Le",
 			/*42*/"Lg",
-			/*43*/""};
+			/*43*/"n",
+			/*44*/"D",
+			/*45*/"O",
+			/*46*/"U",
+			/*47*/"zu",
+			/*48*/"zi",
+			/*49*/"ju",
+			/*50*/"ji",
+			/*51*/"X",
+			/*52*/"G",
+			/*50*/""};
 	int j;
 	int size;
 	int j_spec;
@@ -136,7 +147,20 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			j++;
 	if (j_spec == -1)
 		return (0);
-	mod->type = j_spec;
+	if (j_spec == 44)
+		mod->type = 25;
+	else if (j_spec == 45)
+		mod->type = 27;
+	else if (j_spec == 46)
+		mod->type = 28;
+	else if (j_spec == 47 || j_spec == 49)
+		mod->type = 34;
+	else if (j_spec == 48 || j_spec == 50)
+		mod->type = 32;
+	else if (j_spec == 51)
+		mod->type = 29;
+	else
+		mod->type = j_spec;
 	*i = *i + ft_strlen(spc[j_spec]);
 	return (j_spec == 4 ? 2 : 1);
 }
@@ -198,6 +222,7 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 {
 	t_print mod;
 	void *p;
+	int *spec_n;
 	double var_d;
 	long double var_dd;
 
@@ -213,6 +238,8 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	mod.num_arg = 0;
 	mod.width_num_arg = 0;
 	mod.prec_num_arg = 0;
+
+
 	if (check_flags(&mod, fmt, i) == 0)
 		return (0);
 	check_width(&mod, ap, fmt, i);
@@ -231,8 +258,6 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 	else if (mod.type == 4)
 		return (print(&mod, NULL, 0, 0));
 
-
-
 	if (mod.type == 10 ||mod.type == 24 || mod.type == 37 || mod.type == 38 ||
 		mod.type == 39 || mod.type == 40)
 		if (mod.num_arg == 0)
@@ -249,6 +274,12 @@ int parser(const char *fmt, va_list ap, va_list start, size_t *i)
 			p = va_arg(ap, void *);
 		else
 			va_arg_num(start, mod.num_arg, &p);
+	if (mod.type == 43)
+	{
+		spec_n = p;
+		*spec_n = g_output_symbols;
+		return (1);
+	}
 	if (print(&mod, &p, var_d, var_dd) == 0)
 		return (0);
 	return (1);
