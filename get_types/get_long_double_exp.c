@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_double_exp.c                                   :+:      :+:    :+:   */
+/*   get_long_double_exp.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 14:40:44 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 10:29:30 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 13:33:24 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static char *get_const_double(double value)
+static char *get_const_long_double(long double value)
 {
 	char *res;
-	const double p_inf = 1.0/0.0;
-	const double n_inf = -1.0/0.0;
+	const long double p_inf = 1.0/0.0;
+	const long double n_inf = -1.0/0.0;
 
 	res = NULL;
 	if (value == p_inf)
@@ -78,13 +78,13 @@ static char *add_exp(char **val, int exp)
 	return (ret);
 }
 
-char	*get_double_exp(double arg, unsigned int precision)
+char	*get_long_double_exp(long double arg, unsigned int precision)
 {
 	int exp;
 	char *ret;
 	int sign;
 
-	if ((ret = get_const_double(arg)) != NULL)
+	if ((ret = get_const_long_double(arg)) != NULL)
 		return (ret);
 	exp = 0;
 	sign = (arg >= 0.0) ? (1) : (-1);
@@ -106,7 +106,7 @@ char	*get_double_exp(double arg, unsigned int precision)
 		}
 	}
 	arg *= sign;
-	ret = get_double(arg, precision);
+	ret = get_long_double(arg, precision);
 	add_exp(&ret, exp);
 	return (ret);
 }

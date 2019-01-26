@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_string.c                                       :+:      :+:    :+:   */
+/*   sign_double.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/17 17:35:08 by rwalder-          #+#    #+#             */
+/*   Created: 2019/01/25 12:58:20 by rwalder-          #+#    #+#             */
 /*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
-
-char	*get_string(const void *arg)
+long	sign_double(double val)
 {
-	const char **s = (const char **)arg;
-	return (ft_strdup(*s));
+	long sign;
+
+	sign = (*((long*)&val));
+	sign >>= 63;
+	return (sign);
 }

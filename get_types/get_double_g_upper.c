@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_double_g.c                                     :+:      :+:    :+:   */
+/*   get_double_g_upper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 17:08:14 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 16:36:44 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 16:39:43 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static char *get_const_double(double value)
 
 	res = NULL;
 	if (value == p_inf)
-		CH_NULL(res = ft_strdup("inf"));
+		CH_NULL(res = ft_strdup("INF"));
 	if (value == n_inf)
-		CH_NULL(res = ft_strdup("-inf"));
+		CH_NULL(res = ft_strdup("-INF"));
 	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+		CH_NULL(res = ft_strdup("NAN"));
 	return (res);
 }
 
@@ -49,7 +49,7 @@ static int is_exp(double val, unsigned int precision)
 	return (0);
 }
 
-char	*get_double_g(double arg, unsigned int precision)
+char	*get_double_g_upper(double arg, unsigned int precision)
 {
 	char *temp;
 	char *ret;
@@ -62,9 +62,9 @@ char	*get_double_g(double arg, unsigned int precision)
 		return (ret);
 	if (is_exp(arg, precision))
 	{
-		temp = get_double_exp(arg, precision - 1);
+		temp = get_double_exp_upper(arg, precision - 1);
 		i = ft_strlen(temp) - 1;
-		while (temp[i] != 'e')
+		while (temp[i] != 'E')
 			i--;
 		exp = i--;
 		while (temp[i] == '0')
@@ -81,7 +81,7 @@ char	*get_double_g(double arg, unsigned int precision)
 	}
 	else
 	{
-		temp = get_double(arg, precision);
+		temp = get_double_upper(arg, precision);
 		exp = 0;
 		i = 0;
 		if (temp[i] == '-')
@@ -93,7 +93,8 @@ char	*get_double_g(double arg, unsigned int precision)
 		while (temp[i] == '0')
 			i++;
 		if (i > (val > 0) ? (2) : (3))
-			temp = get_double(arg, precision + i - ((val > 0) ? (2) : (3)));
+			temp = get_double_upper(arg, precision + i - ((val > 0) ? (2) :
+			(3)));
 		while (exp < precision && temp[i] != '\0')
 		{
 			if (temp[i] != '.')

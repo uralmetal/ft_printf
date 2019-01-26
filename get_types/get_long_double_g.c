@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_double_g.c                                     :+:      :+:    :+:   */
+/*   get_long_double_g.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 17:08:14 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 10:30:55 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 10:30:55 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static char *get_const_double(double value)
+static char *get_const_long_double(long double value)
 {
 	char *res;
-	const double p_inf = 1.0/0.0;
-	const double n_inf = -1.0/0.0;
+	const long double p_inf = 1.0/0.0;
+	const long double n_inf = -1.0/0.0;
 
 	res = NULL;
 	if (value == p_inf)
@@ -28,10 +28,10 @@ static char *get_const_double(double value)
 	return (res);
 }
 
-static int is_exp(double val, unsigned int precision)
+static int is_exp(long double val, unsigned int precision)
 {
-	double min;
-	double max;
+	long double min;
+	long double max;
 	unsigned int i;
 
 	min = 99;
@@ -49,20 +49,21 @@ static int is_exp(double val, unsigned int precision)
 	return (0);
 }
 
-char	*get_double_g(double arg, unsigned int precision)
+char	*get_long_double_g(long double arg, unsigned int precision)
 {
 	char *temp;
 	char *ret;
 	char *temp2;
 	int i;
 	int exp;
-	double val;
+	long double val;
 
-	if ((ret = get_const_double(arg)) != NULL)
+	val = arg;
+	if ((ret = get_const_long_double(arg)) != NULL)
 		return (ret);
 	if (is_exp(arg, precision))
 	{
-		temp = get_double_exp(arg, precision - 1);
+		temp = get_long_double_exp(arg, precision - 1);
 		i = ft_strlen(temp) - 1;
 		while (temp[i] != 'e')
 			i--;
@@ -81,7 +82,7 @@ char	*get_double_g(double arg, unsigned int precision)
 	}
 	else
 	{
-		temp = get_double(arg, precision);
+		temp = get_long_double(arg, precision);
 		exp = 0;
 		i = 0;
 		if (temp[i] == '-')
@@ -93,7 +94,8 @@ char	*get_double_g(double arg, unsigned int precision)
 		while (temp[i] == '0')
 			i++;
 		if (i > (val > 0) ? (2) : (3))
-			temp = get_double(arg, precision + i - ((val > 0) ? (2) : (3)));
+			temp = get_long_double(arg, precision + i - ((val > 0) ? (2) :
+			(3)));
 		while (exp < precision && temp[i] != '\0')
 		{
 			if (temp[i] != '.')

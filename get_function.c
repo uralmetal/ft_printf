@@ -23,7 +23,7 @@ static const get_output g_get_function_array[] = {
 	&get_unsigned_int,
 	&get_unsigned_int_hex,
 	&get_unsigned_int_hex_upper,
-	&get_float,
+	&get_double,
 	&get_long_double,
 	&get_signed_char,
 	&get_signed_char,

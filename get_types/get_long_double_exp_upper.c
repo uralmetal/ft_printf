@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_double_exp.c                                   :+:      :+:    :+:   */
+/*   get_long_double_exp_upper.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 14:40:44 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 16:47:42 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 16:48:50 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static char *get_const_double(double value)
+static char *get_const_long_double(long double value)
 {
 	char *res;
-	const double p_inf = 1.0/0.0;
-	const double n_inf = -1.0/0.0;
+	const long double p_inf = 1.0/0.0;
+	const long double n_inf = -1.0/0.0;
 
 	res = NULL;
 	if (value == p_inf)
-		CH_NULL(res = ft_strdup("inf"));
+		CH_NULL(res = ft_strdup("INF"));
 	if (value == n_inf)
-		CH_NULL(res = ft_strdup("-inf"));
+		CH_NULL(res = ft_strdup("-INF"));
 	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+		CH_NULL(res = ft_strdup("NAN"));
 	return (res);
 }
 
@@ -68,9 +68,9 @@ static char *add_exp(char **val, int exp)
 		ft_strdel(&ret);
 	}
 	if (exp >= 0)
-		exp_str = ft_strjoin("e+", temp);
+		exp_str = ft_strjoin("E+", temp);
 	else
-		exp_str = ft_strjoin("e-", temp);
+		exp_str = ft_strjoin("E-", temp);
 	ft_strdel(&temp);
 	ret = ft_strjoin(*val, exp_str);
 	ft_strdel(val);
@@ -78,13 +78,13 @@ static char *add_exp(char **val, int exp)
 	return (ret);
 }
 
-char	*get_double_exp(double arg, unsigned int precision)
+char	*get_long_double_exp_upper(long double arg, unsigned int precision)
 {
 	int exp;
 	char *ret;
 	int sign;
 
-	if ((ret = get_const_double(arg)) != NULL)
+	if ((ret = get_const_long_double(arg)) != NULL)
 		return (ret);
 	exp = 0;
 	sign = (arg >= 0.0) ? (1) : (-1);
@@ -106,7 +106,7 @@ char	*get_double_exp(double arg, unsigned int precision)
 		}
 	}
 	arg *= sign;
-	ret = get_double(arg, precision);
+	ret = get_long_double_upper(arg, precision);
 	add_exp(&ret, exp);
 	return (ret);
 }

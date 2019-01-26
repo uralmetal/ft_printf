@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_double_exp.c                                   :+:      :+:    :+:   */
+/*   get_double_exp_upper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 14:40:44 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 13:44:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/01/25 16:36:36 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 16:36:38 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static char *get_const_double(double value)
 
 	res = NULL;
 	if (value == p_inf)
-		CH_NULL(res = ft_strdup("inf"));
+		CH_NULL(res = ft_strdup("INF"));
 	if (value == n_inf)
-		CH_NULL(res = ft_strdup("-inf"));
+		CH_NULL(res = ft_strdup("-INF"));
 	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+		CH_NULL(res = ft_strdup("NAN"));
 	return (res);
 }
 
@@ -68,9 +68,9 @@ static char *add_exp(char **val, int exp)
 		ft_strdel(&ret);
 	}
 	if (exp >= 0)
-		exp_str = ft_strjoin("e+", temp);
+		exp_str = ft_strjoin("E+", temp);
 	else
-		exp_str = ft_strjoin("e-", temp);
+		exp_str = ft_strjoin("E-", temp);
 	ft_strdel(&temp);
 	ret = ft_strjoin(*val, exp_str);
 	ft_strdel(val);
@@ -78,7 +78,7 @@ static char *add_exp(char **val, int exp)
 	return (ret);
 }
 
-char	*get_double_exp(double arg, unsigned int precision)
+char	*get_double_exp_upper(double arg, unsigned int precision)
 {
 	int exp;
 	char *ret;
@@ -106,7 +106,7 @@ char	*get_double_exp(double arg, unsigned int precision)
 		}
 	}
 	arg *= sign;
-	ret = get_double(arg, precision);
+	ret = get_double_upper(arg, precision);
 	add_exp(&ret, exp);
 	return (ret);
 }

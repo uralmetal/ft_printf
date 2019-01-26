@@ -22,6 +22,7 @@
 # include "ft_printf.h"
 # include "libft/libft.h"
 # include <stdarg.h>
+# include <wchar.h>
 #include <stdio.h>
 
 typedef char *(*get_output)();
@@ -46,7 +47,7 @@ int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);
 get_output	get_function(t_print *mod);
-int print(t_print *mod, const void *arg, double var_d, long double var_dd);
+int 		print(t_print *mod, const void *arg, double var_d, long double var_dd);
 void		ft_putstr_full(const char *str);
 void		ft_putnstr_full(const char *str, size_t n);
 char 		*min_integer(size_t size);
@@ -56,18 +57,28 @@ char		*ulltohex(unsigned long long value);
 char 		*ulltohex_upper(unsigned long long value);
 char		*ulltooct(unsigned long long value);
 char		*ulltobin(unsigned long long value);
+long		sign_double(double val);
 
 char		*get_char(const void *arg);
 char		*get_percent(const void *);
 char		*get_pointer(const void *arg);
 char		*get_string(const void *arg);
 char		*get_string_with_non_print(const void *arg);
+char 		*get_long_char(const void *arg);
+char 		*get_long_string(const void *arg);
 char		*get_date(const void *arg);
 char		*get_double(double arg, unsigned int precision);
-char		*get_float(double arg, unsigned int precision);
-char 		*get_long_double(long double arg, unsigned int precision);
+char		*get_long_double(long double a, unsigned int precision);
 char		*get_double_exp(double arg, unsigned int precision);
+char		*get_long_double_exp(long double arg, unsigned int precision);
 char		*get_double_g(double arg, unsigned int precision);
+char		*get_long_double_g(long double arg, unsigned int precision);
+char		*get_double_upper(double arg, unsigned int precision);
+char		*get_double_exp_upper(double arg, unsigned int precision);
+char		*get_double_g_upper(double arg, unsigned int precision);
+char		*get_long_double_upper(long double arg, unsigned int precision);
+char		*get_long_double_exp_upper(long double arg, unsigned int precision);
+char		*get_long_double_g_upper(long double arg, unsigned int precision);
 char		*get_signed_char(const void *arg);
 char		*get_short(const void *arg);
 char		*get_int(const void *arg);

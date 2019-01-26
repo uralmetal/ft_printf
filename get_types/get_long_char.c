@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_float.c                                        :+:      :+:    :+:   */
+/*   get_long_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 13:12:13 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/24 19:04:31 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/25 18:38:16 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/01/25 18:39:05 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_float(double arg, unsigned int precision)
+char *get_long_char(const void *arg)
 {
-	double a = (const double )arg;
-	return (get_double(a, precision));
+	char *ret;
+	int i;
+
+	ret = ft_strnew(sizeof(wchar_t));
+	i = 0;
+	while (i < sizeof(wchar_t))
+		ret[i++] = (*(char*)(arg + i));
+	return (ret);
 }
