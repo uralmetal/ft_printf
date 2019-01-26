@@ -15,9 +15,9 @@
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
-#define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
-#define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
-#define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
+# define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
+# define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
+# define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
 
 # include "ft_printf.h"
 # include "libft/libft.h"
@@ -38,6 +38,8 @@ typedef struct		s_print
 	int				width_num_arg;
 	int				prec_num_arg;
 }					t_print;
+
+int			g_output_symbols;
 
 void		ft_printf(const char *fmt, ...);
 int			parser(const char *fmt, va_list ap, va_list start, size_t *i);

@@ -16,5 +16,6 @@ void	ft_putnstr_full(const char *str, size_t n)
 {
 	if (str == NULL)
 		return ;
+	g_output_symbols += n;
 	write(1, str, n);
 }

@@ -14,7 +14,11 @@
 
 void	ft_putstr_full(const char *str)
 {
+	size_t len;
+
 	if (str == NULL)
 		return ;
-	write(1, str, ft_strlen(str));
+	len = ft_strlen(str);
+	g_output_symbols += len;
+	write(1, str, len);
 }

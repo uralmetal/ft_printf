@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:48:07 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:48:07 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/26 14:03:05 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static char *get_const_double(long double value)
 		CH_NULL(res = ft_strdup("inf"));
 	if (value == n_inf)
 		CH_NULL(res = ft_strdup("-inf"));
-	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+	//if (value != value)
+	//	CH_NULL(res = ft_strdup("nan"));
 	return (res);
 }
 
