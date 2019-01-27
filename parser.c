@@ -150,7 +150,6 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			/*67*/"zi",
 			/*68*/"ju",
 			/*69*/"ji",
-			/*70*/"X",
 			/*71*/""};
 	int j;
 	int size;

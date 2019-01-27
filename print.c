@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/26 20:29:30 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/27 12:08:01 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 		}
 		else if (mod->flag[i] == '0')
 		{
-			if (mod->type != 0 && mod->type != 54 && (mod->precision == -1 &&
-			(mod->type == 3 || (mod->type >= 5 && mod->type <= 9) ||
+			if ((mod->precision == -1 &&
+			(mod->type == 3 || mod->type == 0 || mod->type != 54 ||
+			(mod->type >= 4 && mod->type <= 9) ||
 			(mod->type >= 12 && mod->type <= 23) ||
 			(mod->type >= 25 && mod->type <= 36))))
 			{
