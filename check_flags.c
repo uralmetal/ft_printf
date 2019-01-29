@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/25 11:34:50 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ int check_flags(t_print *mod, const char *fmt, size_t *i)
 			break ;
 		}
 	}
-	return (1);
+	return (0);
 }

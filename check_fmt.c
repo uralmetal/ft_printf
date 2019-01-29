@@ -1,16 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   check_fmt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
+/*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
+/*   Updated: 2019/01/29 18:04:35 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int check_width(t_print *mod, const char *fmt, size_t *i)
+{
+	int j;
+
+	j = 0;
+	if (fmt[*i] > '0' && fmt[*i] <= '9')
+	{
+		mod->width = ft_atoi(fmt + *i);
+		while (fmt[*i] >= '0' && fmt[*i] <= '9')
+			*i += 1;
+	}
+	else if (fmt[*i] == '*')
+	{
+		*i += 1;
+		mod->width_num_arg = number_of_argument(fmt, i);
+	}
+	else
+		mod->width = 0;
+	return (0);
+}
+
+static int check_precision(t_print *mod, const char *fmt, size_t *i)
+{
+	if (fmt[*i] == '.')
+	{
+		*i += 1;
+		if (fmt[*i] >= '0' && fmt[*i] <= '9')
+		{
+			mod->precision = ft_atoi(fmt + *i);
+			while (fmt[*i] >= '0' && fmt[*i] <= '9')
+				*i += 1;
+		}
+		else if (fmt[*i] == '*')
+		{
+			*i += 1;
+			mod->prec_num_arg = number_of_argument(fmt, i);
+		}
+		else
+			mod->precision = 0;
+	}
+	else
+		mod->precision = -1;
+	return (0);
+}
 
 static int check_specif(t_print *mod, const char *fmt, size_t *i)
 {
@@ -109,9 +154,11 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			j_spec = j;
 		}
 		else
+		{
 			j++;
+		}
 	if (j_spec == -1)
-		return (0);
+		return (1);
 	if (j_spec == 5)
 		mod->type = 3;
 	else if (j_spec == 13)
@@ -149,62 +196,33 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 	else
 		mod->type = j_spec;
 	*i = *i + ft_strlen(spc[j_spec]);
-	return (j_spec == 4 ? 2 : 1);
+	return (0);
 }
-
-int parser(va_list ap, va_list start, size_t *i)
+int	check_fmt(const char *fmt)
 {
-	void *p;
-	int *spec_n;
-	double var_d;
-	long double var_dd;
+	size_t i;
+	size_t j;
 
-
-	*i += 1;
-	p = NULL;
-	var_d = 0;
-	var_dd = 0;
-
-	if (mod->error == 1)
-		return (1);
-	if (mod->type == 4)
-		return (print(mod, NULL, 0, 0));
-	va_arg_width(start, ap);
-	va_arg_precision(start, ap);
-	if (mod->type == 10 || mod->type == 24 || mod->type == 37 ||
-		mod->type == 38 || mod->type == 46 || mod->type == 49)
+	i = 0;
+	while (fmt[i] != '\0')
 	{
-		if (mod->num_arg == 0)
-			var_d = va_arg(ap, double);
-		else
-			va_arg_num_d(start, mod->num_arg, &var_d);
-	}
-	else
-	{
-		if (mod->type == 11 || mod->type == 41 || mod->type == 42 ||
-				mod->type == 48 || mod->type == 51)
+		if (fmt[i] == '%')
 		{
-			if (mod->num_arg == 0)
-				var_dd = va_arg(ap, long double);
-			else
-				va_arg_num_dd(start, mod->num_arg, &var_dd);
+			i++;
+			j = i;
+			check_flags(mod, fmt, &i);
+			CH_ERROR(check_width(mod, fmt, &i));
+			check_flags(mod, fmt, &i);
+			CH_ERROR(check_precision(mod, fmt, &i));
+			check_flags(mod, fmt, &i);
+			clean_flags(mod);
+			CH_ERROR(check_specif(mod, fmt, &i));
+			mod->i = i - j;
+			mod->next = init_list();
+			mod = mod->next;
 		}
-		else
-		{
-			if (mod->num_arg == 0)
-				p = va_arg(ap, void *);
-			else
-				va_arg_num(start, mod->num_arg, &p);
-		}
+		i++;
 	}
-	if (mod->type == 62)
-	{
-		spec_n = p;
-		*spec_n = g_output_symbols;
-		return (1);
-	}
-	if (print(mod, &p, var_d, var_dd) == 0)
-		return (0);
-	return (1);
+	mod = start_list;
+	return (0);
 }
-

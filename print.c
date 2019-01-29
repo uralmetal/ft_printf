@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/27 12:08:01 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,17 +185,17 @@ static int	make_octotorp(char **output, t_print *mod)
 
 static int add_flags(char **output, t_print *mod)
 {
-	char flgs[][3] = {"-", "+", "-+", "- ", "+0", " ", " 0", "0", "+#",
-				   " #", "#", "0#", "'", " '", "-'", "+'", "-+'", "- '",
-				   "0'", " 0'", "+0'", "+#'", " #'", "#'", ""};
-	int i;
-
-	i = -1;
-	while (++i < (sizeof(flgs) / sizeof(flgs[0])))
-		if (ft_strcmp(mod->flag, flgs[i]) == 0)
-			break ;
-	if (i == (sizeof(flgs) / sizeof(flgs[0])))
-		return (0);
+//	char flgs[][3] = {"-", "+", "-+", "- ", "+0", " ", " 0", "0", "+#",
+//				   " #", "#", "0#", "'", " '", "-'", "+'", "-+'", "- '",
+//				   "0'", " 0'", "+0'", "+#'", " #'", "#'", ""};
+//	int i;
+//
+//	i = -1;
+//	while (++i < (sizeof(flgs) / sizeof(flgs[0])))
+//		if (ft_strcmp(mod->flag, flgs[i]) == 0)
+//			break ;
+//	if (i == (sizeof(flgs) / sizeof(flgs[0])))
+//		return (0);
 	if (mod->type != 0 && mod->type != 2 && mod->type != 4 && mod->type != 10 &&
 		mod->type != 11 && mod->type != 24 &&
 		!(mod->type >= 37 && mod->type <= 42) &&
@@ -245,11 +245,6 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 	get_output function_get;
 	char *output;
 
-
-//	printf("flag = [%s]\nwidth = [%d]\nprecision = [%d]\ntype = [%d]\n"
-//		"num_arg = [%d]\nwidth_num_arg = [%d]\nprec_num_arg = [%d]\n",
-//		mod->flag, mod->width, mod->precision,
-//		mod->type, mod->num_arg, mod->width_num_arg, mod->prec_num_arg);
 
 	if ((function_get = get_function(mod)) == NULL)
 	{

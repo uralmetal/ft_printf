@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:48:07 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/26 20:34:48 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:39:50 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static char *get_const_double(long double value)
 		CH_NULL(res = ft_strdup("inf"));
 	if (value == n_inf)
 		CH_NULL(res = ft_strdup("-inf"));
-	if (value != value)
-		CH_NULL(res = ft_strdup("nan"));
+	//if (value != value)
+	//	CH_NULL(res = ft_strdup("nan"));
 	return (res);
 }
 
@@ -148,6 +148,7 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 
 char	*get_long_double(long double arg, unsigned int precision)
 {
+	//const long double *a = arg;
 	long double frac_part;
 	long double int_part;
 	char *ret;
