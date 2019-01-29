@@ -6,31 +6,29 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:40:02 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 18:40:02 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 09:31:12 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static int ft_wstrlen(wchar_t *arg)
+char	*get_long_string(const void *arg)
 {
 	int i;
+	const int **wstr = arg;
+	char *ret;
+	char *join;
+	char *temp;
 
 	i = 0;
-	while (i < arg[i])
-		i++;
-	return (i);
-}
-
-char *get_long_string(const void *arg)
-{
-	const wchar_t *s = arg;
-	const char *src = arg;
-	char *ret;
-	int len;
-
-	len = ft_wstrlen(arg);
-	ret = ft_strnew(len * sizeof(wchar_t));
-	ft_memcpy(ret, src, len * sizeof(wchar_t));
+	ret = ft_strdup("");
+	while ((*wstr)[i] != 0)
+	{
+		temp = wchar_to_str((*wstr)[i++]);
+		join = ft_strjoin(ret, temp);
+		ft_strdel(&temp);
+		ft_strdel(&ret);
+		ret = join;
+	}
 	return (ret);
 }

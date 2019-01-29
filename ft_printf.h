@@ -58,6 +58,7 @@ char 		*ulltohex_upper(unsigned long long value);
 char		*ulltooct(unsigned long long value);
 char		*ulltobin(unsigned long long value);
 long		sign_double(double val);
+char*		wchar_to_str(int sym);
 
 char		*get_char(const void *arg);
 char		*get_percent(const void *);
