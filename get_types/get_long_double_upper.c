@@ -148,7 +148,6 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 
 char	*get_long_double_upper(long double arg, unsigned int precision)
 {
-	//const long double *a = arg;
 	long double frac_part;
 	long double int_part;
 	char *ret;

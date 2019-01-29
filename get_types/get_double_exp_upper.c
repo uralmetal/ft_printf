@@ -53,13 +53,14 @@ static char *check_overflow(char *val, int *exp)
 	return (val);
 }
 
-static char *add_exp(char **val, int exp)
+static char *add_exp(char **val, int exp, unsigned int precision)
 {
 	char *exp_str;
 	char *temp;
 	char *ret;
 
-	check_overflow(*val, &exp);
+	if (precision != 0)
+		check_overflow(*val, &exp);
 	temp = ft_lltoa((exp >= 0) ? (exp) : (exp * -1));
 	if (ft_strlen(temp) == 1)
 	{
@@ -107,6 +108,6 @@ char	*get_double_exp_upper(double arg, unsigned int precision)
 	}
 	arg *= sign;
 	ret = get_double_upper(arg, precision);
-	add_exp(&ret, exp);
+	add_exp(&ret, exp, precision);
 	return (ret);
 }

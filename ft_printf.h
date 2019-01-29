@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/26 16:52:02 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 09:25:19 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "ft_printf.h"
 # include "libft/libft.h"
 # include <stdarg.h>
-# include <wchar.h>
 #include <stdio.h>
 
 typedef char *(*get_output)();
