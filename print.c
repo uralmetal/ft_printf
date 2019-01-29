@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:24:46 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:49:47 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 	size_t len;
 
 	f = 0;
-	if ((len = ft_strlen(*output)) >= mod->width)
+	if ((int)(len = ft_strlen(*output)) >= mod->width)
 		return (0);
 	while (mod->flag[++i])
 		if (mod->flag[i] == '-')
@@ -60,14 +60,14 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 		if (mod->flag[i] == ' ' || mod->flag[i] == '+')
 		{
 			if (*output != ' ' && *output != '0' && *output != '-' &&
-			len < mod->width)
+				(int)len < mod->width)
 			{
 				ft_memmove(output + 1, output, len);
 				mod->flag[i] == '+' ? (output[0] = '+') : (output[0] = ' ');
 			}
-			if (len >= mod->width && *output != '-')
+			if ((int)len >= mod->width && *output != '-')
 				mod->flag[i] == ' ' ? ft_putchar(' ') : ft_putchar('+');
-			if (len < mod->width)
+			if ((int)len < mod->width)
 			{
 				j = 0;
 				while (output[j] != '\0' && (output[j] == '0' ||
@@ -96,7 +96,7 @@ static int make_width(char **output, t_print *mod)
 	int i;
 	char *new_output;
 
-	if (ft_strlen(*output) >= mod->width)
+	if ((int)ft_strlen(*output) >= mod->width)
 		return (0);
 	if ((new_output = ft_strnew((size_t )mod->width)) == NULL)
 		return (0);
@@ -111,7 +111,7 @@ static int make_width(char **output, t_print *mod)
 
 static int make_precision(char **output, t_print *mod)
 {
-	char *new_output;
+	char *new_output = NULL;
 	size_t len;
 	char *minus;
 
@@ -128,7 +128,7 @@ static int make_precision(char **output, t_print *mod)
 				|| mod->type <= 42 || mod->type != 1)
 	{
 		len = ft_strlen(*output);
-		if  (mod->precision < len)
+		if  (mod->precision < (int) len)
 			return (0);
 		if ((minus = ft_strchr(*output, '-')) != NULL)
 			mod->precision += 1;
@@ -184,7 +184,7 @@ static int add_flags(char **output, t_print *mod)
 	int i;
 
 	i = -1;
-	while (++i < (sizeof(flgs) / sizeof(flgs[0])))
+	while (++i < (int)(sizeof(flgs) / sizeof(flgs[0])))
 		if (ft_strcmp(mod->flag, flgs[i]) == 0)
 			break ;
 	if (i == (sizeof(flgs) / sizeof(flgs[0])))

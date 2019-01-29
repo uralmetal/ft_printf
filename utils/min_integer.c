@@ -6,13 +6,13 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 13:59:38 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 14:05:23 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:17:49 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char *min_integer(size_t size)
+char	*min_integer(size_t size)
 {
 	if (size == 16)
 		return (ft_strdup("−170141183460469231731687303715884105728"));
@@ -24,4 +24,5 @@ char *min_integer(size_t size)
 		return (ft_strdup("−32768"));
 	if (size == 1)
 		return (ft_strdup("−127"));
+	return (NULL);
 }

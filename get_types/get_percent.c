@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 08:33:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/23 08:47:23 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:51:50 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*get_percent(const void * arg)
 {
 	char *ret;
 
+	ret = (char*)arg;
 	ret = ft_strnew(1);
 	ret[0] = '%';
 	return (ret);

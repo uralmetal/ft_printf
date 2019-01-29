@@ -6,17 +6,15 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:14:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 14:21:11 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:18:24 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-
-
 static size_t	ft_intlen(unsigned long long n)
 {
-	size_t	ret;
+	size_t				ret;
 	unsigned long long	num;
 
 	ret = 0;
@@ -33,8 +31,8 @@ static size_t	ft_intlen(unsigned long long n)
 
 char			*ft_ulltoa(unsigned long long n)
 {
-	long		len;
-	char		*ret;
+	long				len;
+	char				*ret;
 	unsigned long long	num;
 
 	len = ft_intlen(n);

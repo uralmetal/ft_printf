@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 16:00:10 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 14:37:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:21:20 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void	symtooct(unsigned long long c, char *hex, unsigned int size)
 	}
 }
 
-char	*ulltooct(unsigned long long value)
+char		*ulltooct(unsigned long long value)
 {
-	char *ret;
-	char *temp;
-	const int size = 45;
-	int i;
+	char		*ret;
+	char		*temp;
+	const int	size = 45;
+	int			i;
 
 	CH_NULL(temp = ft_strnew(size));
 	symtooct(value, temp, size);

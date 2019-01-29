@@ -40,7 +40,7 @@ typedef struct		s_print
 
 int			g_output_symbols;
 
-void		ft_printf(const char *fmt, ...);
+int			ft_printf(const char *fmt, ...);
 int			parser(const char *fmt, va_list ap, va_list start, size_t *i);
 int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);

@@ -6,17 +6,15 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 13:04:12 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/21 14:11:58 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:16:48 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-
-
 static size_t	ft_intlen(long long n)
 {
-	size_t	ret;
+	size_t		ret;
 	long long	num;
 
 	ret = 0;

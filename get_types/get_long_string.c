@@ -15,7 +15,7 @@
 char	*get_long_string(const void *arg)
 {
 	int i;
-	const int **wstr = arg;
+	const int **wstr = (const int **)arg;
 	char *ret;
 	char *join;
 	char *temp;

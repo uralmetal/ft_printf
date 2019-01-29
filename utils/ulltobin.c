@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:14:20 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 14:37:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:19:18 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static void	symtobin(unsigned long long c, char *hex, unsigned int size)
 	}
 }
 
-char	*ulltobin(unsigned long long value)
+char		*ulltobin(unsigned long long value)
 {
-	char *temp;
-	char *ret;
-	const int size = 130;
-	int i;
+	char		*temp;
+	char		*ret;
+	const int	size = 130;
+	int			i;
 
 	CH_NULL(temp = ft_strnew(size));
 	symtobin(value, temp, size);

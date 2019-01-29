@@ -16,7 +16,6 @@ static char *add_char_non_print(char **str, unsigned char sym)
 {
 	char *ret;
 	char *code_sym;
-	char *sym_str;
 	int len;
 
 	ret = ft_itoa(sym);
@@ -37,7 +36,7 @@ static char *add_char_non_print(char **str, unsigned char sym)
 
 char	*get_string_with_non_print(const void *arg)
 {
-	const char **s = arg;
+	const char **s = (const char**)arg;
 	int i;
 	char *ret;
 	char *sub;

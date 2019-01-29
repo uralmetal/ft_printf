@@ -6,13 +6,13 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/25 10:29:04 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:04:50 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printf(const char *fmt, ...)
+int		ft_printf(const char *fmt, ...)
 {
 	va_list ap;
 	va_list start;
@@ -37,4 +37,5 @@ void	ft_printf(const char *fmt, ...)
 	ft_putstr_full(fmt + j);
 	va_end(start);
 	va_end(ap);
+	return (g_output_symbols);
 }

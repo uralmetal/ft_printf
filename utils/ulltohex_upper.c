@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 15:54:26 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/23 14:37:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 20:20:42 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static void	symtohex_upper(unsigned long long c, char *hex, unsigned int size)
 	}
 }
 
-char	*ulltohex_upper(unsigned long long value)
+char		*ulltohex_upper(unsigned long long value)
 {
-	char *ret;
-	char *temp;
-	const int size = 32;
-	int i;
+	char		*ret;
+	char		*temp;
+	const int	size = 32;
+	int			i;
 
 	CH_NULL(temp = ft_strnew(size));
 	symtohex_upper(value, temp, size);
