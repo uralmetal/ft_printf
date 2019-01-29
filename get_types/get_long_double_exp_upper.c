@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:47:42 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/25 16:48:50 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/26 21:55:33 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ static char *check_overflow(char *val, int *exp)
 	return (val);
 }
 
-static char *add_exp(char **val, int exp)
+static char *add_exp(char **val, int exp, unsigned int precision)
 {
 	char *exp_str;
 	char *temp;
 	char *ret;
 
-	check_overflow(*val, &exp);
+	if (precision != 0)
+		check_overflow(*val, &exp);
 	temp = ft_lltoa((exp >= 0) ? (exp) : (exp * -1));
 	if (ft_strlen(temp) == 1)
 	{
@@ -107,6 +108,6 @@ char	*get_long_double_exp_upper(long double arg, unsigned int precision)
 	}
 	arg *= sign;
 	ret = get_long_double_upper(arg, precision);
-	add_exp(&ret, exp);
+	add_exp(&ret, exp, precision);
 	return (ret);
 }

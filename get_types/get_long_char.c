@@ -14,12 +14,7 @@
 
 char *get_long_char(const void *arg)
 {
-	char *ret;
-	int i;
+	const int *wstr = arg;
 
-	ret = ft_strnew(sizeof(wchar_t));
-	i = 0;
-	while (i < sizeof(wchar_t))
-		ret[i++] = (*(char*)(arg + i));
-	return (ret);
+	return (wchar_to_str(*wstr));
 }
