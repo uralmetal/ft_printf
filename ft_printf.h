@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 09:30:36 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_print				*mod;
 
 int			ft_printf(const char *fmt, ...);
 int			check_fmt(const char *fmt);
-int			parser(va_list ap, va_list start, size_t *i);
+int 		parser(va_list ap, va_list start, size_t *i);
 int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);

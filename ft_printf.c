@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 09:29:51 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_printf(const char *fmt, ...)
 //							   mod->type, mod->num_arg, mod->width_num_arg,
 //							   mod->prec_num_arg, mod->i, mod->error);
 			ft_putnstr_full(fmt + j, (i - j));
-			parser(fmt, ap, start, &i);
+			parser(ap, start, &i);
 			i = i + mod->i;
 			j = i;
 			mod = mod->next;

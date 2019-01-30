@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:38:16 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/29 18:39:50 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 09:31:33 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 char *get_long_char(const void *arg)
 {
-	char *ret;
-	int i;
+	const int *wstr = arg;
 
-	ret = ft_strnew(sizeof(wchar_t));
-	i = 0;
-	while (i < sizeof(wchar_t))
-		ret[i++] = (*(char*)(arg + i));
-	return (ret);
+	return (wchar_to_str(*wstr));
 }

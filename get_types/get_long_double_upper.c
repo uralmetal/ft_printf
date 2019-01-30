@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:47:52 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/29 18:39:50 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 09:31:33 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ static void round(long double *int_part, long double *frac_part, unsigned int pr
 
 char	*get_long_double_upper(long double arg, unsigned int precision)
 {
-	//const long double *a = arg;
 	long double frac_part;
 	long double int_part;
 	char *ret;
