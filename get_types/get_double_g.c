@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 17:08:14 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/29 14:23:02 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:39:50 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,23 @@ static char *get_const_double(double value)
 
 static int is_exp(double val, unsigned int precision)
 {
+	double min;
+	double max;
+	unsigned int i;
+
+	min = 99;
+	max = 1;
+	i = 0;
 	val = (val >= 0) ? val : (val * -1);
-	if (precision == 0)
+	while (i < precision)
 	{
-		if ((val > 1e-4 && val < 10) || val == 0.0)
-			return (0);
-		return (1);
+		min /= 10;
+		max *= 10;
+		i++;
 	}
-	if ((val + 0.5 >= 1e6 || val < 1e-4) && val != 0.0)
+	if ((val >= max || val <= min) && val != 0.0)
 		return (1);
 	return (0);
-}
-
-static double 	get_fraction(double value)
-{
-	double ret = 0.0;
-	unsigned long a;
-
-	ret = value;
-	if (ret < 0)
-		ret *= -1.0;
-	a = (unsigned long)-1;
-	if (ret <= a)
-	{
-		a = (unsigned long)ret;
-		ret = ret - a;
-	}
-	else
-	{
-		while (ret > (double)a)
-			ret = ret / 10;
-		a = (unsigned long)ret;
-		ret = ret - a;
-	}
-	return ((double)(ret));
 }
 
 char	*get_double_g(double arg, unsigned int precision)
@@ -79,7 +62,7 @@ char	*get_double_g(double arg, unsigned int precision)
 		return (ret);
 	if (is_exp(arg, precision))
 	{
-		temp = get_double_exp(arg, (precision == 0) ? (0) : (precision - 1));
+		temp = get_double_exp(arg, precision - 1);
 		i = ft_strlen(temp) - 1;
 		while (temp[i] != 'e')
 			i--;
@@ -98,35 +81,30 @@ char	*get_double_g(double arg, unsigned int precision)
 	}
 	else
 	{
-		if (((arg < 0) ? (arg * -1) : (arg)) < 1.0)
+		temp = get_double(arg, precision);
+		exp = 0;
+		i = 0;
+		if (temp[i] == '-')
+			i++;
+		if (temp[i] == '0')
+			i++;
+		if (temp[i] == '.')
+			i++;
+		while (temp[i] == '0')
+			i++;
+		if (i > (val > 0) ? (2) : (3))
+			temp = get_double(arg, precision + i - ((val > 0) ? (2) : (3)));
+		while (exp < precision && temp[i] != '\0')
 		{
-			val = ((arg < 0) ? (arg * -1) : (arg));
-			while (val < 1.0)
-			{
-				val *= 10;
-				precision++;
-			}
-			temp = get_double(arg, precision);
+			if (temp[i] != '.')
+				exp++;
+			i++;
 		}
-		else
-		{
-			val = arg - get_fraction(arg);
-			val = (val < 0) ? (val * -1.0) : (val);
-			while (val >= 1.0 && precision > 0)
-			{
-				val /= 10.0;
-				precision--;
-			}
-			temp = get_double(arg, precision);
-		}
-		i = ft_strlen(temp) - 1;
-		if (precision != 0)
-		{
-			while (temp[i] == '0')
-				i--;
-			if (temp[i] == '.')
-				i--;
-		}
+		i--;
+		while (temp[i] == '0')
+			i--;
+		if (temp[i] == '.')
+			i--;
 		ret = ft_strsub(temp, 0,  i + 1);
 		ft_strdel(&temp);
 	}

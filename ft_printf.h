@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/29 09:25:19 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/29 18:59:59 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 # define _FT_PRINTF_H
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
+# define CH_ERROR(x) if((x) == 1) {mod->error = 1; return(1);}
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
 # define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
 # define LEAP_YEAR(y) ((y) % 4 == 0 && ((y) % 100 != 0 || (y) % 400 == 0))
 # define EPOCH(sec) (((sec) >= 0) ? (1) : (-1))
+# define IF_D_DD(x) if(x == 10 || x == 11 || x == 24 || x == 37 || x == 38 ||\
+x == 41 || x == 42 || x == 43 || x == 45 || x == 46 || x == 48 || x == 49 ||\
+x == 51)
 
 # include "ft_printf.h"
 # include "libft/libft.h"
@@ -30,21 +34,36 @@ typedef long time_t;
 typedef struct		s_print
 {
 	char			flag[6];
-	int				width;
-	int				precision;
 	int 			type;
 	int				num_arg;
+	int				width;
 	int				width_num_arg;
+	int				precision;
 	int				prec_num_arg;
+	int				error;
+	size_t			i;
+	struct	s_print	*next;
 }					t_print;
 
-int			g_output_symbols;
+int					g_output_symbols;
+t_print				*start_list;
+t_print				*mod;
 
 int			ft_printf(const char *fmt, ...);
-int			parser(const char *fmt, va_list ap, va_list start, size_t *i);
+int			check_fmt(const char *fmt);
+int			parser(va_list ap, va_list start, size_t *i);
 int 		number_of_argument(const char *fmt, size_t *i);
 int			check_flags(t_print *mod, const char *fmt, size_t *i);
 void		clean_flags(t_print *mod);
+t_print		*init_list(void);
+void		del_list(int fail);
+int			find_d_dd(void);
+void		va_arg_num(va_list start, int num_arg, void **p);
+void		va_arg_num_int(va_list start, int num_arg, int *value);
+void		va_arg_num_d(va_list start, int num_arg, double *var_d);
+void		va_arg_num_dd(va_list start, int num_arg, long double *var_dd);
+void		va_arg_width(va_list start, va_list ap);
+void		va_arg_precision(va_list start, va_list ap);
 get_output	get_function(t_print *mod);
 int 		print(t_print *mod, const void *arg, double var_d, long double var_dd);
 void		ft_putstr_full(const char *str);
