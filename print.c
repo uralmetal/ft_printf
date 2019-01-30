@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/30 09:31:33 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/30 10:31:05 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 	size_t len;
 
 	f = 0;
-	if ((len = ft_strlen(*output)) >= mod->width)
+	if ((len = ft_strlen(*output)) >= (size_t )mod->width)
 		return (0);
 	while (mod->flag[++i])
 		if (mod->flag[i] == '-')
@@ -60,14 +60,14 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 		if (mod->flag[i] == ' ' || mod->flag[i] == '+')
 		{
 			if (*output != ' ' && *output != '0' && *output != '-' &&
-			len < mod->width)
+			len < (size_t)mod->width)
 			{
 				ft_memmove(output + 1, output, len);
 				mod->flag[i] == '+' ? (output[0] = '+') : (output[0] = ' ');
 			}
-			if (len >= mod->width && *output != '-')
+			if (len >= (size_t )mod->width && *output != '-')
 				mod->flag[i] == ' ' ? ft_putchar(' ') : ft_putchar('+');
-			if (len < mod->width)
+			if (len < (size_t )mod->width)
 			{
 				j = 0;
 				while (output[j] != '\0' && (output[j] == '0' ||
@@ -96,7 +96,7 @@ static int make_width(char **output, t_print *mod)
 	int i;
 	char *new_output;
 
-	if (ft_strlen(*output) >= mod->width)
+	if (ft_strlen(*output) >= (size_t)mod->width)
 		return (0);
 	if ((new_output = ft_strnew((size_t )mod->width)) == NULL)
 		return (0);
@@ -130,7 +130,7 @@ static int make_precision(char **output, t_print *mod)
 	else
 	{
 		len = ft_strlen(*output);
-		if  (mod->precision < len)
+		if  ((size_t)mod->precision < len)
 			return (0);
 		if (ft_strchr(*output, '-') != NULL)
 			mod->precision += 1;
