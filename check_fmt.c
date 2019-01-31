@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/29 18:04:35 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 10:34:59 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 	*i = *i + ft_strlen(spc[j_spec]);
 	return (0);
 }
+
 int	check_fmt(const char *fmt)
 {
 	size_t i;

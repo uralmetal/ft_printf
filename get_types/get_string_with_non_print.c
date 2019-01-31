@@ -6,17 +6,17 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 09:17:33 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/30 10:21:29 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 17:19:51 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static char *add_char_non_print(char **str, unsigned char sym)
+static char	*add_char_non_print(char **str, unsigned char sym)
 {
-	char *ret;
-	char *code_sym;
-	int len;
+	char	*ret;
+	char	*code_sym;
+	int		len;
 
 	ret = ft_itoa(sym);
 	len = ft_strlen(ret);
@@ -33,30 +33,35 @@ static char *add_char_non_print(char **str, unsigned char sym)
 	return (ret);
 }
 
-
-char	*get_string_with_non_print(const void *arg)
+static char	*put_sym(char **ret, const char *s, int start, int len)
 {
-	const char **s = (const char**)arg;
-	int i;
-	char *ret;
 	char *sub;
 	char *temp;
-	int len;
-	int start;
 
-	i = 0;
+	sub = ft_strsub(s, start, len);
+	temp = ft_strjoin(*ret, sub);
+	ft_strdel(ret);
+	*ret = temp;
+	return (*ret);
+}
+
+char		*get_string_with_non_print(const void *arg)
+{
+	const char	**s = (const char**)arg;
+	int			i;
+	char		*ret;
+	int			len;
+	int			start;
+
+	P_NULL(*s);
+	i = -1;
 	len = 0;
 	ret = ft_strnew(1);
 	start = 0;
-	while ((*s)[i] != '\0')
+	while ((*s)[++i] != '\0')
 	{
 		if (((*s)[i] < ' ' || (*s)[i] > '~') && len != 0)
-		{
-			sub = ft_strsub(*s, start, len);
-			temp = ft_strjoin(ret, sub);
-			ft_strdel(&ret);
-			ret = temp;
-		}
+			ret = put_sym(&ret, *s, start, len);
 		if ((*s)[i] < ' ' || (*s)[i] > '~')
 		{
 			ret = add_char_non_print(&ret, (unsigned char)(*s)[i]);
@@ -65,11 +70,6 @@ char	*get_string_with_non_print(const void *arg)
 		}
 		else
 			len++;
-		i++;
 	}
-	sub = ft_strsub(*s, start, len);
-	temp = ft_strjoin(ret, sub);
-	ft_strdel(&ret);
-	ret = temp;
-	return (ret);
+	return (put_sym(&ret, *s, start, len));
 }

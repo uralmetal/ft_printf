@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 10:25:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/22 14:40:13 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/30 10:34:59 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static char	*get_year(time_t *sec, int *year)
 	return (ft_lltoa(*year));
 }
 
-static char *get_month(time_t *sec, int *year)
+static char	*get_month(time_t *sec, int *year)
 {
-	int month;
-	char *ret;
-	char *temp;
-	int sign;
+	int		month;
+	char	*ret;
+	char	*temp;
+	int		sign;
 
 	month = 0;
 	sign = EPOCH(*sec);
@@ -52,7 +52,7 @@ static char *get_month(time_t *sec, int *year)
 		else
 			*sec -= DAY_TO_SEC(g_mon_day[month++]) * EPOCH(*sec);
 	}
-	if (*sec  * sign >= DAY_TO_SEC(g_mon_day[month]))
+	if (*sec * sign >= DAY_TO_SEC(g_mon_day[month]))
 		*sec -= DAY_TO_SEC(g_mon_day[month++] * EPOCH(*sec));
 	month++;
 	ret = ft_lltoa(month);
@@ -65,11 +65,11 @@ static char *get_month(time_t *sec, int *year)
 	return (ret);
 }
 
-static char *get_day(time_t *sec)
+static char	*get_day(time_t *sec)
 {
-	long days;
-	char *ret;
-	char *temp;
+	long	days;
+	char	*ret;
+	char	*temp;
 
 	days = (*sec / DAY_TO_SEC(1) * EPOCH(*sec)) + 1;
 	ret = ft_lltoa(days);
@@ -82,14 +82,15 @@ static char *get_day(time_t *sec)
 	return (ret);
 }
 
-char	*get_date(const void *arg)
+char		*get_date(const void *arg)
 {
-	time_t sec = *((time_t*)arg);
-	int year;
-	char *ret;
-	char *join;
-	char *temp;
+	time_t	sec;
+	int		year;
+	char	*ret;
+	char	*join;
+	char	*temp;
 
+	sec = *((time_t*)arg);
 	temp = get_year(&sec, &year);
 	ret = ft_strdup("");
 	join = ft_strjoin(ret, temp);

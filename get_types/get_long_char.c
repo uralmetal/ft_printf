@@ -12,7 +12,7 @@
 
 #include "../ft_printf.h"
 
-char *get_long_char(const void *arg)
+char	*get_long_char(const void *arg)
 {
 	const int *wstr = arg;
 
