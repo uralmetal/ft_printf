@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   min_integer.c                                      :+:      :+:    :+:   */
+/*   ft_strnchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/21 13:59:38 by rwalder-          #+#    #+#             */
+/*   Created: 2019/01/30 15:46:15 by gleonett          #+#    #+#             */
 /*   Updated: 2019/01/31 10:52:00 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-char	*min_integer(size_t size)
+size_t ft_strnchr(const char *s, char c)
 {
-	if (size == 16)
-		return (ft_strdup("−170141183460469231731687303715884105728"));
-	if (size == 8)
-		return (ft_strdup("-9223372036854775808"));
-	if (size == 4)
-		return (ft_strdup("−2147483648"));
-	if (size == 2)
-		return (ft_strdup("−32768"));
-	if (size == 1)
-		return (ft_strdup("−127"));
-	return (NULL);
+	size_t i;
+	size_t n;
+
+	if (s == NULL)
+		return (0);
+	i = 0;
+	n = 0;
+	while (s[i])
+	{
+		if(s[i] == c)
+			n++;
+		i++;
+	}
+	return (n);
 }

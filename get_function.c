@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 17:18:25 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/30 10:34:59 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/31 10:54:32 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static const get_output g_get_function_array[] = {
 	/*18*/&get_short,
 	/*19*/NULL, //==   18
 	/*20*/&get_unsigned_short_oct,
-	/*21*/&get_unsigned_char,
+	/*21*/&get_unsigned_short,
 	/*22*/&get_unsigned_short_hex,
 	/*23*/&get_unsigned_short_hex_upper,
 	/*24*/&get_double,
@@ -68,9 +68,29 @@ static const get_output g_get_function_array[] = {
 	/*52*/&get_long_string,
 	/*53*/NULL,//==   52
 	/*54*/&get_long_char,
-	/*55*/NULL//==   54
-//	/*56*/&get_,
-//	/*57*/&get_,
+	/*55*/NULL,//==   54
+	/*56*/&get_double_hex,
+	/*57*/&get_double_hex,
+	/*58*/&get_long_double_hex,
+	/*59*/&get_double_hex_upper,
+	/*60*/&get_double_hex_upper,
+	/*61*/&get_long_double_hex_upper,
+	/*62*/NULL,
+	/*63*/NULL,
+	/*64*/NULL,
+	/*65*/NULL,
+	/*66*/NULL,
+	/*67*/NULL,
+	/*68*/NULL,
+	/*69*/NULL,
+	/*70*/NULL,
+	/*71*/&get_unsigned_int_bin,
+	/*72*/&get_unsigned_short_bin,
+	/*73*/&get_unsigned_char_bin,
+	/*74*/&get_unsigned_long_bin,
+	/*75*/&get_unsigned_long_long_bin,
+	/*76*/&get_date,
+	/*77*/&get_string_with_non_print
 	};
 
 get_output	get_function(t_print *mod)

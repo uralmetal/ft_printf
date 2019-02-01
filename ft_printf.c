@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/30 10:34:59 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/30 16:07:54 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	ft_printf(const char *fmt, ...)
 			j = i;
 			mod = mod->next;
 		}
-		i++;
+		else
+			i++;
 	}
 	ft_putstr_full(fmt + j);
 	va_end(start);

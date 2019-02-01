@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 13:39:46 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/29 18:04:35 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/31 10:52:00 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	del_list(int fail)
 	while (start_list != NULL)
 	{
 		cursor = start_list->next;
-		ft_memdel((void **)&start_list);
+		ft_memdel((void **)(&start_list));
 		start_list = cursor;
 	}
 	if (fail == -1)

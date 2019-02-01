@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/30 10:34:59 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/01 09:39:08 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,18 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			/*67*/"zi",
 			/*68*/"ju",
 			/*69*/"ji",
-			/*71*/""};
+			/*70*/"jx",
+			/*71*/"b",
+			/*72*/"hb",
+			/*73*/"hhb",
+			/*74*/"lb",
+			/*75*/"llb",
+			/*76*/"k",
+			/*77*/"r",
+			/*78*/"jd",
+			/*79*/"zd",
+			/*80*/"hU",
+			/*78*/""};
 	int j;
 	int size;
 	int j_spec;
@@ -189,16 +200,21 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 		mod->type = 27;
 	else if (j_spec == 65)
 		mod->type = 28;
-	else if (j_spec == 66 || j_spec == 68)
+	else if (j_spec == 66 || j_spec == 68 || j_spec == 80)
 		mod->type = 34;
 	else if (j_spec == 67 || j_spec == 69)
-		mod->type = 32;
+		mod->type = 31;
+	else if (j_spec == 70)
+		mod->type = 35;
+	else if (j_spec == 78)
+		mod->type = 31;
+	else if (j_spec == 79)
+		mod->type = 31;
 	else
 		mod->type = j_spec;
 	*i = *i + ft_strlen(spc[j_spec]);
 	return (0);
 }
-
 int	check_fmt(const char *fmt)
 {
 	size_t i;
@@ -222,7 +238,8 @@ int	check_fmt(const char *fmt)
 			mod->next = init_list();
 			mod = mod->next;
 		}
-		i++;
+		else
+			i++;
 	}
 	mod = start_list;
 	return (0);

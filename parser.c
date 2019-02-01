@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/30 15:16:02 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/01/30 15:15:22 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int parser(va_list ap, va_list start, size_t *i)
 	va_arg_width(start, ap);
 	va_arg_precision(start, ap);
 	if (mod->type == 10 || mod->type == 24 || mod->type == 37 ||
-		mod->type == 38 || mod->type == 46 || mod->type == 49 ||
-		mod->type == 43)
+		mod->type == 38 || mod->type == 43 || mod->type == 46 ||
+		mod->type == 49)
 	{
 		if (mod->num_arg == 0)
 			var_d = va_arg(ap, double);
