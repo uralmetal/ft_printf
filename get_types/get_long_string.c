@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:40:02 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/01 15:11:32 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:19:50 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ char	*get_long_string(const void *arg, int precision)
 		return (ft_strdup("(null)"));
 	i = 0;
 	ret = ft_strdup("");
-	while ((*wstr)[i] != 0)
+	while ((*wstr)[i] != 0 && precision != 0)
 	{
-		if (precision != -1 && i == precision)
-			break ;
 		temp = wchar_to_str((*wstr)[i++]);
 		join = ft_strjoin(ret, temp);
 		ft_strdel(&temp);
 		ft_strdel(&ret);
 		ret = join;
+		if (precision != -1 && ft_strlen(ret) >= (precision - 1))
+			break ;
 	}
 	return (ret);
 }
