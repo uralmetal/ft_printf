@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/01 15:11:31 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 16:46:24 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,21 @@ static int check_width(t_print *mod, const char *fmt, size_t *i)
 		while (fmt[*i] >= '0' && fmt[*i] <= '9')
 			*i += 1;
 	}
-	else if (fmt[*i] == '*')
+	else
+		mod->width = 0;
+	if (fmt[*i] == '*')
 	{
 		*i += 1;
 		mod->width_num_arg = number_of_argument(fmt, i);
+		j++;
 	}
-	else
+	if (fmt[*i] > '0' && fmt[*i] <= '9')
+	{
+		mod->width = ft_atoi(fmt + *i);
+		while (fmt[*i] >= '0' && fmt[*i] <= '9')
+			*i += 1;
+	}
+	else if (j > 0)
 		mod->width = 0;
 	return (0);
 }

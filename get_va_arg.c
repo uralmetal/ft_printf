@@ -102,14 +102,16 @@ void	va_arg_width(va_list start, va_list ap)
 	t_print *cursor;
 	va_list dest;
 	int j;
+	int buf;
 
 	j = 0;
+	buf = 0;
 	va_copy(dest, start);
 	cursor = start_list;
+	if (mod->width > 0);
+		buf = mod->width;
 	if (mod->width_num_arg == 0)
-	{
 		mod->width = va_arg(ap, int);
-	}
 	if(mod->width_num_arg != 0 && mod->width_num_arg != -1)
 	{
 		if (find_d_dd() == 0)
@@ -117,8 +119,7 @@ void	va_arg_width(va_list start, va_list ap)
 		else
 			while (++j != mod->width_num_arg)
 			{
-				IF_D_DD(cursor->type)
-					(void)va_arg(dest, long double);
+				IF_D_DD(cursor->type) (void) va_arg(dest, long double);
 				else
 					(void) va_arg(dest, void *);
 				cursor = cursor->next;
@@ -131,5 +132,7 @@ void	va_arg_width(va_list start, va_list ap)
 		mod->flag[j] = '-';
 		mod->width <= -2147483648 ? (mod->width = 0) : (mod->width *= -1);
 	}
+	if (buf > 0)
+		mod->width = buf;
 	va_end(dest);
 }

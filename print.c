@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/01 15:30:25 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 17:03:47 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 		}
 		else if (mod->flag[i] == '0')
 		{
-			if ((mod->precision == -1 || mod->precision == 0) &&
+			if ((mod->precision <= 0) &&
 			(mod->type == 3 || mod->type == 0 || mod->type != 54 ||
 			(mod->type >= 4 && mod->type <= 9) ||
 			(mod->type >= 12 && mod->type <= 23) ||
@@ -181,7 +181,7 @@ static int make_precision(char **output, t_print *mod)
 			}
 		if  ((size_t)mod->precision < len)
 		{
-			if (mod->type == 2 && mod->precision == 0)
+			if ((mod->type == 2) && mod->precision == 0)
 			{
 				ft_putstr_full("0x");
 				ft_bzero(*output, len);
@@ -193,7 +193,17 @@ static int make_precision(char **output, t_print *mod)
 		if ((new_output = ft_strnew((size_t)mod->precision)) == 0)
 			return (0);
 		ft_memset(new_output, '0', (size_t)mod->precision);
-		if (mod->type == 2)
+		if ((mod->type == 8 || mod->type == 16 || mod->type == 22 ||
+		mod->type == 29 || mod->type == 35) && **output != '0')
+		{
+			if (!(ft_strchr(mod->flag, '#') == NULL && mod->precision > 1))
+			{
+				*ft_strchr(mod->flag, '#') = '\0';
+				ft_putstr_full("0x");
+			}
+			ft_strcpy(new_output + (mod->precision - len), *output);
+		}
+		else if (mod->type == 2)
 		{
 			ft_putstr_full("0x");
 			ft_strcpy(new_output + (mod->precision - len + 2), *output + 2);
@@ -366,11 +376,14 @@ static int add_flags(char **output, t_print *mod)
 	if (ft_strchr(mod->flag, '#') != NULL)
 		make_octotorp(output, mod);
 	else if (mod->type != 0 && mod->type != 1 && mod->type != 4 &&
-	mod->type != 52 && mod->type != 54)
+	mod->type != 52 && mod->type != 54 && mod->type >= 3 && mod->type != 4 && mod->type != 6 && mod->type != 8 &&
+				mod->type != 9 && mod->type != 14 && mod->type != 16 && mod->type != 17 &&
+				mod->type != 20 && mod->type != 22 && mod->type != 23 && mod->type != 27 &&
+				mod->type != 29 && mod->type != 30 && mod->type != 33 && mod->type != 35 &&
+				mod->type != 36 && mod->type <= 52)
 		flags_space_plus(*output, mod, ft_strlen(*output));
 	return (1);
 }
-
 void	put_thousands_sep(char *output)
 {
 	int i;
