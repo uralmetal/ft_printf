@@ -6,30 +6,79 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 13:55:03 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/31 10:52:00 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 13:19:36 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-static char	*add_mantissa(double arg, char **ret, int sign)
+static void		ft_round_hex(long *temp, int precision)
+{
+	int			i;
+	long		round;
+	long double	d_temp;
+
+	if (precision > 0 && precision < 13)
+	{
+		i = -1;
+		round = 16 * 16;
+		d_temp = *temp;
+		while (++i < precision - 1)
+			round *= 16;
+		while (d_temp > round)
+			d_temp /= 16;
+		d_temp = (d_temp + 7.5) / 16;
+		*temp = d_temp;
+	}
+	if (precision == 0)
+	{
+		while (*temp > 16)
+			*temp /= 16;
+		if (*temp >= 8)
+			*temp = 1;
+		else
+			*temp = 0;
+	}
+}
+
+static void	put_null(char *temp_s, int precision)
+{
+	int i;
+
+	if (precision > 13)
+	{
+		i = -1;
+		while (++i < 13)
+			temp_s[i] = temp_s[i + precision - 13];
+		while (temp_s[i] != 0)
+			temp_s[i++] = '0';
+	}
+}
+
+static char	*add_mantissa(double arg, char **ret, int sign, int precision)
 {
 	char	*temp_s;
 	long	temp;
 	char	*join;
 
-	if (sign != 0)
-		*ret = ft_strdup("-0x1.");
-	else
-		*ret = ft_strdup("0x1.");
 	temp = get_mantissa(arg);
-	temp_s = ft_strnew(13);
-	symtohex(temp, temp_s, 13);
+	ft_round_hex(&temp, precision);
+	*ret = ft_strdup((sign != 0) ? ("-0x1.") : ("0x1."));
+	if (precision == 0)
+	{
+		(*ret)[(arg < 0) ? 3 : 2] += temp;
+		(*ret)[(arg < 0) ? 4 : 3] = 0;
+		return (*ret);
+	}
+	temp_s = ft_strnew((precision == -1) ? (13) : precision);
+	symtohex(temp, temp_s, (precision == -1) ? (13) : precision);
+	put_null(temp_s, precision);
 	join = ft_strjoin(*ret, temp_s);
 	ft_strdel(ret);
 	ft_strdel(&temp_s);
 	*ret = join;
-	*ret = string_cut(ret);
+	if (precision == -1)
+		*ret = string_cut(ret);
 	return (*ret);
 }
 
@@ -62,7 +111,6 @@ char		*get_double_hex(double arg, int precision)
 	if ((ret = get_const_double(arg)) != NULL)
 		return (ret);
 	sign = sign_double(arg);
-	precision = precision + 1;
 	if (arg == 0.0)
 	{
 		if (sign != 0)
@@ -70,7 +118,7 @@ char		*get_double_hex(double arg, int precision)
 		else
 			return (ft_strdup("0x0p+0"));
 	}
-	ret = add_mantissa(arg, &ret, sign);
+	ret = add_mantissa(arg, &ret, sign, precision);
 	ret = add_exponent(arg, &ret);
 	return (ret);
 }

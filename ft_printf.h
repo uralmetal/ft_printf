@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/31 16:56:32 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 13:21:08 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char			*get_pointer(const void *arg);
 char			*get_string(const void *arg);
 char			*get_string_with_non_print(const void *arg);
 char 			*get_long_char(const void *arg);
-char 			*get_long_string(const void *arg);
+char			*get_long_string(const void *arg, int precision);
 char			*get_date(const void *arg);
 char			*get_double(double arg, unsigned int precision);
 char			*get_long_double(long double a, unsigned int precision);
@@ -123,7 +123,7 @@ char			*get_double_g_upper(double arg, unsigned int precision);
 char			*get_long_double_upper(long double arg, unsigned int precision);
 char			*get_long_double_exp_upper(long double arg, unsigned int precision);
 char			*get_long_double_g_upper(long double arg, unsigned int precision);
-char			*get_double_hex_upper(double arg);
+char			*get_double_hex_upper(double arg, int precision);
 char			*get_long_double_hex(long double arg);
 char			*get_long_double_hex_upper(long double arg);
 char			*get_signed_char(const void *arg);
