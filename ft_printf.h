@@ -14,7 +14,7 @@
 # define _FT_PRINTF_H
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
-# define CH_ERROR(x) if((x) == 1) {mod->error = 1; mod->i = i - 1; return(1);}
+# define CH_ERROR(x) if((x) == 1) {mod->error = 1; mod->i = i - j; return(1);}
 # define P_NULL(x) if((x) == NULL) return (ft_strdup("(null)"));
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
 # define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
@@ -52,7 +52,7 @@ t_print				*mod;
 
 int				ft_printf(const char *fmt, ...);
 int				check_fmt(const char *fmt);
-int 			parser(va_list ap, va_list start, size_t *i);
+int 			parser(va_list ap, va_list start, size_t i);
 int 			number_of_argument(const char *fmt, size_t *i);
 int				check_flags(t_print *mod, const char *fmt, size_t *i);
 void			clean_flags(t_print *mod);

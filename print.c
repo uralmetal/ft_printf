@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/31 18:31:09 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:30:25 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,17 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 		}
 		else if (mod->flag[i] == '0')
 		{
-			if (mod->precision == -1 &&
+			if ((mod->precision == -1 || mod->precision == 0) &&
 			(mod->type == 3 || mod->type == 0 || mod->type != 54 ||
 			(mod->type >= 4 && mod->type <= 9) ||
 			(mod->type >= 12 && mod->type <= 23) ||
 			(mod->type >= 25 && mod->type <= 36)))
 			{
 				ft_memset(new_output, '0', (size_t) mod->width);
-				ft_memcpy(&(new_output[mod->width - len]), *output, len);
+				if(mod->type == 2)
+					ft_memcpy(new_output, *output, len);
+				else
+					ft_memcpy(&(new_output[mod->width - len]), *output, len);
 				f++;
 			}
 		}
@@ -71,8 +74,10 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 				mod->flag[i] == '+' ? (output[0] = '+') : (output[0] = ' ');
 			}
 			if ((len > (size_t)mod->width && *output != '-') &&
-			(mod->type != 7 && mod->type != 15 && mod->type != 21
-			&& mod->type != 28 && mod->type != 34))
+			(mod->type != 6 && mod->type != 7 && mod->type != 14 &&
+			mod->type != 15 && mod->type != 20 && mod->type != 21 &&
+			mod->type != 27 && mod->type != 28 && mod->type != 33 &&
+			mod->type != 34))
 				mod->flag[i] == ' ' ? ft_putstr_full(" ") : ft_putstr_full("+");
 			if (len < (size_t) mod->width)
 			{
@@ -103,7 +108,8 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 						mod->flag[i] == '+' ? (*output = '+') : (*output = ' ');
 					}
 					else
-						if (*output == '0' && ft_strnchr(output, '0') != 1)
+						if (*output == '0' && ft_strnchr(output, '0') > 0
+						&& ft_strchr(mod->flag, '0') != NULL)
 							mod->flag[i] == '+' ?
 							(*output = '+') : (*output = ' ');
 						else if (*output == ' ')
@@ -133,10 +139,10 @@ static int make_width(char **output, t_print *mod)
 	i = -1;
 	flags_width(mod, new_output, output, i);
 	if (mod->type >= 3 && mod->type != 4 && mod->type != 6 && mod->type != 8 &&
-			mod->type != 9 && mod->type != 14 && mod->type != 16 && mod->type != 17 &&
-			mod->type != 20 && mod->type != 22 && mod->type != 23 && mod->type != 27 &&
-			mod->type != 29 && mod->type != 30 && mod->type != 33 && mod->type != 35 &&
-			mod->type != 36 && mod->type <= 52)
+	mod->type != 9 && mod->type != 14 && mod->type != 16 && mod->type != 17 &&
+	mod->type != 20 && mod->type != 22 && mod->type != 23 && mod->type != 27 &&
+	mod->type != 29 && mod->type != 30 && mod->type != 33 && mod->type != 35 &&
+	mod->type != 36 && mod->type <= 52)
 		flags_space_plus(new_output, mod, ft_strlen(*output));
 	ft_strdel(output);
 	*output = new_output;
@@ -174,13 +180,26 @@ static int make_precision(char **output, t_print *mod)
 					ft_strchr(*output, '0')[0] = ' ';
 			}
 		if  ((size_t)mod->precision < len)
+		{
+			if (mod->type == 2 && mod->precision == 0)
+			{
+				ft_putstr_full("0x");
+				ft_bzero(*output, len);
+			}
 			return (0);
+		}
 		if (ft_strchr(*output, '-') != NULL)
 			mod->precision += 1;
 		if ((new_output = ft_strnew((size_t)mod->precision)) == 0)
 			return (0);
 		ft_memset(new_output, '0', (size_t)mod->precision);
-		ft_strcpy(new_output + (mod->precision - len), *output);
+		if (mod->type == 2)
+		{
+			ft_putstr_full("0x");
+			ft_strcpy(new_output + (mod->precision - len + 2), *output + 2);
+		}
+		else
+			ft_strcpy(new_output + (mod->precision - len), *output);
 		if ((minus = ft_strchr(new_output, '-')) != NULL)
 		{
 			*minus = '0';
@@ -271,7 +290,9 @@ static int	make_octotorp(char **output, t_print *mod)
 				{
 					ft_memmove(*output + 2, *output, len - 2);
 					new_output[0] = '0';
-					if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36
+					if (type == 9 || type == 17 || type == 23 || type == 30 ||
+					type
+					== 36
 							|| (type >= 59 && type <= 61))
 						new_output[1] = 'X';
 					else
@@ -335,8 +356,8 @@ static int add_flags(char **output, t_print *mod)
 //			break ;
 //	if (i == (sizeof(flgs) / sizeof(flgs[0])))
 //		return (0);
-	if (mod->type != 2 && mod->type != 4 && mod->type != 10 &&
-		mod->type != 11 && mod->type != 24 &&
+	if (mod->type != 4 && mod->type != 10 &&
+		mod->type != 11 && mod->type != 24 && mod->type != 52 &&
 		!(mod->type >= 37 && mod->type <= 42) &&
 		!(mod->type >= 55 && mod->type <= 61))
 		make_precision(output, mod);
@@ -344,7 +365,8 @@ static int add_flags(char **output, t_print *mod)
 		make_width(output, mod);
 	if (ft_strchr(mod->flag, '#') != NULL)
 		make_octotorp(output, mod);
-	else if (mod->type != 4)
+	else if (mod->type != 0 && mod->type != 1 && mod->type != 4 &&
+	mod->type != 52 && mod->type != 54)
 		flags_space_plus(*output, mod, ft_strlen(*output));
 	return (1);
 }
@@ -388,20 +410,30 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
 	}
-	if (mod->type == 10 || mod->type == 11 ||mod->type == 24 || mod->type == 37
-	|| mod->type == 38 || mod->type == 39 || mod->type == 40 || mod->type == 41
-	|| mod->type == 42 || mod->type == 43 || mod->type == 45 || mod->type == 46
-	|| mod->type == 48 || mod->type == 49 || mod->type == 51)
+	if (mod->error == 2)
+	{
+		output = ft_strnew(1);
+		*output = (char)mod->precision;
+	}
+	else if (mod->type == 10 || mod->type == 11 ||mod->type == 24 ||
+	mod->type == 37 || mod->type == 38 || mod->type == 39 || mod->type == 40 ||
+	mod->type == 41 || mod->type == 42 || mod->type == 43 || mod->type == 45 ||
+	mod->type == 46 || mod->type == 48 || mod->type == 49 || mod->type == 51 ||
+	mod->type == 52)
 		if (mod->precision == -1)
 			if (var_d != 0)
 				output = function_get(var_d, 6);
-			else
+			else if (var_dd != 0)
 				output = function_get(var_dd, 6);
+			else
+				output = function_get(arg, -1);
 		else
 			if (var_d != 0)
 				output = function_get(var_d, mod->precision);
-			else
+			else if (var_dd != 0)
 				output = function_get(var_dd, mod->precision);
+			else
+				output = function_get(arg, mod->precision);
 	else
 		output = function_get(arg);
 	if (add_flags(&output, mod) == 0)
@@ -415,14 +447,23 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 	mod->type == 28 || mod->type == 31 || mod->type == 34 || mod->type == 38 ||
 	mod->type == 40 || (mod->type >= 42 && mod->type <= 48)))
 		put_thousands_sep(output);
-	else if ((mod->type == 0 || mod->type == 54) /*&& (ft_strlen(output) == 0 ||
-	ft_strlen(output) == 1)*/)
+	else if (mod->type == 0 && mod->error != 2)
 	{
+		if (mod->width > 1 && output[1] == '0')
+			output[mod->width - 1] = *(char *)arg;
+		else if (mod->width > 1 && ft_strchr(mod->flag, '-'))
+			*output = *(char *)arg;
+		else if (mod->width > 1 && ft_strchr(mod->flag, '-') == NULL)
+			output[mod->width - 1] = *(char *)arg;
 		if (mod->width == 0 || mod->width == -1)
 			mod->width = 1;
 		ft_putnstr_full(output, (size_t)mod->width);
-//		g_output_symbols++;
 	}
+	else if (mod->type == 54)
+		if (*output != '\0')
+			ft_putstr_full(output);
+		else
+			ft_putnstr_full(output, 1);
 	else
 		ft_putstr_full(output);
 	ft_strdel(&output);

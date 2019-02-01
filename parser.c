@@ -6,13 +6,13 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/30 15:15:22 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/01 15:11:31 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int parser(va_list ap, va_list start, size_t *i)
+int parser(va_list ap, va_list start, size_t i)
 {
 	void *p;
 	int *spec_n;
@@ -20,7 +20,6 @@ int parser(va_list ap, va_list start, size_t *i)
 	long double var_dd;
 
 
-	*i += 1;
 	p = NULL;
 	var_d = 0;
 	var_dd = 0;
