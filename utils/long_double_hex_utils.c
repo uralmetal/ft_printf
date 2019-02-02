@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_long_string.c                                  :+:      :+:    :+:   */
+/*   long_double_hex_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/25 18:40:02 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/01 21:21:29 by rwalder-         ###   ########.fr       */
+/*   Created: 2019/02/02 14:46:30 by rwalder-          #+#    #+#             */
+/*   Updated: 2019/02/02 14:46:30 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-char	*get_long_string(const void *arg, int precision)
+char	*add_comma(char **mantissa)
 {
-	int			i;
-	const int	**wstr = (const int **)arg;
-	char		*ret;
-	char		*join;
-	char		*temp;
+	int		len;
+	char	*ret;
+	int		i;
+	int		j;
 
-	if (*wstr == NULL)
-		return (ft_strdup("(null)"));
+	len = ft_strlen(*mantissa);
+	ret = ft_strnew(len + 1);
 	i = 0;
-	ret = ft_strdup("");
-	while ((*wstr)[i] != 0 && precision != 0)
+	j = 0;
+	while (i < len)
 	{
-		temp = wchar_to_str((*wstr)[i++]);
-		join = ft_strjoin(ret, temp);
-		ft_strdel(&temp);
-		ft_strdel(&ret);
-		ret = join;
-		if (precision != -1 && ((int)ft_strlen(ret) >= (precision - 1)))
-			break ;
+		if (j == 1)
+		{
+			ret[j] = '.';
+			j++;
+			continue ;
+		}
+		ret[j] = (*mantissa)[i];
+		j++;
+		i++;
 	}
+	ft_strdel(mantissa);
 	return (ret);
 }

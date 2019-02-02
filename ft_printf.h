@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/01 13:21:08 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/02 14:47:30 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ long 			get_exponent(double val);
 unsigned long	get_long_mantissa(long double val);
 short			get_long_exponent(long double val);
 char			*string_cut(char **val);
+char			*add_comma(char **mantissa);
 
 char			*get_char(const void *arg);
 char			*get_percent(const void *);
@@ -124,8 +125,8 @@ char			*get_long_double_upper(long double arg, unsigned int precision);
 char			*get_long_double_exp_upper(long double arg, unsigned int precision);
 char			*get_long_double_g_upper(long double arg, unsigned int precision);
 char			*get_double_hex_upper(double arg, int precision);
-char			*get_long_double_hex(long double arg);
-char			*get_long_double_hex_upper(long double arg);
+char			*get_long_double_hex(long double arg, int precision);
+char			*get_long_double_hex_upper(long double arg, int precision);
 char			*get_signed_char(const void *arg);
 char			*get_short(const void *arg);
 char			*get_int(const void *arg);
