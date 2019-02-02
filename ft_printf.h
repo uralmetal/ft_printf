@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/02 14:47:30 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/02 14:57:19 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ unsigned long	get_long_mantissa(long double val);
 short			get_long_exponent(long double val);
 char			*string_cut(char **val);
 char			*add_comma(char **mantissa);
+char			*check_multiflag(char *flag, int size, char type);
 
 char			*get_char(const void *arg);
 char			*get_percent(const void *);
