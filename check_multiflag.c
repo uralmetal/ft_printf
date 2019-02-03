@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 17:01:22 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/02 20:36:30 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:07:46 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ static int compare(char sym1_1, char sym1_2, char sym2_1, char sym2_2)
 	return (0);
 }
 
-static char	*check_multiflag_int(char *flag, int size, char mass[][3])
+static char	*check_multiflag_int(char *flag, int size, char mass[][3], int len)
 {
 	char		*ret;
 	int			i;
 	int			j;
-	const int	len1 = sizeof(mass) / sizeof(mass[0]);
 	int 		index;
 
 	ret = ft_strdup("");
@@ -58,17 +57,19 @@ static char	*check_multiflag_int(char *flag, int size, char mass[][3])
 	while (i < size)
 	{
 		j = 0;
-		while (j < len1)
+		while (j < len)
 		{
 			if (compare(mass[j][0], mass[j][1], flag[i], ((i + 1)
 			<size) ? (flag[i + 1]) : (0)) == 1)
 			{
 				if (j > index)
-					index = j;
-				if (j == 0 || j == 5)
 				{
-					i++;
-					break;
+					index = j;
+					if (j == 0 || j == 5)
+					{
+						i++;
+						break;
+					}
 				}
 			}
 			j++;
@@ -90,23 +91,27 @@ static const char *g_type_float = "egfaEGFA";
 char	*check_multiflag(char *flag, int size, char type)
 {
 	char *ret;
+	int len;
 
 	ret = ft_strdup("");
 	if (ft_strchr(g_type_int, type) != NULL)
 	{
 		ft_strdel(&ret);
-		ret = check_multiflag_int(flag, size, g_int_flags);
+		len = sizeof(g_int_flags) / sizeof(g_int_flags[0]);
+		ret = check_multiflag_int(flag, size, g_int_flags, len);
 	}
 	else if (ft_strchr(g_type_char, type) != NULL)
 	{
 		ft_strdel(&ret);
-		ret = check_multiflag_int(flag, size, g_char_flags);
+		len = sizeof(g_char_flags) / sizeof(g_char_flags[0]);
+		ret = check_multiflag_int(flag, size, g_char_flags, len);
 	}
 
 	else if (ft_strchr(g_type_float, type) != NULL)
 	{
 		ft_strdel(&ret);
-		ret = check_multiflag_int(flag, size, g_float_flags);
+		len = sizeof(g_float_flags) / sizeof(g_float_flags[0]);
+		ret = check_multiflag_int(flag, size, g_float_flags, len);
 	}
 	return (ret);
 }
