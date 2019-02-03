@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 17:38:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/01 16:35:00 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:10:47 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_printf(const char *fmt, ...)
 	CH_NULL(start_list = init_list());
 	mod = start_list;
 	check_fmt(fmt);
-	mod = start_list;
+//	mod = start_list;
 	g_output_symbols = 0;
 	va_start(ap, fmt);
 	va_copy(start, ap);

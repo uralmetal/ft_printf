@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 18:33:13 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/29 18:04:35 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:10:47 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,9 @@ void	va_arg_width(va_list start, va_list ap)
 	int buf;
 
 	j = 0;
-	buf = 0;
 	va_copy(dest, start);
 	cursor = start_list;
-	if (mod->width > 0);
-		buf = mod->width;
+	buf = mod->width;
 	if (mod->width_num_arg == 0)
 		mod->width = va_arg(ap, int);
 	if(mod->width_num_arg != 0 && mod->width_num_arg != -1)

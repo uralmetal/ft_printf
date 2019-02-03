@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/02 14:57:19 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:19:55 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define _FT_PRINTF_H
 
 # define CH_NULL(x) if((x) == NULL) exit(-1)
-# define CH_ERROR(x) if((x) == 1) {mod->error = 1; mod->i = i - j; return(1);}
+# define CH_ERROR(x) if((x) == 1) mod->error = 1;
 # define P_NULL(x) if((x) == NULL) return (ft_strdup("(null)"));
 # define MIN(x) (1LL << (sizeof(x) * 8 - 1))
 # define DAY_TO_SEC(days) ((days) * 60 * 60 * 24)
@@ -28,7 +28,7 @@ x == 51)
 # include "libft/libft.h"
 # include <stdarg.h>
 #include <stdio.h>
-
+#include <limits.h>
 typedef char *(*get_output)();
 typedef long time_t;
 
@@ -55,6 +55,7 @@ int				check_fmt(const char *fmt);
 int 			parser(va_list ap, va_list start, size_t i);
 int 			number_of_argument(const char *fmt, size_t *i);
 int				check_flags(t_print *mod, const char *fmt, size_t *i);
+char 			*check_type(const char *fmt, char *ret, size_t *i);
 void			clean_flags(t_print *mod);
 t_print			*init_list(void);
 void			del_list(int fail);
@@ -68,6 +69,8 @@ void			va_arg_precision(va_list start, va_list ap);
 get_output		get_function(t_print *mod);
 int 			print(t_print *mod, const void *arg, double var_d, long double var_dd);
 size_t			ft_strnchr(const char *s, char c);
+int				ft_nstrncmp(const char *s1, const char *s2, size_t n, int
+*flag);
 void			ft_putstr_full(const char *str);
 void			ft_putnstr_full(const char *str, size_t n);
 char 			*min_integer(size_t size);
@@ -102,7 +105,7 @@ unsigned long	get_long_mantissa(long double val);
 short			get_long_exponent(long double val);
 char			*string_cut(char **val);
 char			*add_comma(char **mantissa);
-char			*check_multiflag(char *flag, int size, char type);
+void			check_multiflag(char *ret, char *flag, int size, char type);
 
 char			*get_char(const void *arg);
 char			*get_percent(const void *);

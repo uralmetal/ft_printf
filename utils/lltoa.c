@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 13:04:12 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/01/31 10:52:00 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/03 15:59:14 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char			*ft_lltoa(long long n)
 	long long	num;
 
 	len = ft_intlen(n);
-	CH_NULL(ret = (char*)malloc(sizeof(char) * (len + 1)));
+	CH_NULL(ret = ft_strnew(len + 2));
 	if (n == MIN(n))
 		return (min_integer(sizeof(n)));
 	ret[len--] = '\0';

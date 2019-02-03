@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 17:01:22 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/03 13:07:46 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/03 16:20:02 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static char g_int_flags[][3] = {
 };
 
 static char g_char_flags[][3] = {
+	"hh",
+	"h",
 	"l",
+	"ll",
 };
 
 static char g_float_flags[][3] = {
@@ -44,14 +47,13 @@ static int compare(char sym1_1, char sym1_2, char sym2_1, char sym2_2)
 	return (0);
 }
 
-static char	*check_multiflag_int(char *flag, int size, char mass[][3], int len)
+static char	*check_multiflag_int(char *ret, char *flag, int size, char
+mass[][3], int len)
 {
-	char		*ret;
 	int			i;
 	int			j;
 	int 		index;
 
-	ret = ft_strdup("");
 	i = 0;
 	index = -1;
 	while (i < size)
@@ -77,41 +79,32 @@ static char	*check_multiflag_int(char *flag, int size, char mass[][3], int len)
 		i++;
 	}
 	if (index != -1)
-	{
-		ft_strdel(&ret);
-		ret = ft_strdup(mass[index]);
-	}
+		ft_strcpy(ret, mass[index]);
 	return (ret);
 }
-//"cspi%douxXfegGFSCaAnDOUbkr"
+
 static const char *g_type_int = "idouxXDOUb";
 static const char *g_type_char = "csSCp";
 static const char *g_type_float = "egfaEGFA";
 
-char	*check_multiflag(char *flag, int size, char type)
+void	check_multiflag(char *ret, char *flag, int size, char type)
 {
-	char *ret;
 	int len;
 
-	ret = ft_strdup("");
 	if (ft_strchr(g_type_int, type) != NULL)
 	{
-		ft_strdel(&ret);
 		len = sizeof(g_int_flags) / sizeof(g_int_flags[0]);
-		ret = check_multiflag_int(flag, size, g_int_flags, len);
+		check_multiflag_int(ret, flag, size, g_int_flags, len);
 	}
 	else if (ft_strchr(g_type_char, type) != NULL)
 	{
-		ft_strdel(&ret);
 		len = sizeof(g_char_flags) / sizeof(g_char_flags[0]);
-		ret = check_multiflag_int(flag, size, g_char_flags, len);
+		check_multiflag_int(ret, flag, size, g_char_flags, len);
 	}
 
 	else if (ft_strchr(g_type_float, type) != NULL)
 	{
-		ft_strdel(&ret);
 		len = sizeof(g_float_flags) / sizeof(g_float_flags[0]);
-		ret = check_multiflag_int(flag, size, g_float_flags, len);
+		check_multiflag_int(ret, flag, size, g_float_flags, len);
 	}
-	return (ret);
 }

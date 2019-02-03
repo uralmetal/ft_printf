@@ -23,7 +23,7 @@ int parser(va_list ap, va_list start, size_t i)
 	p = NULL;
 	var_d = 0;
 	var_dd = 0;
-
+	i = 0;
 	if (mod->error == 1)
 		return (1);
 	if (mod->type == 4)

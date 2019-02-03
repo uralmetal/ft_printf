@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/01 17:03:47 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:28:46 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 			{
 				ft_memset(new_output, '0', (size_t) mod->width);
 				if(mod->type == 2)
-					ft_memcpy(new_output, *output, len);
+				{
+					ft_strncpy(new_output, *output, 2);
+					ft_strcpy(new_output + mod->width - len + 2, *output + 2);
+				}
 				else
 					ft_memcpy(&(new_output[mod->width - len]), *output, len);
 				f++;
@@ -47,6 +50,8 @@ static int flags_width(t_print *mod, char *new_output, char **output, int i)
 		}
 	if (f == 0)
 	{
+		if(mod->type == 2)
+			ft_memcpy(new_output, *output, len);
 		ft_memset(new_output, ' ', (size_t)mod->width);
 		if (mod->type == 0 || mod->type == 54)
 			len = 1;
@@ -112,7 +117,8 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 						&& ft_strchr(mod->flag, '0') != NULL)
 							mod->flag[i] == '+' ?
 							(*output = '+') : (*output = ' ');
-						else if (*output == ' ')
+						else if (*output == ' ' &&
+						ft_strchr(output, '-') == NULL)
 						{
 							j = 0;
 							while (output[j] == ' ')
@@ -124,7 +130,6 @@ static void flags_space_plus(char *output, t_print *mod, size_t len)
 
 			break ;
 		}
-// 7, 15, 21, 28, 34,
 }
 
 static int make_width(char **output, t_print *mod)
@@ -172,7 +177,8 @@ static int make_precision(char **output, t_print *mod)
 	{
 		len = ft_strlen(*output);
 		if (**output == '0' && mod->precision == 0)
-			if (ft_strnchr(*output, '0') == 1)
+			if (ft_strnchr(*output, '0') == 1 && ft_strchr(*output, 'x') ==
+			NULL)
 			{
 				if (mod->width <= 0)
 					ft_strchr(*output, '0')[0] = '\0';
@@ -183,8 +189,8 @@ static int make_precision(char **output, t_print *mod)
 		{
 			if ((mod->type == 2) && mod->precision == 0)
 			{
-				ft_putstr_full("0x");
-				ft_bzero(*output, len);
+				if (ft_strnchr(*output, '0') == 2)
+					ft_strchr(*output, 'x')[1] = '\0';
 			}
 			return (0);
 		}
@@ -205,8 +211,12 @@ static int make_precision(char **output, t_print *mod)
 		}
 		else if (mod->type == 2)
 		{
-			ft_putstr_full("0x");
-			ft_strcpy(new_output + (mod->precision - len + 2), *output + 2);
+			minus = ft_strnew((size_t)mod->precision + 2);
+			ft_strcpy(minus, "0x");
+			ft_strcat(minus, new_output);
+			ft_strcpy((minus + mod->precision + 2 - len + 2), *output + 2);
+			ft_strdel(&new_output);
+			new_output = minus;
 		}
 		else
 			ft_strcpy(new_output + (mod->precision - len), *output);
@@ -329,12 +339,6 @@ static int	make_octotorp(char **output, t_print *mod)
 		else
 			new_output = *output;
 	}
-//	else if (type == 9 || type == 17 || type == 23 || type == 30 || type == 36
-//	|| (type >= 59 && type <= 61))
-//	{
-//		new_output = ft_strcat(ft_strcpy(ft_strnew(ft_strlen(*output) + 2),
-//					"0X"), *output);
-//	}
 	else if (mod->precision == 0 && (type == 10 || type == 11 || type == 24 ||
 	type == 37 || type == 38 || type == 39 || type == 40 || type == 41 ||
 	type == 42 || type == 43 || type == 45 || type == 46 || type == 48 ||
@@ -355,24 +359,12 @@ static int	make_octotorp(char **output, t_print *mod)
 
 static int add_flags(char **output, t_print *mod)
 {
-//	char flgs[][3] = {"-", "+", "-+", "- ", "+0", " ", " 0", "0", "+#",
-//				   " #", "#", "0#", "'", " '", "-'", "+'", "-+'", "- '",
-//				   "0'", " 0'", "+0'", "+#'", " #'", "#'", ""};
-//	int i;
-//
-//	i = -1;
-//	while (++i < (sizeof(flgs) / sizeof(flgs[0])))
-//		if (ft_strcmp(mod->flag, flgs[i]) == 0)
-//			break ;
-//	if (i == (sizeof(flgs) / sizeof(flgs[0])))
-//		return (0);
 	if (mod->type != 4 && mod->type != 10 &&
 		mod->type != 11 && mod->type != 24 && mod->type != 52 &&
 		!(mod->type >= 37 && mod->type <= 42) &&
 		!(mod->type >= 55 && mod->type <= 61))
 		make_precision(output, mod);
-//	if (mod->width != 0)
-		make_width(output, mod);
+	make_width(output, mod);
 	if (ft_strchr(mod->flag, '#') != NULL)
 		make_octotorp(output, mod);
 	else if (mod->type != 0 && mod->type != 1 && mod->type != 4 &&
@@ -419,10 +411,7 @@ int print(t_print *mod, const void *arg, double var_d, long double var_dd)
 
 
 	if ((function_get = get_function(mod)) == NULL)
-	{
-		printf("\nПока нет такой функции, напиши ее, заебал <3\n");
 		return (0);
-	}
 	if (mod->error == 2)
 	{
 		output = ft_strnew(1);

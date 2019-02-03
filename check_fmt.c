@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/01 16:46:24 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/03 19:28:46 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,26 @@ static int check_precision(t_print *mod, const char *fmt, size_t *i)
 {
 	if (fmt[*i] == '.')
 	{
-		*i += 1;
-		if (fmt[*i] >= '0' && fmt[*i] <= '9')
+		while (fmt[*i] == '.')
 		{
-			mod->precision = ft_atoi(fmt + *i);
-			while (fmt[*i] >= '0' && fmt[*i] <= '9')
+			if (fmt[*i + 1] == '.')
 				*i += 1;
-		}
-		else if (fmt[*i] == '*')
-		{
 			*i += 1;
-			mod->prec_num_arg = number_of_argument(fmt, i);
+			if (fmt[*i] >= '0' && fmt[*i] <= '9')
+			{
+				mod->precision = ft_atoi(fmt + *i);
+				while (fmt[*i] >= '0' && fmt[*i] <= '9')
+					*i += 1;
+			}
+			else
+				if (fmt[*i] == '*')
+				{
+					*i += 1;
+					mod->prec_num_arg = number_of_argument(fmt, i);
+				}
+				else
+					mod->precision = 0;
 		}
-		else
-			mod->precision = 0;
 	}
 	else
 		mod->precision = -1;
@@ -178,27 +184,27 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 			/*97*/"zX",
 			/*98*/"zO",
 			/*99*/"lp",
-			/*81*/""};
+			/*100*/"llU",
+			/*101*/"llD",
+			/*102*/"jU",
+			/*103*/"jD",
+			/*104*/"zU",
+			/*105*/"zD",
+			/*106*/""};
 	int j;
-	int size;
-	int j_spec;
+	char *ret[20];
 
-	j_spec = -1;
-	size = 1;
 	j = 0;
-	while (spc[j][0] != 0 && size < 4)
-		if ((ft_strncmp(spc[j], (fmt + *i), size) == 0))
-		{
-			size++;
-			j_spec = j;
-		}
-		else
-		{
+	ft_bzero(ret, 20);
+	check_type(fmt, ret, i);
+	if (*ret == '\0')
+		j = 106;
+	else
+		while (ft_strcmp(ret, spc[j]) != 0)
 			j++;
-		}
-	if (j_spec == -1 && mod->width < 2)
+	if (j == 106 && mod->width < 2)
 		return (1);
-	else if (j_spec == -1)
+	else if (j == 106)
 	{
 		mod->type = 0;
 		mod->precision = fmt[*i];
@@ -206,54 +212,53 @@ static int check_specif(t_print *mod, const char *fmt, size_t *i)
 		mod->error = 2;
 		return (0);
 	}
-	if (j_spec == 5)
+	if (j == 5)
 		mod->type = 3;
-	else if (j_spec == 99)
+	else if (j == 99)
 		mod->type = 2;
-	else if (j_spec == 13)
+	else if (j == 13)
 		mod->type = 12;
-	else if (j_spec == 19)
+	else if (j == 19)
 		mod->type = 18;
-	else if (j_spec == 26)
+	else if (j == 26)
 		mod->type = 25;
-	else if (j_spec == 32)
+	else if (j == 32 || j == 101)
 		mod->type = 31;
-	else if (j_spec == 39)
+	else if (j == 39)
 		mod->type = 37;
-	else if (j_spec == 40)
+	else if (j == 40)
 		mod->type = 38;
-	else if (j_spec == 44)
+	else if (j == 44)
 		mod->type = 43;
-	else if (j_spec == 47)
+	else if (j == 47)
 		mod->type = 46;
-	else if (j_spec == 50)
+	else if (j == 50)
 		mod->type = 49;
-	else if (j_spec == 53 || j_spec == 91)
+	else if (j == 53 || j == 91)
 		mod->type = 52;
-	else if (j_spec == 55 || j_spec == 90)
+	else if (j == 55 || j == 90)
 		mod->type = 54;
-	else if (j_spec == 63)
+	else if (j == 63)
 		mod->type = 25;
-	else if (j_spec == 64)
+	else if (j == 64)
 		mod->type = 27;
-	else if (j_spec == 65)
+	else if (j == 65)
 		mod->type = 28;
-	else if (j_spec == 66 || j_spec == 68 || j_spec == 80 || j_spec == 82 ||
-			j_spec == 88)
+	else if (j == 66 || j == 68 || j == 80 || j == 82 ||
+			j == 88 || j == 100 || j == 102 || j == 105)
 		mod->type = 34;
-	else if (j_spec == 67 || j_spec == 69 || j_spec == 83 || j_spec == 78 ||
-			j_spec == 86 || j_spec == 79 || j_spec == 89)
+	else if (j == 67 || j == 69 || j == 83 || j == 78 || j == 86 || j == 79
+	|| j == 89 || j == 103 || j == 104)
 		mod->type = 31;
-	else if (j_spec == 70 || j_spec == 96)
+	else if (j == 70 || j == 96)
 		mod->type = 35;
-	else if (j_spec == 81 || j_spec == 84 || j_spec == 85 || j_spec == 87 ||
-	j_spec == 92 || j_spec == 94 || j_spec == 95 || j_spec == 98)
+	else if (j == 81 || j == 84 || j == 85 || j == 87 ||
+	j == 92 || j == 94 || j == 95 || j == 98)
 		mod->type = 33;
-	else if (j_spec == 93 || j_spec == 97)
+	else if (j == 93 || j == 97)
 		mod->type = 36;
 	else
-		mod->type = j_spec;
-	*i = *i + ft_strlen(spc[j_spec]);
+		mod->type = j;
 	return (0);
 }
 int	check_fmt(const char *fmt)
@@ -273,8 +278,8 @@ int	check_fmt(const char *fmt)
 			check_flags(mod, fmt, &i);
 			CH_ERROR(check_precision(mod, fmt, &i));
 			check_flags(mod, fmt, &i);
-			clean_flags(mod);
 			CH_ERROR(check_specif(mod, fmt, &i));
+			clean_flags(mod);
 			mod->i = i - j;
 			mod->next = init_list();
 			mod = mod->next;
