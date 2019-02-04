@@ -52,7 +52,7 @@ static void	put_null(char **temp_s, int precision)
 }
 
 static char	*add_mantissa(long double arg, int *overflow, int sign,
-							 int precision)
+		int precision)
 {
 	char			*temp_s;
 	unsigned long	temp;

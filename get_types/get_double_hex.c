@@ -41,7 +41,7 @@ static void		ft_round_hex(long *temp, int precision)
 	}
 }
 
-static void	put_null(char *temp_s, int precision)
+static void		put_null(char *temp_s, int precision)
 {
 	int i;
 
@@ -55,7 +55,7 @@ static void	put_null(char *temp_s, int precision)
 	}
 }
 
-static char	*add_mantissa(double arg, char **ret, int sign, int precision)
+static char		*add_mantissa(double arg, char **ret, int sign, int precision)
 {
 	char	*temp_s;
 	long	temp;
@@ -82,7 +82,7 @@ static char	*add_mantissa(double arg, char **ret, int sign, int precision)
 	return (*ret);
 }
 
-static char	*add_exponent(double arg, char **ret)
+static char		*add_exponent(double arg, char **ret)
 {
 	char	*temp_s;
 	long	temp;
@@ -103,7 +103,7 @@ static char	*add_exponent(double arg, char **ret)
 	return (*ret);
 }
 
-char		*get_double_hex(double arg, int precision)
+char			*get_double_hex(double arg, int precision)
 {
 	char	*ret;
 	int		sign;

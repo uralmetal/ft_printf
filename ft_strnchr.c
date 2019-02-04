@@ -6,13 +6,13 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 15:46:15 by gleonett          #+#    #+#             */
-/*   Updated: 2019/01/31 10:52:00 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/04 15:10:37 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t ft_strnchr(const char *s, char c)
+size_t	ft_strnchr(const char *s, char c)
 {
 	size_t i;
 	size_t n;
@@ -23,7 +23,7 @@ size_t ft_strnchr(const char *s, char c)
 	n = 0;
 	while (s[i])
 	{
-		if(s[i] == c)
+		if (s[i] == c)
 			n++;
 		i++;
 	}
