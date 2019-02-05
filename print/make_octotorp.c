@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:59:33 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/04 22:54:50 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 14:51:11 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ static void	oct_part_3(char **output, char **new_output, int type, size_t *len)
 
 static int	oct_part_4(char **output, char **new_output, int *k, size_t *len)
 {
-	if (IF_O_X(g_mod->type))
+	*new_output = *output;
+	if (IF_O_X(g_mod->type) && g_mod->precision != 0)
 	{
-		*new_output = *output;
 		while ((**new_output == ' ' || **new_output == '0') && **new_output)
 		{
 			**new_output == '0' ? *k += 1 : 0;
@@ -110,7 +110,7 @@ static int	oct_part_4(char **output, char **new_output, int *k, size_t *len)
 			if (oct_part_2(output, new_output, g_mod->type, *len) == 0)
 				oct_part_3(output, new_output, g_mod->type, len);
 		}
-		else if (*k > 2 && *new_output != '\0')
+		else if (*k >= 2 && **new_output != '\0')
 		{
 			*new_output = ft_strchr(*output, '0');
 			*(*new_output + 1) = 'x';
@@ -136,7 +136,7 @@ int			make_octotorp(char **output)
 	new_output = NULL;
 	if (type == 6 || type == 14 || type == 20 || type == 27 || type == 33)
 		oct_part_1(output, &new_output, &len);
-	else if ((oct_part_4(output, &new_output, &k, &len)) == 1)
+	else if ((oct_part_4(output, &new_output, &k, &len)) == 0)
 	{
 		if (g_mod->precision == 0 && IF_OCT(type))
 		{
@@ -145,8 +145,6 @@ int			make_octotorp(char **output)
 			new_output[ft_strlen(*output)] = '.';
 		}
 	}
-	else
-		return (1);
 	*output != new_output ? ft_strdel(output) : 0;
 	return (((*output = new_output) == NULL) ? 0 : 1);
 }

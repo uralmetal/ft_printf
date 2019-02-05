@@ -37,6 +37,8 @@ int		find_d_dd(void)
 			return (1);
 		cursor = cursor->next;
 	}
+	if (IF_D_DD(g_mod->type))
+		return (1);
 	return (0);
 }
 

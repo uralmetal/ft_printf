@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:20:38 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/04 14:57:47 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 14:55:09 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ static void	choose_type_arg(va_list start, va_list dest, int *j)
 		if (find_d_dd() == 0)
 			va_arg_num_int(start, g_mod->width_num_arg, &(g_mod)->width);
 		else
-			while (++*j != g_mod->width_num_arg)
+			while (++*j != g_mod->width_num_arg && cursor != NULL)
 			{
 				if (IF_D_DD(cursor->type) != 0)
 					(void)va_arg(dest, long double);
 				else
 					(void)va_arg(dest, void *);
 				cursor = cursor->next;
+				va_arg_num_int(start, g_mod->width_num_arg - *j,
+						&(g_mod)->width);
 			}
 	}
 }
@@ -39,7 +41,7 @@ void		va_arg_width(va_list start, va_list ap)
 	int		j;
 	int		buf;
 
-	j = 0;
+	j = -1;
 	va_copy(dest, start);
 	buf = g_mod->width;
 	if (g_mod->width_num_arg == 0)
@@ -47,6 +49,7 @@ void		va_arg_width(va_list start, va_list ap)
 	choose_type_arg(start, dest, &j);
 	if (g_mod->width < 0)
 	{
+		j = 0;
 		while (g_mod->flag[j] != '0' && g_mod->flag[j] && g_mod->flag[j] != '-')
 			j++;
 		g_mod->flag[j] = '-';

@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:10:39 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/04 14:13:38 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 14:07:00 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	va_arg_num_int(va_list start, int num_arg, int *value)
 
 	va_copy(start_start, start);
 	i = 0;
-	while (++i != num_arg)
+	while (++i < num_arg)
 		(void)va_arg(start_start, int);
 	*value = va_arg(start_start, int);
 	va_end(start_start);

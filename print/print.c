@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/04 22:40:54 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 15:10:01 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	exceptions(const void *arg, char *output)
 	mod->type == 18 || mod->type == 21 || mod->type == 24 || mod->type == 25 ||
 	mod->type == 28 || mod->type == 31 || mod->type == 34 || mod->type == 38 ||
 	mod->type == 40 || (mod->type >= 42 && mod->type <= 48)))
-		put_thousands_sep(output);
+		PUT_SEP(output);
 	else if (mod->type == 0 && mod->error != 2)
 	{
 		if (mod->width > 1 && output[1] == '0')
@@ -116,9 +116,7 @@ static int	exceptions(const void *arg, char *output)
 		ft_putnstr_full(output, (size_t)mod->width);
 		return (2);
 	}
-	else
-		return (0);
-	return (1);
+	return (0);
 }
 
 int			print(const void *arg, double var_d, long double var_dd)

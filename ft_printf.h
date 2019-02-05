@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/04 20:24:40 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 15:10:23 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define IF_O_X_2(x) (x == 23 || x == 29 || x == 30 || x == 36 || x == 35)
 # define IF_O_X_3(x) ((x >= 56 && x <= 58) || (x >= 59 && x <= 61))
 # define IF_O_X(x) (IF_O_X_1(x) || IF_O_X_2(x) || IF_O_X_3(x))
+# define PUT_SEP(x) ({put_thousands_sep((x)); return (2);})
 
 # include "ft_printf.h"
 # include "libft/libft.h"
