@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:12:29 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/04 23:08:25 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 12:09:43 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ static int	prec_exceptions(char *output, char **new_output)
 	return (0);
 }
 
-static int	prec_part_1(char **output, char **new_output, size_t len)
+static int	prec_part_1(char **output, char **new_output, size_t *len)
 {
+	*len = ft_strlen(*output);
 	if (**output == '0' && g_mod->precision == 0)
 		if (ft_strnchr(*output, '0') == 1 && ft_strchr(*output, 'x') == NULL)
 		{
@@ -41,15 +42,12 @@ static int	prec_part_1(char **output, char **new_output, size_t len)
 			else
 				ft_strchr(*output, '0')[0] = ' ';
 		}
-	if ((size_t)g_mod->precision < len)
+	if ((size_t)g_mod->precision < *len)
 	{
 		if ((g_mod->type == 2) && g_mod->precision == 0)
 		{
 			if (ft_strnchr(*output, '0') == 2)
-			{
 				ft_strchr(*output, 'x')[1] = '\0';
-				return (2);
-			}
 		}
 		return (1);
 	}
@@ -60,7 +58,7 @@ static int	prec_part_1(char **output, char **new_output, size_t len)
 	return (0);
 }
 
-static void	prec_part_2(char **output, char **new_output, char *minus,
+static void	prec_part_2(char **output, char **new_output, char **minus,
 		size_t len)
 {
 	if ((g_mod->type == 8 || g_mod->type == 16 || g_mod->type == 22 ||
@@ -75,12 +73,12 @@ static void	prec_part_2(char **output, char **new_output, char *minus,
 	}
 	else if (g_mod->type == 2)
 	{
-		minus = ft_strnew((size_t)g_mod->precision + 2);
-		ft_strcpy(minus, "0x");
-		ft_strcat(minus, *new_output);
-		ft_strcpy((minus + g_mod->precision + 2 - len + 2), *output + 2);
+		*minus = ft_strnew((size_t)g_mod->precision + 2);
+		ft_strcpy(*minus, "0x");
+		ft_strcat(*minus, *new_output);
+		ft_strcpy((*minus + g_mod->precision + 2 - len + 2), *output + 2);
 		ft_strdel(new_output);
-		*new_output = minus;
+		*new_output = *minus;
 	}
 	else
 		ft_strcpy(*new_output + (g_mod->precision - len), *output);
@@ -93,20 +91,16 @@ int			make_precision(char **output)
 	char	*minus;
 	int		buf;
 
-
-	new_output = NULL;
-	minus = NULL;
 	if ((buf = prec_exceptions(*output, &new_output)) == 1)
 		return (0);
 	else if (buf != 2)
 	{
-		len = ft_strlen(*output);
-		if ((buf = prec_part_1(output, &new_output, len)) == 1)
+		if ((buf = prec_part_1(output, &new_output, &len)) == 1)
 			return (0);
 		else if (buf != 2)
 		{
-			ft_memset(new_output, '0', (size_t) g_mod->precision);
-			prec_part_2(output, &new_output, minus, len);
+			ft_memset(new_output, '0', (size_t)g_mod->precision);
+			prec_part_2(output, &new_output, &minus, len);
 			if ((minus = ft_strchr(new_output, '-')) != NULL)
 			{
 				*minus = '0';

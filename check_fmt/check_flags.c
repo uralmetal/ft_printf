@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/04 23:14:17 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/05 11:17:45 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			number_of_argument(const char *fmt, size_t *i)
 	return (ret);
 }
 
-int k = -1;
+int g_k = -1;
 
 static int	clean_flgs_if(char true_flgs[6], const char flgs[7], int *j, int *i)
 {
@@ -41,7 +41,7 @@ static int	clean_flgs_if(char true_flgs[6], const char flgs[7], int *j, int *i)
 		return (0);
 	if (g_mod->flag[*j] == '#')
 		g_mod->flag[*j] = '#';
-	true_flgs[++k] = flgs[*i];
+	true_flgs[++g_k] = flgs[*i];
 	return (1);
 }
 
@@ -53,7 +53,7 @@ void		clean_flags(t_print *g_mod)
 	int			j;
 
 	i = -1;
-	k = -1;
+	g_k = -1;
 	ft_bzero(true_flgs, 6);
 	while (flgs[++i] != '\0')
 	{
@@ -87,7 +87,7 @@ static void	skip_double(const char *fmt, size_t *i, int *k)
 
 int			check_flags(t_print *g_mod, const char *fmt, size_t *i)
 {
-	const char	flgs[10] = "-+ 0#'{}";
+	const char	flgs[10] = "-+ 0#'";
 	int			j;
 	int			k;
 
