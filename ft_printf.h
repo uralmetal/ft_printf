@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/05 15:10:23 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/07 18:33:38 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,13 @@ t_print				*g_mod;
 int					ft_printf(const char *fmt, ...);
 int					check_fmt(const char *fmt);
 int					parser(va_list ap, va_list start);
-int					print(const void *arg, double var_d, long double var_dd);
+int					print(const void **arg, double var_d, long double var_dd);
+char				*choose_arg_prec_0(const void **arg,
+						t_get_output function_get, double var_d,
+						long double var_dd);
+char				*choose_arg_prec(const void **arg,
+						t_get_output function_get, double var_d,
+						long double var_dd);
 int					make_width(char **output);
 void				flags_space_plus(char *output, size_t len);
 int					make_precision(char **output);

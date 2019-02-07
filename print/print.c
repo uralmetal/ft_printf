@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/05 15:10:01 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:53:16 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	add_flags(char **output)
 	t_print *mod;
 
 	mod = g_mod;
-	if (mod->type != 4 && mod->type != 10 &&
+	if (mod->type != 4 && mod->type != 10 && mod->type != 43 &&
 		mod->type != 11 && mod->type != 24 && mod->type != 52 &&
 		!(mod->type >= 37 && mod->type <= 42) &&
 		!(mod->type >= 55 && mod->type <= 61))
@@ -63,7 +63,7 @@ void		put_thousands_sep(char *output)
 	ft_putstr_full(output + j);
 }
 
-static char	*init_output(const void *arg, t_get_output function_get,
+static char	*init_output(const void **arg, t_get_output function_get,
 		double var_d, long double var_dd)
 {
 	char *output;
@@ -76,16 +76,11 @@ static char	*init_output(const void *arg, t_get_output function_get,
 	else if (IF_OCT(g_mod->type))
 		if (g_mod->precision == -1)
 		{
-			var_d != 0 ? output = function_get(var_d, 6) : 0;
-			var_dd != 0 ? output = function_get(var_dd, 6) : 0;
-			var_d == 0 && var_dd == 0 ? output = function_get(arg, -1) : 0;
+			output = choose_arg_prec_0(arg, function_get, var_d, var_dd);
 		}
 		else
 		{
-			var_d != 0 ? output = function_get(var_d, g_mod->precision) : 0;
-			var_dd != 0 ? output = function_get(var_dd, g_mod->precision) : 0;
-			var_d == 0 && var_dd == 0 ?
-			output = function_get(arg, g_mod->precision) : 0;
+			output = choose_arg_prec(arg, function_get, var_d, var_dd);
 		}
 	else
 		output = function_get(arg);
@@ -119,7 +114,7 @@ static int	exceptions(const void *arg, char *output)
 	return (0);
 }
 
-int			print(const void *arg, double var_d, long double var_dd)
+int			print(const void **arg, double var_d, long double var_dd)
 {
 	t_get_output	function_get;
 	char			*output;

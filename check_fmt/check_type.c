@@ -13,7 +13,7 @@
 #include "../ft_printf.h"
 
 static const char *g_size = "hzjlL";
-static const char *g_type = "cspi%douxXfegGFSCaAnDOUbkr";
+static const char *g_type = "cspi%douxXfeEgGFSCaAnDOUbkr";
 
 static void	skip_size(const char *fmt, size_t *i, char *spec)
 {
