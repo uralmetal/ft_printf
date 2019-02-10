@@ -18,7 +18,7 @@ char	*get_double_exp_upper(double arg, unsigned int precision)
 	char	*ret;
 	int		sign;
 
-	if ((ret = get_const_double(arg)) != NULL)
+	if ((ret = get_const_double_upper(arg)) != NULL)
 		return (ret);
 	exp = 0;
 	sign = (arg >= 0.0) ? (1) : (-1);
