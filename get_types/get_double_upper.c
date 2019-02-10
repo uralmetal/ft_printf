@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 char	*get_double_upper(double arg, unsigned int precision)
 {

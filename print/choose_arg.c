@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 char	*choose_arg_prec_0(const void **arg, t_get_output function_get,
 						double var_d, long double var_dd)

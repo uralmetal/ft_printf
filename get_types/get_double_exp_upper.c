@@ -6,11 +6,11 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:36:36 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/05 15:26:10 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/10 14:06:04 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 char	*get_double_exp_upper(double arg, unsigned int precision)
 {

@@ -6,11 +6,11 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 14:20:38 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/05 15:26:10 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/10 14:29:02 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 static void	choose_type_arg(va_list start, va_list dest, int *j)
 {

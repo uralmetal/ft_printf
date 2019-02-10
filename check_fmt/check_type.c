@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 static const char *g_size = "hzjlL";
 static const char *g_type = "cspi%douxXfeEgGFSCaAnDOUbkr";
