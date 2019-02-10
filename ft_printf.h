@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:05:59 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/10 14:46:08 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 # define IF_OCT_2(x) ((x) == 38 || (x) == 39 || (x) == 40 || (x) == 41)
 # define IF_OCT_3(x) ((x) == 42 || (x) == 43 || (x) == 45 || (x) == 46)
 # define IF_OCT_4(x) ((x) == 48 || (x) == 49 || (x) == 51 || (x) == 52)
-# define IF_OCT(x) (IF_OCT_1(x) || IF_OCT_2(x) || IF_OCT_3(x) || IF_OCT_4(x))
+# define IF_OCT_5(x) ((x) == 56 || (x) == 57 || (x) == 58 || (x) == 59)
+# define IF_OCT_6(x) ((x) == 60 || (x) == 61 || IF_OCT_4(x) || IF_OCT_5(x))
+# define IF_OCT(x) (IF_OCT_1(x) || IF_OCT_2(x) || IF_OCT_3(x) || IF_OCT_6(x))
 # define IF_O_X_1(x) (x == 8 || x == 9 || x == 16 || x == 17 || x == 22)
 # define IF_O_X_2(x) (x == 23 || x == 29 || x == 30 || x == 36 || x == 35)
 # define IF_O_X_3(x) ((x >= 56 && x <= 58) || (x >= 59 && x <= 61))

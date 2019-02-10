@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 15:06:06 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/05 15:26:10 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/10 14:37:38 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void	choose_type_dd(va_list ap, va_list start, long double *var_dd,
 							void **p)
 {
 	if (g_mod->type == 11 || g_mod->type == 41 || g_mod->type == 42 ||
-			g_mod->type == 48 || g_mod->type == 51)
+			g_mod->type == 48 || g_mod->type == 51 || g_mod->type == 58
+			|| g_mod->type == 61)
 	{
 		if (g_mod->num_arg == 0)
 			*var_dd = va_arg(ap, long double);
@@ -36,7 +37,8 @@ static int	choose_type_d(va_list ap, va_list start, double *var_d)
 {
 	if (g_mod->type == 10 || g_mod->type == 24 || g_mod->type == 37 ||
 			g_mod->type == 38 || g_mod->type == 43 || g_mod->type == 46 ||
-			g_mod->type == 49)
+			g_mod->type == 49 || g_mod->type == 56 || g_mod->type == 57 ||
+			g_mod->type == 59 || g_mod->type == 60)
 	{
 		if (g_mod->num_arg == 0)
 			*var_d = va_arg(ap, double);
@@ -71,7 +73,7 @@ int			parser(va_list ap, va_list start)
 		*spec_n = g_output_symbols;
 		return (1);
 	}
-	if (print(&p, var_d, var_dd) == 0)
+	if (print((const void **)&p, var_d, var_dd) == 0)
 		return (0);
 	return (1);
 }

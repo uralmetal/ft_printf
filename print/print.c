@@ -6,7 +6,7 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:06:04 by rwalder-         ###   ########.fr       */
+/*   Updated: 2019/02/10 14:49:14 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	add_flags(char **output)
 	mod = g_mod;
 	if (mod->type != 4 && mod->type != 10 && mod->type != 43 &&
 		mod->type != 11 && mod->type != 24 && mod->type != 52 &&
-		!(mod->type >= 37 && mod->type <= 42) &&
-		!(mod->type >= 55 && mod->type <= 61))
+		mod->type != 46 && !(mod->type >= 37 && mod->type <= 42) &&
+		mod->type != 49 && !(mod->type >= 55 && mod->type <= 61))
 		make_precision(output);
 	make_width(output);
 	if (ft_strchr(mod->flag, '#') != NULL)
