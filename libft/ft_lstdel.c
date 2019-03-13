@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 13:49:29 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/27 14:52:35 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/12/01 09:59:50 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:28 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del) (void*, size_t))
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	t_list *next;
-	t_list **p;
+	t_list *stolp;
+	t_list *ydali;
 
-	if (*alst != NULL)
+	if (!alst || !*alst || !del)
+		return ;
+	stolp = *alst;
+	while (stolp->next != NULL)
 	{
-		p = alst;
-		while (*p)
-		{
-			next = (*p)->next;
-			del((*alst)->content, (*alst)->content_size);
-			(*alst)->content = NULL;
-			(*alst)->content_size = 0;
-			(*p)->next = NULL;
-			free(*p);
-			*p = next;
-		}
+		del(stolp->content, stolp->content_size);
+		ydali = stolp;
+		stolp = stolp->next;
+		free(ydali);
 	}
+	del(stolp->content, stolp->content_size);
+	ydali = NULL;
+	free(stolp);
+	stolp = NULL;
+	*alst = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 10:23:06 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:46:08 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/06 12:15:20 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,21 @@
 # define IF_OCT_2(x) ((x) == 38 || (x) == 39 || (x) == 40 || (x) == 41)
 # define IF_OCT_3(x) ((x) == 42 || (x) == 43 || (x) == 45 || (x) == 46)
 # define IF_OCT_4(x) ((x) == 48 || (x) == 49 || (x) == 51 || (x) == 52)
-# define IF_OCT_5(x) ((x) == 56 || (x) == 57 || (x) == 58 || (x) == 59)
-# define IF_OCT_6(x) ((x) == 60 || (x) == 61 || IF_OCT_4(x) || IF_OCT_5(x))
-# define IF_OCT(x) (IF_OCT_1(x) || IF_OCT_2(x) || IF_OCT_3(x) || IF_OCT_6(x))
+# define IF_OCT(x) (IF_OCT_1(x) || IF_OCT_2(x) || IF_OCT_3(x) || IF_OCT_4(x))
 # define IF_O_X_1(x) (x == 8 || x == 9 || x == 16 || x == 17 || x == 22)
 # define IF_O_X_2(x) (x == 23 || x == 29 || x == 30 || x == 36 || x == 35)
 # define IF_O_X_3(x) ((x >= 56 && x <= 58) || (x >= 59 && x <= 61))
 # define IF_O_X(x) (IF_O_X_1(x) || IF_O_X_2(x) || IF_O_X_3(x))
 # define PUT_SEP(x) ({put_thousands_sep((x)); return (2);})
+# define BLACK "\e[0;30m"
+# define RED "\e[0;31m"
+# define GREEN "\e[0;32m"
+# define YELLOW "\e[0;33m"
+# define BLUE "\e[0;34m"
+# define PURPLE "\e[0;35m"
+# define CYAN "\e[0;36m"
+# define WHITE "\e[0;37m"
+# define REBOOT "\e[0m"
 
 # include "ft_printf.h"
 # include "libft/libft.h"
@@ -66,13 +73,8 @@ t_print				*g_mod;
 int					ft_printf(const char *fmt, ...);
 int					check_fmt(const char *fmt);
 int					parser(va_list ap, va_list start);
-int					print(const void **arg, double var_d, long double var_dd);
-char				*choose_arg_prec_0(const void **arg,
-						t_get_output function_get, double var_d,
-						long double var_dd);
-char				*choose_arg_prec(const void **arg,
-						t_get_output function_get, double var_d,
-						long double var_dd);
+int					print(const void *arg, double var_d, long double var_dd);
+int					print_color(int j);
 int					make_width(char **output);
 void				flags_space_plus(char *output, size_t len);
 int					make_precision(char **output);
@@ -81,6 +83,7 @@ int					number_of_argument(const char *fmt, size_t *i);
 int					check_flags(t_print *mod, const char *fmt, size_t *i);
 void				check_type(const char *fmt, char *ret, size_t *i);
 void				choose_size_type(int j);
+int					choose_color(const char *fmt, size_t *i, int *j);
 void				clean_flags(t_print *mod);
 t_print				*init_list(void);
 void				del_list(int fail);

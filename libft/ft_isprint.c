@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 20:57:02 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/26 16:31:09 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/25 17:31:08 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:29 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isprint(int c)
+int	ft_isprint(int c)
 {
-	if (c >= ' ' && c <= '~')
-		return (1);
-	else
-		return (0);
+	return ((c >= 32 && c < 127) ? 1 : 0);
 }

@@ -6,11 +6,11 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/19 17:55:49 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/08 08:56:54 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 int			number_of_argument(const char *fmt, size_t *i)
 {
@@ -87,7 +87,7 @@ static void	skip_double(const char *fmt, size_t *i, int *k)
 
 int			check_flags(t_print *g_mod, const char *fmt, size_t *i)
 {
-	const char	flgs[10] = "-+ 0#'";
+	const char	flgs[10] = "-+ 0#'~";
 	int			j;
 	int			k;
 

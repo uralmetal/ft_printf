@@ -6,11 +6,11 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 18:40:02 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/11 10:36:03 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/08 08:56:54 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char	*get_long_string(const void *arg, int precision)
 {

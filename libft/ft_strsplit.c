@@ -3,89 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 10:33:14 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/12/02 13:04:44 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/28 10:29:03 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:29 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_number_symbol(const char *s, char c)
+char	**ft_strsplit_2(char **arr, char const *s, char c, int i)
+{
+	int		k;
+	size_t	f;
+	size_t	nach;
+
+	k = -1;
+	while (s[i])
+	{
+		f = 0;
+		nach = i;
+		while (s[i] != c && s[i])
+		{
+			f++;
+			i++;
+		}
+		if (f > 0)
+		{
+			arr[++k] = ft_strnew(f);
+			if (arr[k] == 0)
+				return (0);
+			arr[k] = ft_strncpy(arr[k], s + nach, f);
+		}
+		(s[i] != '\0') ? i++ : 0;
+	}
+	arr[++k] = 0;
+	return (arr);
+}
+
+char	**ft_strsplit(char const *s, char c)
 {
 	int		i;
-	size_t	ret;
+	int		k;
+	size_t	f;
+	char	**arr;
 
 	i = 0;
-	ret = 0;
-	while (s[i] != '\0')
+	k = 0;
+	if (!s)
+		return (0);
+	while (s[i++] != '\0')
 	{
-		if (s[i] == c)
-			ret++;
-		i++;
+		f = 0;
+		while (s[i] != c && s[i++])
+			f++;
+		if (f != 0)
+			k++;
 	}
-	return (ret);
-}
-
-static char		*ft_strsim(const char *s, char c)
-{
-	size_t	len;
-	char	*ret;
-	size_t	i;
-
-	len = 0;
-	ret = NULL;
+	arr = (char **)malloc(sizeof(char *) * (k));
+	if (!arr)
+		return (0);
 	i = 0;
-	while (s[len] != '\0' && s[len] != c)
-		len++;
-	if (len != 0)
-	{
-		ret = (char*)malloc(sizeof(char) * (len + 1));
-		if (ret != NULL)
-		{
-			while (i < len)
-			{
-				ret[i] = s[i];
-				i++;
-			}
-			ret[i] = '\0';
-		}
-	}
-	return (ret);
-}
-
-static char		**size0(char **p, char *s)
-{
-	p[0] = ft_strdup(s);
-	p[1] = NULL;
-	return (p);
-}
-
-char			**ft_strsplit(const char *s, char c)
-{
-	size_t	count;
-	size_t	size;
-	size_t	i;
-	char	**ret;
-
-	if (s == NULL)
-		return (NULL);
-	size = ft_number_symbol(s, c);
-	if ((ret = (char**)malloc(sizeof(char*) * (size + 2))) == NULL)
-		return (NULL);
-	if ((size == 0) && (s[0] != '\0'))
-		return (size0(ret, (char*)s));
-	i = 0;
-	count = 0;
-	while (s[count] != '\0')
-	{
-		ret[i] = ft_strsim(s + count, c);
-		if (ret[i] == NULL)
-			count++;
-		else
-			count += (ft_strlen(ret[i++]));
-	}
-	ret[i] = NULL;
-	return (ret);
+	arr = ft_strsplit_2(arr, s, c, i);
+	return (arr == 0 ? 0 : arr);
 }

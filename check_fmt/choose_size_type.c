@@ -6,11 +6,11 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:07:02 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:27:27 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static void	choose_size_type_2(int j)
 {
@@ -67,4 +67,34 @@ void		choose_size_type(int j)
 		g_mod->type = 49;
 	else
 		choose_size_type_2(j);
+}
+
+static const char g_color[][8] = {
+	"BLACK ", "RED ", "GREEN ", "YELLOW ", "BLUE ", "PURPLE ",
+	"CYAN ", "WHITE ", "MEOW ", "BOGDAN ", "GOOSE ", "GG ", "}", ""
+};
+
+int			choose_color(const char *fmt, size_t *i, int *j)
+{
+	int		k;
+	size_t	size;
+
+	k = 0;
+	size = 1;
+	if (fmt[*i - 1] == '}')
+		*i -= 1;
+	while (g_color[k][size] != '\0')
+	{
+		if (ft_strncmp(fmt + *i, g_color[k], size) == 0)
+			size++;
+		else
+		{
+			++k;
+			size = 1;
+		}
+	}
+	*j += 106 + k;
+	g_mod->type = *j;
+	*i += size;
+	return (0);
 }

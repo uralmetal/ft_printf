@@ -6,11 +6,11 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/27 14:20:20 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/11 11:07:21 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:27:56 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static void	check_width(t_print *g_mod, const char *fmt, size_t *i)
 {
@@ -70,7 +70,7 @@ static void	check_precision(t_print *g_mod, const char *fmt, size_t *i)
 		g_mod->precision = -1;
 }
 
-static const char g_spc[][4] = {
+static const char g_spc[][8] = {
 	"c", "s", "p", "i", "%", "d", "o", "u", "x",
 	"X", "f", "Lf", "hhd", "hhi", "hho", "hhu", "hhx",
 	"hhX", "hd", "hi", "ho", "hu", "hx", "hX", "lf", "ld",
@@ -93,12 +93,12 @@ static int	check_specif(t_print *g_mod, const char *fmt, size_t *i)
 	j = 0;
 	ft_bzero(ret, 20);
 	check_type(fmt, ret, i);
-	if (*ret == '\0')
-		j = 106;
+	if (*ret == '{' || *ret == '}')
+		return (choose_color(fmt, i, &j));
 	else
 		while (ft_strcmp(ret, g_spc[j]) != 0)
 			j++;
-	if (j == 106 && g_mod->width < 2)
+	if (j > 105 && g_mod->width < 2)
 		return (1);
 	else if (j == 106)
 	{

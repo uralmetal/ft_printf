@@ -6,14 +6,14 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 12:53:21 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/08 08:56:54 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static const char *g_size = "hzjlL";
-static const char *g_type = "cspi%douxXfeEgGFSCaAnDOUbkr";
+static const char *g_type = "{}cspi%douxXfegGFSCaAnDOUbkr";
 
 static void	skip_size(const char *fmt, size_t *i, char *spec)
 {

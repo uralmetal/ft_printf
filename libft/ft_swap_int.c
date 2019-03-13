@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr.c                                       :+:      :+:    :+:   */
+/*   ft_swap_int.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/30 16:32:36 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/12/02 12:23:25 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/12/02 16:41:47 by gleonett          #+#    #+#             */
+/*   Updated: 2018/12/02 17:47:43 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnstr(const char *s, size_t n)
+void	ft_swap_int(int *a, int *b)
 {
-	size_t i;
+	int	c;
 
-	if (s == NULL)
-		return ;
-	i = 0;
-	while (i < n)
-	{
-		ft_putchar(s[i]);
-		i++;
-	}
+	c = *a;
+	*a = *b;
+	*b = c;
 }

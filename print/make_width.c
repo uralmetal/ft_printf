@@ -6,11 +6,11 @@
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 17:41:57 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/04 21:42:11 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static int	flag_0(char **new_output, char **output, size_t len)
 {

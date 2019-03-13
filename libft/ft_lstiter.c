@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 14:40:44 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/26 16:32:07 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/12/01 12:12:29 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:29 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f) (t_list *elem))
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	while (lst)
+	t_list *rabotaga;
+
+	if (!lst || !f)
+		return ;
+	rabotaga = lst;
+	while (rabotaga->next != NULL)
 	{
-		f(lst);
-		lst = lst->next;
+		f(rabotaga);
+		rabotaga = rabotaga->next;
 	}
+	f(rabotaga);
+	rabotaga = rabotaga->next;
 }

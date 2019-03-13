@@ -1,26 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_quick_sort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 13:46:11 by gleonett          #+#    #+#             */
-/*   Updated: 2019/02/08 15:00:29 by gleonett         ###   ########.fr       */
+/*   Created: 2018/12/02 15:36:43 by gleonett          #+#    #+#             */
+/*   Updated: 2018/12/03 09:08:40 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnew(size_t size)
+int		ft_quick_sort(int *tab, int a, int b)
 {
-	char *str;
+	int i;
+	int j;
+	int f;
 
-	if (size == (size_t)-1)
+	i = a;
+	j = b;
+	f = 0;
+	if (a >= b)
 		return (0);
-	str = (char *)malloc(size + 1);
-	if (!str)
-		return (0);
-	ft_memset(str, 0, size + 1);
-	return (str);
+	while (++i <= j)
+		if (tab[i] >= tab[a])
+		{
+			while (tab[j] >= tab[a] && j > i)
+				j--;
+			if (j != i)
+				ft_swap_int(&tab[i], &tab[j]);
+			else
+				f++;
+		}
+	if (f == 0)
+		ft_swap_int(&tab[a], &tab[j]);
+	ft_quick_sort(tab, a, j - 1);
+	ft_quick_sort(tab, i - 1, b);
+	return (0);
 }

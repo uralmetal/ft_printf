@@ -6,11 +6,11 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 14:15:16 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/01/30 14:17:02 by rwalder-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char	*check_overflow(char *val, int *exp)
 {

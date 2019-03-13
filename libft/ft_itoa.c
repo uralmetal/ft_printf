@@ -3,60 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 10:41:53 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/28 20:39:20 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/28 14:58:11 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:28 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_intlen(int n)
+static char	*ft_fillitoa(char *arr, int size, int k, int n)
 {
-	size_t	ret;
-	long	num;
-
-	ret = 0;
-	num = n;
-	if (num == 0)
-		return (1);
-	if (num < 0)
+	while (size > 0)
 	{
-		num *= -1;
-		ret++;
+		size /= 10;
+		k++;
 	}
-	while (num > 0)
+	arr = ft_strnew(k);
+	if (!arr)
+		return (0);
+	while (n > 0)
 	{
-		ret++;
-		num = num / 10;
+		arr[--k] = (n % 10) + 48;
+		n /= 10;
 	}
-	return (ret);
+	return (arr);
 }
 
-char			*ft_itoa(int n)
+char		*ft_itoa(int n)
 {
-	long	len;
-	char	*ret;
-	long	num;
+	int		size;
+	int		k;
+	char	*arr;
+	char	znak;
 
-	len = ft_intlen(n);
-	ret = (char*)malloc(sizeof(char) * (len + 1));
-	if (ret == NULL)
-		return (NULL);
-	num = n;
-	ret[len--] = '\0';
-	if (num < 0)
+	arr = 0;
+	k = 0;
+	znak = 'J';
+	if (n == -2147483648)
+		return (ft_strcpy(ft_strnew(11), "-2147483648"));
+	if (n == 0)
+		return (ft_strcpy(ft_strnew(1), "0"));
+	if (n < 0)
 	{
-		ret[0] = '-';
-		num *= -1;
-		len--;
+		znak = '-';
+		k++;
+		n = n * -1;
 	}
-	while (len >= 0)
-	{
-		ret[(n < 0) ? (len + 1) : len] = (num % 10) + '0';
-		num = num / 10;
-		len--;
-	}
-	return (ret);
+	size = n;
+	if ((arr = ft_fillitoa(arr, size, k, n)) == 0)
+		return (0);
+	if (znak == '-')
+		arr[0] = '-';
+	return (arr);
 }

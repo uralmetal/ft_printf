@@ -3,39 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 21:28:08 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/12/02 12:28:24 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/25 15:08:30 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:28 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long	ret;
-	int		count;
-	int		sign;
+	int					znak;
+	unsigned long long	res;
 
-	ret = 0;
-	count = 0;
-	sign = 1;
-	while ((str[count] == ' ' || str[count] == '\t' || str[count] == '\n'
-			|| str[count] == '\r' || str[count] == '\v' || str[count] == '\f')
-			&& str[count] != '\0')
-		count++;
-	if (str[count] == '+')
-		count++;
-	else if (str[count] == '-')
+	znak = 1;
+	res = 0;
+	while ((*str == '\n') || (*str == '\t') || (*str == '\v') ||
+		(*str == ' ') || (*str == '\f') || (*str == '\r'))
+		str++;
+	if (*str == '-' || *str == '+')
+		*str++ == '-' ? znak = -1 : 1;
+	while (*str >= '0' && *str <= '9')
+		res = res * 10 + ((*str++) - 48);
+	if (res > 9223372036854775807)
 	{
-		sign = -1;
-		count++;
+		if (znak > 0)
+			return (-1);
+		else
+			return (0);
 	}
-	while (str[count] >= '0' && str[count] <= '9')
-	{
-		ret *= 10;
-		ret = ret + (str[count++] - '0');
-	}
-	return (ret * sign);
+	return (znak * (int)res);
 }

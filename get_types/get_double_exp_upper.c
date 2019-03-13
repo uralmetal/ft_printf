@@ -6,11 +6,11 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 16:36:36 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:37:19 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/02/08 08:56:54 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char	*get_double_exp_upper(double arg, unsigned int precision)
 {
@@ -18,7 +18,7 @@ char	*get_double_exp_upper(double arg, unsigned int precision)
 	char	*ret;
 	int		sign;
 
-	if ((ret = get_const_double_upper(arg)) != NULL)
+	if ((ret = get_const_double(arg)) != NULL)
 		return (ret);
 	exp = 0;
 	sign = (arg >= 0.0) ? (1) : (-1);

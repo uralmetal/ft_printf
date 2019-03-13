@@ -6,21 +6,21 @@
 /*   By: rwalder- <rwalder-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 11:01:34 by rwalder-          #+#    #+#             */
-/*   Updated: 2019/02/10 14:49:14 by gleonett         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:01:05 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static int	add_flags(char **output)
 {
 	t_print *mod;
 
 	mod = g_mod;
-	if (mod->type != 4 && mod->type != 10 && mod->type != 43 &&
+	if (mod->type != 4 && mod->type != 10 &&
 		mod->type != 11 && mod->type != 24 && mod->type != 52 &&
-		mod->type != 46 && !(mod->type >= 37 && mod->type <= 42) &&
-		mod->type != 49 && !(mod->type >= 55 && mod->type <= 61))
+		!(mod->type >= 37 && mod->type <= 42) &&
+		!(mod->type >= 55 && mod->type <= 61))
 		make_precision(output);
 	make_width(output);
 	if (ft_strchr(mod->flag, '#') != NULL)
@@ -63,7 +63,7 @@ void		put_thousands_sep(char *output)
 	ft_putstr_full(output + j);
 }
 
-static char	*init_output(const void **arg, t_get_output function_get,
+static char	*init_output(const void *arg, t_get_output function_get,
 		double var_d, long double var_dd)
 {
 	char *output;
@@ -76,11 +76,16 @@ static char	*init_output(const void **arg, t_get_output function_get,
 	else if (IF_OCT(g_mod->type))
 		if (g_mod->precision == -1)
 		{
-			output = choose_arg_prec_0(arg, function_get, var_d, var_dd);
+			var_d != 0 ? output = function_get(var_d, 6) : 0;
+			var_dd != 0 ? output = function_get(var_dd, 6) : 0;
+			var_d == 0 && var_dd == 0 ? output = function_get(arg, -1) : 0;
 		}
 		else
 		{
-			output = choose_arg_prec(arg, function_get, var_d, var_dd);
+			var_d != 0 ? output = function_get(var_d, g_mod->precision) : 0;
+			var_dd != 0 ? output = function_get(var_dd, g_mod->precision) : 0;
+			var_d == 0 && var_dd == 0 ?
+			output = function_get(arg, g_mod->precision) : 0;
 		}
 	else
 		output = function_get(arg);
@@ -114,7 +119,7 @@ static int	exceptions(const void *arg, char *output)
 	return (0);
 }
 
-int			print(const void **arg, double var_d, long double var_dd)
+int			print(const void *arg, double var_d, long double var_dd)
 {
 	t_get_output	function_get;
 	char			*output;
@@ -123,6 +128,8 @@ int			print(const void **arg, double var_d, long double var_dd)
 
 	mod = g_mod;
 	buf = 0;
+	if (mod->type > 105)
+		return (print_color(mod->type));
 	if ((function_get = get_function(mod)) == NULL)
 		return (0);
 	output = init_output(arg, function_get, var_d, var_dd);
@@ -132,10 +139,7 @@ int			print(const void **arg, double var_d, long double var_dd)
 		return (0);
 	}
 	if ((buf = exceptions(arg, output)) != 1 && mod->type == 54)
-		if (*output != '\0')
-			ft_putstr_full(output);
-		else
-			ft_putnstr_full(output, 1);
+		*output != '\0' ? ft_putstr_full(output) : ft_putnstr_full(output, 1);
 	else if (buf != 2)
 		ft_putstr_full(output);
 	ft_strdel(&output);

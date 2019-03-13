@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 17:31:51 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/28 15:10:45 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/27 11:58:09 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:29 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmap(const char *s, char (*f) (char))
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	size_t			len;
-	char			*ret;
-	unsigned int	i;
+	char	*new;
+	int		a;
 
-	if (s == NULL || f == NULL)
-		return (NULL);
-	len = ft_strlen((char*)s);
-	ret = (char*)malloc(len + 1);
-	if (ret == NULL)
-		return (NULL);
-	i = 0;
-	while (s[i] != '\0')
-	{
-		ret[i] = f(s[i]);
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
+	if (!s)
+		return (0);
+	if (!f)
+		return (0);
+	a = ft_strlen(s);
+	new = (char *)malloc(sizeof(char) * a + 1);
+	if (!new)
+		return (0);
+	while (*s)
+		*new++ = f(*s++);
+	*new = '\0';
+	return (new - a);
 }

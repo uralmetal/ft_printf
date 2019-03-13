@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rwalder- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gleonett <gleonett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 12:47:18 by rwalder-          #+#    #+#             */
-/*   Updated: 2018/11/29 11:56:45 by rwalder-         ###   ########.fr       */
+/*   Created: 2018/11/29 09:11:25 by gleonett          #+#    #+#             */
+/*   Updated: 2019/02/08 15:00:28 by gleonett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,24 @@
 
 void	ft_putnbr(int n)
 {
-	int		count;
-	char	ret[20];
-	long	num;
+	char c;
 
-	count = 0;
-	num = n;
-	while (count < 20)
-		ret[count++] = 0;
-	if (num < 0)
+	if (n == -2147483648)
+		write(1, "-2147483648", 11);
+	else if (n < 0)
 	{
-		ft_putchar('-');
-		num *= -1;
+		write(1, "-", 1);
+		ft_putnbr(n * -1);
 	}
-	if (num == 0)
+	else if (n > 9)
 	{
-		ft_putchar('0');
-		return ;
+		ft_putnbr(n / 10);
+		c = n % 10 + 48;
+		write(1, &c, 1);
 	}
-	while (num > 0)
+	else
 	{
-		ret[--count] = '0' + (num % 10);
-		num = num / 10;
+		c = n + 48;
+		write(1, &c, 1);
 	}
-	while (count < 20)
-		ft_putchar(ret[count++]);
 }
